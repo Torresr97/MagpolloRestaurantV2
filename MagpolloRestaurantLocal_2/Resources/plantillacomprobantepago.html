@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Comprobante de Pago</title>
+
+</head>
+
+<body style="font-size:18px;font-family: 'Times New Roman', Times, serif;">
+    
+    <table border="0" style="width: 100%;" class="Encabezado">
+        <tr style="height:85px;">
+            <td style="width:20%"></td>
+            <td style="width:60%" align="center">
+                <table style="font-size:16px;font-family: 'Times New Roman', Times, serif;">
+                    <tr>
+                        <td align="center">@nombreempresa</td>
+                    </tr>
+                    <tr>
+                        <td align="center">Comprobante de pago</td>
+                    </tr>
+                    <tr>
+                        <td align="center">Fecha: Del @fechadesde Al @fechahasta</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:20%"></td>
+        </tr>
+    </table>
+
+    <hr></hr>
+
+    <div >
+
+        <table style="font-size: 16px; font-family: 'Times New Roman', Times, serif;">
+
+            <tbody>
+                <tr>
+                    <td>
+                        Nombre del Empleado: @nombreempleado
+                    </td>
+                </tr>
+                <tr>
+                    <td>Identidad: @identidad</td>
+                </tr>
+                
+                <tr>
+                    <td>Fecha de Ingreso: @fechaingreso</td>
+                </tr>
+
+                <!-- Agregar más filas para otros conceptos de ingresos -->
+            </tbody>
+        </table>
+
+    </div>
+
+    <hr></hr>
+
+
+    <div style="flex: 1; width: 97%; margin-right: 2%;" class="table">
+        <h3>Ingresos</h3>
+        <table style="font-size: 16px; font-family: 'Times New Roman', Times, serif; width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #c3cad6">
+                <tr>
+                    <th style="width:60%; border: 1px solid #000;padding: 8px;text-align: left;">Ingreso</th>
+                    <th style="width:60%; border: 1px solid #000;padding: 8px;text-align: left;">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style=" width:60%; border: 0px solid #000;padding: 8px;text-align: left;">Sueldo Base</td>
+                    <td style=" width:60%; border: 0px solid #000;padding: 8px;text-align: left;">@sueldobase</td>
+                </tr>
+                @ingresofilas
+                <!-- Agregar más filas para otros conceptos de ingresos -->
+            </tbody>
+        </table>
+    </div>
+
+    <div style="flex: 1;width: 97%; margin-right: 2%;" class="table">
+        <h3>Deducciones</h3>
+        <table style="font-size: 16px; font-family: 'Times New Roman', Times, serif; width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #c3cad6">
+                <tr>
+                    <th style=" width:60%;border: 1px solid #000;padding: 8px;text-align: left;">Deduccion</th>
+                    <th style=" width:60%; border: 1px solid #000;padding: 8px;text-align: left;">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @deducionfilas
+                <!-- Agregar más filas para otros conceptos de ingresos -->
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <br><hr /></br>
+
+
+    <div style="width: 100%; display: flex; justify-content: space-between;" class="section-wrapper">
+
+        <div style="flex: 1;width: 97%; margin-right: 2%;" class="table">
+
+            <table style="font-size: 16px; font-family: 'Times New Roman', Times, serif; width: 100%; border-collapse: collapse;">
+
+                <tbody>
+                    <tr>
+                        <td style="  width:60%; border: 0px solid #000;padding: 8px;text-align: left;">Total Ingresos</td>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: left;">@totalingreso</td>
+                    </tr>
+                    <tr>
+                        <td style=" width:60%; border: 0px solid #000;padding: 8px;text-align: left;">Total Deducciones</td>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: left;">@totaldeduccion</td>
+                    </tr>
+                    <tr>
+                        <td style="  width:60%; border: 0px solid #000;padding: 8px;text-align: left;">Total a Pagar</td>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: left;">@totalpagar</td>
+                    </tr>
+                    <!-- Agregar más filas para otros conceptos de ingresos -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <br />
+
+    <div style="padding-top: 40px;" class="section-wrapper">
+
+        <div style="flex: 1;width: 97%; margin-right: 2%;" class="table">
+
+            <table style="font-size: 16px; font-family: 'Times New Roman', Times, serif; width: 100%; border-collapse: collapse;">
+
+                <tbody>
+                    <tr>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: left; width:30%">Recibi Conforme</td>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: left;width:70%"><hr /></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: left; width:30%"> </td>
+                        <td style="border: 0px solid #000;padding: 8px;text-align: center;width:70%">@nombreempleado</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
