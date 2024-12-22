@@ -19,14 +19,16 @@ namespace AppTRchicken.Vista
 {
     public partial class ReporteVentasVistas : Form
     {
+        private Dictionary<int, Cliente> ClienteDict;
         public ReporteVentasVistas()
         {
             InitializeComponent();
-
+            ClienteDict = new Dictionary<int, Cliente>();
         }
 
         private void ReporteVentasVistas_Load(object sender, EventArgs e)
         {
+            CargarDiccionario();
             dtpmesyano.Visible = false;
             dthasta.Visible = false;
 
@@ -40,47 +42,21 @@ namespace AppTRchicken.Vista
 
 
         }
-
-        private void cbBventas_SelectedIndexChanged(object sender, EventArgs e)
+        private void CargarDiccionario()
         {
-            if (cbBventas.SelectedItem.ToString() == "Dia")
+            List<Cliente> listacliente = ControladorCliente.Instance.findAll();
+
+            // Recorre la lista de clientes y agrégala al diccionario
+            foreach (Cliente cliente in listacliente)
             {
-                dgreporteventas.Rows.Clear();
-                btnBuscar.Visible = true;
-                btnBuscar.Location = new Point(455, 18);
-                dtpmesyano.Visible = true;
-                dthasta.Visible = false;
-
-            }
-            else if (cbBventas.SelectedItem.ToString() == "Mes")
-            {
-                dgreporteventas.Rows.Clear();
-                btnBuscar.Visible = true;
-                btnBuscar.Location = new Point(455, 18);
-                dtpmesyano.Visible = true;
-                dthasta.Visible = false;
-
-            }
-            else if (cbBventas.SelectedItem.ToString() == "Año")
-            {
-                dgreporteventas.Rows.Clear();
-                btnBuscar.Visible = true;
-                btnBuscar.Location = new Point(455, 18);
-                dtpmesyano.Visible = true;
-                dthasta.Visible = false;
-
-            }
-            else if (cbBventas.SelectedItem.ToString() == "Desde - Hasta")
-            {
-                dgreporteventas.Rows.Clear();
-                btnBuscar.Visible = true;
-                btnBuscar.Location = new Point(655, 18);
-                dtpmesyano.Visible = true;
-                dthasta.Visible = true;
-
-
+                if (!ClienteDict.ContainsKey((int)cliente.Idcliente))
+                {
+                    // Agrega cada cliente al diccionario utilizando su ID como clave
+                    ClienteDict.Add((int)cliente.Idcliente, cliente);
+                }
             }
         }
+      
         private string GetCbxfacturasText()
         {
             if (cbxfacturas.InvokeRequired)
@@ -124,314 +100,7 @@ namespace AppTRchicken.Vista
                 this.Close();
             }
         }
-        private async void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-
-            if (cbBventas.SelectedItem.ToString() == "Dia")
-            {
-                //15 segundos: 15 * 1000 = 15000 
-                //25 segundos: 25 * 1000 = 25000 
-                //1 minuto: 60 * 1000 = 60000 
-                //2 minutos: 2 * 60 * 1000 = 120000 
-                //3 minutos: 3 * 60 * 1000 = 180000 
-                //5 minutos: 5 * 60 * 1000 = 300000 
-                //6 minutos: 6 * 60 * 1000 = 360000 
-                //8 minutos: 8 * 60 * 1000 = 480000 
-                //10 minutos: 10 * 60 * 1000 = 600000 
-
-                int tiempoDeseado = 0; // Por ejemplo, 5 segundos
-                if (cbxfacturas.Text == "Todas" || cbxfacturas.Text == "Activas" || cbxfacturas.Text == "Inactivas")
-                {
-                    tiempoDeseado = 600000;
-                }
-                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
-
-                try
-                {
-                    // Limpiar el DataGridView
-                    dgreporteventas.Rows.Clear();
-
-                    // Consultar los datos de la base de datos en segundo plano
-                    List<facturas> fac = await Task.Run(() => ControladorFacturas.Instance.ReporteFincfacturaDia(dtpmesyano.Value.ToString("yyyy-MM-dd"), GetCbxfacturasText()));
-
-                    // Rellenar el DataGridView con los datos consultados
-                    char delimitador = ' ';
-                    foreach (facturas factura in fac)
-                    {
-                        string estado = factura.Estado ? "Activa" : "Inactiva";
-                        string[] fechasinhora = factura.Fecha.Split(delimitador);
-                        Cliente Cliente = ControladorCliente.Instance.findbyid(factura.Idcliente);
-                        dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, Cliente.Nombre, Cliente.Rtn, factura.Orden, factura.Tipopago, factura.Isv15, factura.Total, fechasinhora[0], estado);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
-                    MessageBox.Show("Error al consultar datos: " + ex.Message);
-                }
-                finally
-                {
-                    cargandoForm.CerrarFormularioSeguro();
-                }
-
-
-
-                double total = 0;
-                double isv = 0;
-                double subtotal = 0;
-                double Efectivo = 0;
-                double Tarjeta = 0;
-
-                for (int x = 0; x < dgreporteventas.Rows.Count; ++x)
-                {
-                    if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Efectivo")
-                    {
-                        Efectivo += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-
-                    }
-                    else if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Tarjeta")
-                    {
-                        Tarjeta += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    }
-
-                    txtefectivo.Text = String.Format(" L " + "{0:n}", Efectivo.ToString("N", new CultureInfo("en-US")));
-                    txttarjeta.Text = String.Format(" L " + "{0:n}", Tarjeta.ToString("N", new CultureInfo("en-US")));
-
-
-                    total += Convert.ToInt32(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
-                    subtotal = (total / 1.15);
-                    isv = (subtotal * 0.15);
-                    txtsubtotal.Text = String.Format(" L " + "{0:n}", subtotal.ToString("N", new CultureInfo("en-US")));
-                    txtisv.Text = String.Format(" L " + "{0:n}", isv.ToString("N", new CultureInfo("en-US")));
-                }
-
-            }
-            if (cbBventas.SelectedItem.ToString() == "Mes")
-            {
-
-                //15 segundos: 15 * 1000 = 15000 
-                //25 segundos: 25 * 1000 = 25000 
-                //1 minuto: 60 * 1000 = 60000 
-                //2 minutos: 2 * 60 * 1000 = 120000 
-                //3 minutos: 3 * 60 * 1000 = 180000 
-                //5 minutos: 5 * 60 * 1000 = 300000 
-                //6 minutos: 6 * 60 * 1000 = 360000 
-                //8 minutos: 8 * 60 * 1000 = 480000 
-                //10 minutos: 10 * 60 * 1000 = 600000 
-
-                int tiempoDeseado = 0; // Por ejemplo, 5 segundos
-                if (cbxfacturas.Text == "Todas" || cbxfacturas.Text == "Activas" || cbxfacturas.Text == "Inactivas")
-                {
-                    tiempoDeseado = 600000;
-                }
-                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
-
-                try
-                {
-                    // Limpiar el DataGridView
-                    dgreporteventas.Rows.Clear();
-
-                    // Consultar los datos de la base de datos en segundo plano
-                    List<facturas> fac = await Task.Run(() => ControladorFacturas.Instance.ReporteFinfacturames(dtpmesyano.Value.Month.ToString(), GetCbxfacturasText(), dtpmesyano.Value.Year.ToString()));
-
-                    // Rellenar el DataGridView con los datos consultados
-                    char delimitador = ' ';
-                    foreach (facturas factura in fac)
-                    {
-                        string estado = factura.Estado ? "Activa" : "Inactiva";
-                        string[] fechasinhora = factura.Fecha.Split(delimitador);
-                        Cliente Cliente = ControladorCliente.Instance.findbyid(factura.Idcliente);
-                        dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, Cliente.Nombre, Cliente.Rtn, factura.Orden, factura.Tipopago, factura.Isv15, factura.Total, fechasinhora[0], estado);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
-                    MessageBox.Show("Error al consultar datos: " + ex.Message);
-                }
-                finally
-                {
-                    cargandoForm.CerrarFormularioSeguro();
-                }
-
-
-                double total = 0;
-                double isv = 0;
-                double subtotal = 0;
-                double Efectivo = 0;
-                double Tarjeta = 0;
-
-                for (int x = 0; x < dgreporteventas.Rows.Count; ++x)
-                {
-
-                    if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Efectivo")
-                    {
-                        Efectivo += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-
-                    }
-                    else if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Tarjeta")
-                    {
-                        Tarjeta += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    }
-
-                    txtefectivo.Text = String.Format(" L " + "{0:n}", Efectivo.ToString("N", new CultureInfo("en-US")));
-                    txttarjeta.Text = String.Format(" L " + "{0:n}", Tarjeta.ToString("N", new CultureInfo("en-US")));
-
-
-                    total += Convert.ToInt32(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
-                    subtotal = (total / 1.15);
-                    isv = (subtotal * 0.15);
-                    txtsubtotal.Text = String.Format(" L " + "{0:n}", subtotal.ToString("N", new CultureInfo("en-US")));
-                    txtisv.Text = String.Format(" L " + "{0:n}", isv.ToString("N", new CultureInfo("en-US")));
-                }
-
-            }
-            if (cbBventas.SelectedItem.ToString() == "Año")
-            {
-                //15 segundos: 15 * 1000 = 15000 
-                //25 segundos: 25 * 1000 = 25000 
-                //1 minuto: 60 * 1000 = 60000 
-                //2 minutos: 2 * 60 * 1000 = 120000 
-                //3 minutos: 3 * 60 * 1000 = 180000 
-                //5 minutos: 5 * 60 * 1000 = 300000 
-                //6 minutos: 6 * 60 * 1000 = 360000 
-                //8 minutos: 8 * 60 * 1000 = 480000 
-                //10 minutos: 10 * 60 * 1000 = 600000 
-
-                int tiempoDeseado = 0; // Por ejemplo, 5 segundos
-                if (cbxfacturas.Text == "Todas" || cbxfacturas.Text == "Activas" || cbxfacturas.Text == "Inactivas")
-                {
-                    tiempoDeseado = 600000;
-                }
-                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
-
-                try
-                {
-                    // Limpiar el DataGridView
-                    dgreporteventas.Rows.Clear();
-
-                    // Consultar los datos de la base de datos en segundo plano
-                    List<facturas> fac = await Task.Run(() => ControladorFacturas.Instance.ReporteFinfacturaano(dtpmesyano.Value.Year.ToString(), GetCbxfacturasText()));
-                    // Rellenar el DataGridView con los datos consultados
-                    char delimitador = ' ';
-                    foreach (facturas factura in fac)
-                    {
-                        string estado = factura.Estado ? "Activa" : "Inactiva";
-                        string[] fechasinhora = factura.Fecha.Split(delimitador);
-                        Cliente Cliente = ControladorCliente.Instance.findbyid(factura.Idcliente);
-                        dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, Cliente.Nombre, Cliente.Rtn, factura.Orden, factura.Tipopago, factura.Isv15, factura.Total, fechasinhora[0], estado);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
-                    MessageBox.Show("Error al consultar datos: " + ex.Message);
-                }
-                finally
-                {
-                    cargandoForm.CerrarFormularioSeguro();
-                }
-
-                double total = 0;
-                double isv = 0;
-                double subtotal = 0;
-                double Efectivo = 0;
-                double Tarjeta = 0;
-                for (int x = 0; x < dgreporteventas.Rows.Count; ++x)
-                {
-
-                    if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Efectivo")
-                    {
-                        Efectivo += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-
-                    }
-                    else if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Tarjeta")
-                    {
-                        Tarjeta += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    }
-
-                    txtefectivo.Text = String.Format(" L " + "{0:n}", Efectivo.ToString("N", new CultureInfo("en-US")));
-                    txttarjeta.Text = String.Format(" L " + "{0:n}", Tarjeta.ToString("N", new CultureInfo("en-US")));
-
-                    total += Convert.ToInt32(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
-                    subtotal = (total / 1.15);
-                    isv = (subtotal * 0.15);
-                    txtsubtotal.Text = String.Format(" L " + "{0:n}", subtotal.ToString("N", new CultureInfo("en-US")));
-                    txtisv.Text = String.Format(" L " + "{0:n}", isv.ToString("N", new CultureInfo("en-US")));
-                }
-
-            }
-            if (cbBventas.SelectedItem.ToString() == "Desde - Hasta")
-            {
-
-                // Llamada a MostrarFormularioCarga con el tiempo deseado
-                int tiempoDeseado = 600000; // Por ejemplo, 5 segundos
-                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
-
-                try
-                {
-                    // Limpiar el DataGridView
-                    dgreporteventas.Rows.Clear();
-
-                    // Consultar los datos de la base de datos en segundo plano
-                    List<facturas> fac = await Task.Run(() => ControladorFacturas.Instance.ReporteFinfacturadesdehasta(dtpmesyano.Value.ToString("yyyy-MM-dd"), dthasta.Value.ToString("yyyy-MM-dd"), GetCbxfacturasText()));
-                    // Rellenar el DataGridView con los datos consultados
-                    char delimitador = ' ';
-                    foreach (facturas factura in fac)
-                    {
-                        string estado = factura.Estado ? "Activa" : "Inactiva";
-                        string[] fechasinhora = factura.Fecha.Split(delimitador);
-                        Cliente Cliente = ControladorCliente.Instance.findbyid(factura.Idcliente);
-                        dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, Cliente.Nombre, Cliente.Rtn, factura.Orden, factura.Tipopago, factura.Isv15, factura.Total, fechasinhora[0], estado);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
-                    MessageBox.Show("Error al consultar datos: " + ex.Message);
-                }
-                finally
-                {
-                    cargandoForm.CerrarFormularioSeguro();
-                }
-
-                double total = 0;
-                double isv = 0;
-                double subtotal = 0;
-                double Efectivo = 0;
-                double Tarjeta = 0;
-                for (int x = 0; x < dgreporteventas.Rows.Count; ++x)
-                {
-
-                    if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Efectivo")
-                    {
-                        Efectivo += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-
-                    }
-                    else if (dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString() == "Tarjeta")
-                    {
-                        Tarjeta += Convert.ToDouble(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    }
-
-                    txtefectivo.Text = String.Format(" L " + "{0:n}", Efectivo.ToString("N", new CultureInfo("en-US")));
-                    txttarjeta.Text = String.Format(" L " + "{0:n}", Tarjeta.ToString("N", new CultureInfo("en-US")));
-
-                    total += Convert.ToInt32(dgreporteventas.Rows[x].Cells["Total"].Value);
-                    txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
-                    subtotal = (total / 1.15);
-                    isv = (subtotal * 0.15);
-                    txtsubtotal.Text = String.Format(" L " + "{0:n}", subtotal.ToString("N", new CultureInfo("en-US")));
-                    txtisv.Text = String.Format(" L " + "{0:n}", isv.ToString("N", new CultureInfo("en-US")));
-                }
-
-            }
-
-        }
+    
 
 
         private static ReporteVentasVistas fmrReporteVentasVistas = null;
@@ -529,10 +198,7 @@ namespace AppTRchicken.Vista
             excel.Visible = true;
         }
 
-        private void btnexportar_Click(object sender, EventArgs e)
-        {
-            Exportarexcel(dgreporteventas);
-        }
+      
 
         private void dgreporteventas_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -710,6 +376,264 @@ namespace AppTRchicken.Vista
                  //ticket.ImprimirTicket("Microsoft XPS Document Writer");
                 ticket.ImprimirTicket(impresoras.Nombreimpresora);//Nombre de la impresora ticketera
             }
+        }
+
+        private void cbBventas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbBventas.SelectedItem.ToString() == "Dia")
+            {
+                dgreporteventas.Rows.Clear();
+                btnBuscar.Visible = true;
+                btnBuscar.Location = new Point(455, 18);
+                dtpmesyano.Visible = true;
+                dthasta.Visible = false;
+
+            }
+
+            else if (cbBventas.SelectedItem.ToString() == "Desde - Hasta")
+            {
+                dgreporteventas.Rows.Clear();
+                btnBuscar.Visible = true;
+                btnBuscar.Location = new Point(655, 18);
+                dtpmesyano.Visible = true;
+                dthasta.Visible = true;
+
+
+            }
+        }
+
+        private async void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+            if (cbBventas.SelectedItem.ToString() == "Dia")
+            {
+                //15 segundos: 15 * 1000 = 15000 
+                //25 segundos: 25 * 1000 = 25000 
+                //1 minuto: 60 * 1000 = 60000 
+                //2 minutos: 2 * 60 * 1000 = 120000 
+                //3 minutos: 3 * 60 * 1000 = 180000 
+                //5 minutos: 5 * 60 * 1000 = 300000 
+                //6 minutos: 6 * 60 * 1000 = 360000 
+                //8 minutos: 8 * 60 * 1000 = 480000 
+                //10 minutos: 10 * 60 * 1000 = 600000 
+
+                int tiempoDeseado = 0; // Por ejemplo, 5 segundos
+                if (cbxfacturas.Text == "Todas" || cbxfacturas.Text == "Activas" || cbxfacturas.Text == "Inactivas")
+                {
+                    tiempoDeseado = 600000;
+                }
+                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
+
+                try
+                {
+                    // Limpiar el DataGridView
+                    dgreporteventas.Rows.Clear();
+
+                    // Consultar los datos de la base de datos en segundo plano
+                    List<facturas> fac = await Task.Run(() => ControladorFacturas.Instance.ReporteFincfacturaDia(dtpmesyano.Value.ToString("yyyy-MM-dd"), GetCbxfacturasText()));
+
+                    // Rellenar el DataGridView con los datos consultados
+                    char delimitador = ' ';
+                    foreach (facturas factura in fac)
+                    {
+                        string estado = factura.Estado ? "Activa" : "Inactiva";
+                        // Buscar cliente en el diccionario
+                        if (ClienteDict.TryGetValue(factura.Idcliente, out Cliente cliente))
+                        {
+                            // Agregar fila al DataGridView
+                            dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, cliente.Nombre, cliente.Rtn, factura.Orden, factura.Tipopago, factura.Isv15.ToString("N2", CultureInfo.InvariantCulture), factura.Total.ToString("N2", CultureInfo.InvariantCulture), factura.Fecha2, estado);
+                        }
+                        else
+                        {
+                            // Manejar el caso en que el cliente no esté en el diccionario (opcional)
+                            dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, "Cliente no encontrado", "N/A", factura.Orden, factura.Tipopago, factura.Isv15.ToString("N2", CultureInfo.InvariantCulture), factura.Total.ToString("N2", CultureInfo.InvariantCulture), factura.Fecha2, estado);
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
+                    MessageBox.Show("Error al consultar datos: " + ex.Message);
+                }
+                finally
+                {
+                    cargandoForm.CerrarFormularioSeguro();
+                }
+
+
+
+                decimal total = 0;
+                decimal isv = 0;
+                decimal subtotal = 0;
+                decimal efectivo = 0;
+                decimal tarjeta = 0;
+                decimal transferencia = 0;
+
+                // Recorre todas las filas del DataGridView
+                for (int x = 0; x < dgreporteventas.Rows.Count; ++x)
+                {
+                    // Verifica si el valor en la celda 'tipopago' es "Efectivo" o "Tarjeta"
+                    string tipoPago = dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString();
+                    decimal valor = Globales.ConvertToDecimal(dgreporteventas.Rows[x].Cells["Total"].Value.ToString());
+
+                    // Acumulamos los valores según el tipo de pago
+                    if (tipoPago == "Efectivo")
+                    {
+                        efectivo += valor;
+                    }
+                    else if (tipoPago == "Tarjeta")
+                    {
+                        tarjeta += valor;
+                    }
+                    else if (tipoPago == "Transferencia")
+                    {
+                        transferencia += valor;
+                    }
+
+                    // Acumulamos el total general
+                    total += valor;
+                }
+
+                // Calculamos el subtotal y el ISV
+                subtotal = total / 1.15m; // Usar 'm' para asegurar que es decimal
+                isv = subtotal * 0.15m;   // Usar 'm' para asegurar que es decimal
+
+                // Actualizamos los valores en los controles de texto
+                txtefectivo.Text = efectivo.ToString("N2", CultureInfo.InvariantCulture);
+                txttarjeta.Text = tarjeta.ToString("N2", CultureInfo.InvariantCulture);
+                txttransferencia.Text = transferencia.ToString("N2", CultureInfo.InvariantCulture);
+                txttotal.Text = total.ToString("N2", CultureInfo.InvariantCulture);
+                txtsubtotal.Text = subtotal.ToString("N2", CultureInfo.InvariantCulture);
+                txtisv.Text = isv.ToString("N2", CultureInfo.InvariantCulture);
+
+            }
+
+            if (cbBventas.SelectedItem.ToString() == "Desde - Hasta")
+            {
+
+                // Llamada a MostrarFormularioCarga con el tiempo deseado
+                int tiempoDeseado = 600000; // Por ejemplo, 5 segundos
+                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
+
+                try
+                {
+                    // Limpiar el DataGridView
+                    dgreporteventas.Rows.Clear();
+
+                    // Consultar los datos de la base de datos en segundo plano
+                    List<facturas> fac = await Task.Run(() => ControladorFacturas.Instance.ReporteFinfacturadesdehasta(dtpmesyano.Value.ToString("yyyy-MM-dd"), dthasta.Value.ToString("yyyy-MM-dd"), GetCbxfacturasText()));
+                    // Rellenar el DataGridView con los datos consultados
+
+                    foreach (facturas factura in fac)
+                    {
+                        string estado = factura.Estado ? "Activa" : "Inactiva";
+                        // Buscar cliente en el diccionario
+                        if (ClienteDict.TryGetValue(factura.Idcliente, out Cliente cliente))
+                        {
+                            // Agregar fila al DataGridView
+                            dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, cliente.Nombre, cliente.Rtn, factura.Orden, factura.Tipopago, factura.Isv15.ToString("N2", CultureInfo.InvariantCulture), factura.Total.ToString("N2", CultureInfo.InvariantCulture), factura.Fecha2, estado);
+                        }
+                        else
+                        {
+                            // Manejar el caso en que el cliente no esté en el diccionario (opcional)
+                            dgreporteventas.Rows.Add(factura.Idfactura, factura.Facturacai, "Cliente no encontrado", "N/A", factura.Orden, factura.Tipopago, factura.Isv15.ToString("N2", CultureInfo.InvariantCulture), factura.Total.ToString("N2", CultureInfo.InvariantCulture), factura.Fecha2, estado);
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
+                    MessageBox.Show("Error al consultar datos: " + ex.Message);
+                }
+                finally
+                {
+                    cargandoForm.CerrarFormularioSeguro();
+                }
+
+                decimal total = 0;
+                decimal isv = 0;
+                decimal subtotal = 0;
+                decimal efectivo = 0;
+                decimal tarjeta = 0;
+                decimal transferencia = 0;
+
+                // Recorre todas las filas del DataGridView
+                for (int x = 0; x < dgreporteventas.Rows.Count; ++x)
+                {
+                    // Verifica si el valor en la celda 'tipopago' es "Efectivo" o "Tarjeta"
+                    string tipoPago = dgreporteventas.Rows[x].Cells["tipopago"].Value.ToString();
+                    decimal valor = Globales.ConvertToDecimal(dgreporteventas.Rows[x].Cells["Total"].Value.ToString());
+
+                    // Acumulamos los valores según el tipo de pago
+                    if (tipoPago == "Efectivo")
+                    {
+                        efectivo += valor;
+                    }
+                    else if (tipoPago == "Tarjeta")
+                    {
+                        tarjeta += valor;
+                    }
+                    else if (tipoPago == "Transferencia")
+                    {
+                        transferencia += valor;
+                    }
+
+                    // Acumulamos el total general
+                    total += valor;
+                }
+
+                // Calculamos el subtotal y el ISV
+                subtotal = total / 1.15m; // Usar 'm' para asegurar que es decimal
+                isv = subtotal * 0.15m;   // Usar 'm' para asegurar que es decimal
+
+                // Actualizamos los valores en los controles de texto
+                txtefectivo.Text = efectivo.ToString("N2", CultureInfo.InvariantCulture);
+                txttarjeta.Text = tarjeta.ToString("N2", CultureInfo.InvariantCulture);
+                txttransferencia.Text = transferencia.ToString("N2", CultureInfo.InvariantCulture);
+                txttotal.Text = total.ToString("N2", CultureInfo.InvariantCulture);
+                txtsubtotal.Text = subtotal.ToString("N2", CultureInfo.InvariantCulture);
+                txtisv.Text = isv.ToString("N2", CultureInfo.InvariantCulture);
+
+            }
+        }
+
+        private void btnexportar_Click(object sender, EventArgs e)
+        {
+            Exportarexcel(dgreporteventas);
+        }
+
+        private void dgreporteventas_CellMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                dgreporteventas.CurrentCell = dgreporteventas.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                ContextMenu cm = new ContextMenu();
+                MenuItem mi = new MenuItem();
+                mi.Text = "REIMPRIMIR";
+                mi.Click += REIMPRIMIR; //metodo al dar click
+                cm.MenuItems.Add(mi);
+
+
+                //Obtienes las coordenadas de la celda seleccionada. 
+                Rectangle coordenada = dgreporteventas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                int anchoCelda = coordenada.Location.X; //Ancho de la localizacion de la celda
+                int altoCelda = coordenada.Location.Y;  //Alto de la localizacion de la celda
+
+                //Y para mostrar el menú lo haces de esta forma:  
+                int X = anchoCelda;
+                int Y = altoCelda;
+
+                cm.Show(dgreporteventas, new Point(X, Y));
+
+
+            }
+
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using AppTRchicken.Vista;
 using AppTRchicken.Modelo;
 using AppTRchicken.Controlador;
-
+using System.Globalization;
 
 namespace AppTRchicken.Vista
 {
@@ -138,145 +138,110 @@ namespace AppTRchicken.Vista
 
         void btn_Click(object sender, System.EventArgs e)
         {
-
-
-
             Button boton = (Button)sender;
-
 
             // Cambia el color del botón seleccionado al color de selección
             boton.BackColor = Color.Yellow;
-            /****separo el nombre del combo y el precio para agregarlo al datagrid*****/
+
+            // Separar el nombre del combo y el precio
             char delimitador = 'L';
-
             string[] Division = Globales.btn.Split(delimitador);
-            /****separo el nombre del combo y el precio para agregarlo al datagrid*****/
 
 
-
-            /****le quito \n para dejar solo el nombre del combo y poder obtener el numero de complementos correspondientes*****/
+            // Separar el nombre del combo para obtener el número de complementos
             char deli = '\n';
-
             string[] nombrecombo = Division[0].Split(deli);
-            /****le quito \n para dejar solo el nombre del combo y poder obtener el numero de complementos correspondientes*****/
+
+            // Eliminar saltos de línea del nombre del combo para una comparación precisa
+            string nombreComboLimpio = Division[0].Replace("\n", "").Trim();
+
             Facturaciosvista Facturaciosvista = (Facturaciosvista)Application.OpenForms["Facturaciosvista"];
 
-
-            menu menus = new menu();
-            menus = ControladorMenu.Instance.findNcomplemento(nombrecombo[0]);
+            menu menus = ControladorMenu.Instance.findNcomplemento(nombrecombo[0]);
             int ncomplemento = menus.Ncomplemento;
+
             if (Facturaciosvista.dgfacturacion.RowCount > 0)
             {
-
-
-
-
-
-
                 Globales.complemento += boton.Text + ",";
-
-                // Primero averigua si el registro existe:
-                // Primero averigua si el registro existe:
                 bool existe = false;
+
+                // Iterar sobre el DataGridView para buscar si ya existe el producto con complemento
                 for (int i = 0; i < Facturaciosvista.dgfacturacion.RowCount; i++)
                 {
+                    // Comparar el producto y complementos existentes
+                    // Eliminar saltos de línea del producto existente para comparación
+                    // Eliminar saltos de línea y retornos de carro del producto existente para comparación
+                    string productoExistente = Convert.ToString(Facturaciosvista.dgfacturacion.Rows[i].Cells["Producto"].Value)
+                                                .Replace("\n", "").Replace("\r", "").Trim();
+                    // Eliminar saltos de línea y retornos de carro del producto con complemento para comparación
+                    string productoConComplemento = Division[0].Replace("\n", "").Replace("\r", "").Trim() + "  " + Globales.complemento.Trim();
 
-                    //MessageBox.Show((Convert.ToString(Facturaciosvista.dgfacturacion.Rows[i].Cells["Producto"].Value)));
-                    //MessageBox.Show(Convert.ToString(Division[0] + "" + Globales.complemento));
-
-                    if (Convert.ToString(Facturaciosvista.dgfacturacion.Rows[i].Cells["Producto"].Value) == Convert.ToString(Division[0] + "" + Globales.complemento))
+                    if (productoExistente == productoConComplemento)
                     {
-                        int cantidad;
-                        cantidad = 1 + Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[i].Cells["Cantidad"].Value);
-                        // MessageBox.Show("Si encontro el producto");
+                        // Incrementar la cantidad y actualizar el total
+                        int cantidad = 1 + Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[i].Cells["Cantidad"].Value);
                         Facturaciosvista.dgfacturacion.Rows[i].Cells["Cantidad"].Value = cantidad;
-                        Facturaciosvista.dgfacturacion.Rows[i].Cells["Total"].Value = (cantidad * Convert.ToInt32(Division[1]));
+                        Facturaciosvista.dgfacturacion.Rows[i].Cells["Total"].Value = (cantidad * Globales.ConvertToDecimal(Division[1]));
+
                         existe = true;
-                        int sumatotal = 0;
-                        for (int x = 0; x < Facturaciosvista.dgfacturacion.Rows.Count; ++x)
-                        {
-                            sumatotal += Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[x].Cells["Total"].Value);
-                        }
-                        decimal excento = 0;
-                        decimal importe = 0;
-
-                        decimal total = sumatotal;
-                        decimal subtotal = ((decimal)(sumatotal / 1.15));
-                        decimal isv = ((decimal)(subtotal * Convert.ToDecimal(0.15)));
-
-
-                        Facturaciosvista.txtexcento.Text = "L" + excento;
-                        Facturaciosvista.txtexonerado.Text = "L" + importe;
-
-                        Facturaciosvista.txtsubtotal.Text = subtotal.ToString();
-                        Facturaciosvista.txtisv.Text = isv.ToString();
-                        Facturaciosvista.txttotal.Text = total.ToString();
-                        Facturaciosvista.richTextBox1.Text = "L" + total.ToString();
-                        Facturaciosvista.tpanelmenu.Controls.Clear();
-                        Facturaciosvista.cargarmenu();
-                        Globales.contador = 0;
+                        ActualizarTotales(Facturaciosvista);
                         Globales.complemento = "";
-
+                        Globales.contador = 0;
                         this.Close();
-
+                        return;
                     }
                 }
 
-                // Luego, ya fuera del ciclo, solo si no existe, realizas la insercion:
-                if (existe == false)
+                // Si el producto con complemento no existe, agregar nueva línea
+                if (!existe && Globales.contador < ncomplemento)
                 {
+                    Globales.contador += 1;
 
-
-
-                    if (Globales.contador < ncomplemento)
+                    if (Globales.contador == ncomplemento)
                     {
+                        Facturaciosvista.dgfacturacion.Rows.Add(1, Division[0] + "" + Globales.complemento, "", "", 0, Division[1]);
+                        ActualizarTotales(Facturaciosvista);
 
-
-
-                        Globales.contador += 1;
-
-                        if (Globales.contador == ncomplemento)
-                        {
-                            Facturaciosvista.dgfacturacion.Rows.Add(1, Division[0] + "" + Globales.complemento, "", 0, Division[1]);
-
-
-                            int sumatotal = 0;
-                            for (int x = 0; x < Facturaciosvista.dgfacturacion.Rows.Count; ++x)
-                            {
-                                sumatotal += Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[x].Cells["Total"].Value);
-                            }
-                            decimal excento = 0;
-                            decimal importe = 0;
-
-                            decimal total = sumatotal;
-                            decimal subtotal = ((decimal)(sumatotal / 1.15));
-                            decimal isv = ((decimal)(subtotal * Convert.ToDecimal(0.15)));
-
-
-                            Facturaciosvista.txtexcento.Text = "L" + excento;
-                            Facturaciosvista.txtexonerado.Text = "L" + importe;
-
-                            Facturaciosvista.txtsubtotal.Text = subtotal.ToString();
-                            Facturaciosvista.txtisv.Text = isv.ToString();
-                            Facturaciosvista.txttotal.Text = total.ToString();
-                            Facturaciosvista.richTextBox1.Text = "L" + total.ToString();
-                            Facturaciosvista.tpanelmenu.Controls.Clear();
-                            Facturaciosvista.cargarmenu();
-                            Globales.contador = 0;
-                            Globales.complemento = "";
-
-                            this.Close();
-                        }
-
-
-
+                        // Reiniciar los valores globales
+                        Globales.complemento = "";
+                        Globales.contador = 0;
+                        this.Close();
                     }
-
                 }
+            }
+        }
 
+        // Método para actualizar los totales en la interfaz
+        void ActualizarTotales(Facturaciosvista vista)
+        {
+            decimal sumatotal = 0;
+
+            // Sumar los totales de cada fila del DataGridView
+            for (int x = 0; x < vista.dgfacturacion.Rows.Count; ++x)
+            {
+                if (!vista.dgfacturacion.Rows[x].IsNewRow)
+                {
+                    var valorCelda = vista.dgfacturacion.Rows[x].Cells["Total"].Value;
+                    if (valorCelda != null && !string.IsNullOrWhiteSpace(valorCelda.ToString()))
+                    {
+                        sumatotal += Globales.ConvertToDecimal(valorCelda.ToString());
+                    }
+                }
             }
 
+            // Cálculo de subtotal, ISV y total
+            decimal subtotal = sumatotal / 1.15m;
+            decimal isv = subtotal * 0.15m;
+            decimal excento = 0;
+            decimal importe = 0;
 
+            // Actualizar los controles de totales en la vista
+            vista.txtexcento.Text = "L" + excento.ToString("N2", CultureInfo.InvariantCulture);
+            vista.txtexonerado.Text = "L" + importe.ToString("N2", CultureInfo.InvariantCulture);
+            vista.txtsubtotal.Text = subtotal.ToString("N2", CultureInfo.InvariantCulture);
+            vista.txtisv.Text = isv.ToString("N2", CultureInfo.InvariantCulture);
+            vista.txttotal.Text = sumatotal.ToString("N2", CultureInfo.InvariantCulture);
+            vista.richTextBox1.Text = "L" + sumatotal.ToString("N2", CultureInfo.InvariantCulture);
         }
         private void complementoVista_FormClosing(object sender, FormClosingEventArgs e)
         {

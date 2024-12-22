@@ -6,7 +6,8 @@ using System.Windows.Forms;
 using AppTRchicken.Modelo;
 using AppTRchicken.Controlador;
 using AppTRchicken.Utilidades;
-
+using System.Linq;
+using System.Data.SqlClient;
 namespace AppTRchicken.Vista
 {
     public partial class CocinaVista : Form
@@ -112,7 +113,7 @@ namespace AppTRchicken.Vista
                     Text = await Task.Run(() => ObtenerTextoFactura(nextFactura)), // Obtener el texto de la factura
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.TopLeft,
-                    BackColor = Color.LightCyan, // Color aleatorio para el fondo
+                   // BackColor = Color.LightCyan, // Color aleatorio para el fondo
                     BorderStyle = BorderStyle.FixedSingle,
                     Font = new Font("Arial", 14)
                 };
@@ -148,6 +149,7 @@ namespace AppTRchicken.Vista
                 orderPanel.Controls.Add(orderButton);
 
                 // Crear un temporizador para este panel
+                // Crear un temporizador para este panel
                 Timer timer = new Timer();
                 timer.Interval = 1000; // Intervalo de 1 segundo
                 timer.Tick += (s, e) => Timer_Tick(s, e, orderPanel, timeLabel); // Manejar el evento Tick
@@ -159,8 +161,17 @@ namespace AppTRchicken.Vista
                 // Asignar evento al botón
                 orderButton.Click += async (s, e) => await RemovePanelAndRefreshAsync(orderPanel);
 
-                // Agregar el panel al TableLayoutPanel
-                tableLayoutPanel1.Controls.Add(orderPanel);
+                // Insertar el panel en la primera posición y desplazar los existentes
+                List<Control> controls = tableLayoutPanel1.Controls.Cast<Control>().ToList();
+                tableLayoutPanel1.Controls.Clear();
+                tableLayoutPanel1.Controls.Add(orderPanel, 0, 0);
+
+                for (int i = 0; i < controls.Count; i++)
+                {
+                    int row = (i + 1) / tableLayoutPanel1.ColumnCount;
+                    int col = (i + 1) % tableLayoutPanel1.ColumnCount;
+                    tableLayoutPanel1.Controls.Add(controls[i], col, row);
+                }
             }
             else
             {
@@ -168,6 +179,8 @@ namespace AppTRchicken.Vista
                 await EnqueueNextFacturaAsync();
             }
         }
+
+
 
         private async Task EnqueueNextFacturaAsync()
         {
@@ -227,15 +240,42 @@ namespace AppTRchicken.Vista
 
             try
             {
+                // Capturar el tiempo transcurrido
+                int elapsedSeconds = Convert.ToInt32(panel.Tag);
+                TimeSpan timeSpan = TimeSpan.FromSeconds(elapsedSeconds);
+                string tiempoTranscurrido = timeSpan.ToString(@"m\:ss");
+
+                // Capturar el tag del botón
+                int orden = (int)panel.Controls.OfType<Button>().First().Tag;
+
+                // Capturar la información de la factura
+                string informacion = panel.Controls.OfType<Label>().First().Text;
+
+                // Guardar la información en la base de datos
+                await GuardarInformacionEnBaseDeDatos(orden, informacion, tiempoTranscurrido);
+
                 // Eliminar el panel del TableLayoutPanel
                 tableLayoutPanel1.Controls.Remove(panel);
 
-                // Verificar si hay espacio disponible en el TableLayoutPanel
-                if (tableLayoutPanel1.Controls.Count < tableLayoutPanel1.RowCount * tableLayoutPanel1.ColumnCount)
+                // Reorganizar los paneles restantes
+                List<Control> controls = tableLayoutPanel1.Controls.Cast<Control>().ToList();
+                controls.Sort((a, b) =>
                 {
-                    // Agregar la siguiente factura en cola al TableLayoutPanel
-                    await AddNextOrderToTableLayoutPanelAsync();
+                    int ordenA = (int)((Panel)a).Controls.OfType<Button>().First().Tag;
+                    int ordenB = (int)((Panel)b).Controls.OfType<Button>().First().Tag;
+                    return ordenB.CompareTo(ordenA);
+                });
+
+                tableLayoutPanel1.Controls.Clear();
+                for (int i = 0; i < controls.Count; i++)
+                {
+                    int row = i / tableLayoutPanel1.ColumnCount;
+                    int col = i % tableLayoutPanel1.ColumnCount;
+                    tableLayoutPanel1.Controls.Add(controls[i], col, row);
                 }
+
+                // Agregar la siguiente factura en cola al TableLayoutPanel
+                await AddNextOrderToTableLayoutPanelAsync();
             }
             catch (Exception ex)
             {
@@ -246,37 +286,30 @@ namespace AppTRchicken.Vista
                 // Reiniciar el temporizador
                 updateTimer.Start();
                 isUpdating = false;
-
-                //MessageBox.Show("Temporizador reiniciado", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        // Método para obtener el texto de la factura y detalles
-        private string ObtenerTextoFactura(facturas factura)
+
+        private async Task GuardarInformacionEnBaseDeDatos(int orden, string informacion, string tiempoTranscurrido)
         {
-            string textoFactura = $"Orden: {factura.Orden}\n";
-            List<detalle_factura> detallesFactura = ControladorDetalle_Factura.Instance.findbyid((int)factura.Idfactura);
-            if (detallesFactura != null && detallesFactura.Count > 0)
+            string connectionString = "your_connection_string_here";
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                foreach (detalle_factura detalle in detallesFactura)
+                string query = "INSERT INTO Finalizados (Orden, Informacion, TiempoTranscurrido, FechaFinalizacion) VALUES (@Orden, @Informacion, @TiempoTranscurrido, @FechaFinalizacion)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    menu menuItem = ControladorMenu.Instance.findnombre(detalle.Idmenu);
-                    if (menuItem != null)
-                    {
-                        textoFactura += $"{detalle.Cantidad} - {menuItem.Nombrecombo}\n";
-                    }
-                    else
-                    {
-                        textoFactura += $"Detalle no encontrado para Idmenu: {detalle.Idmenu}\n";
-                    }
+                    command.Parameters.AddWithValue("@Orden", orden);
+                    command.Parameters.AddWithValue("@Informacion", informacion);
+                    command.Parameters.AddWithValue("@TiempoTranscurrido", tiempoTranscurrido);
+                    command.Parameters.AddWithValue("@FechaFinalizacion", DateTime.Now);
+
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
-            else
-            {
-                textoFactura += "No hay detalles disponibles.";
-            }
-            return textoFactura;
         }
+
 
         // Método para obtener un color aleatorio
         private Random random = new Random();
@@ -286,31 +319,34 @@ namespace AppTRchicken.Vista
         }
 
         // Manejador del evento Tick del temporizador
-        private void Timer_Tick(object sender, EventArgs e, Panel panel, Label timeLabel)
+        private void Timer_Tick(object sender, EventArgs e, Panel orderPanel, Label timeLabel)
         {
             // Obtener el temporizador correspondiente al panel
             Timer timer = sender as Timer;
 
             // Incrementar el tiempo transcurrido en el tag del panel
-            int elapsedSeconds = Convert.ToInt32(panel.Tag) + 1;
-            panel.Tag = elapsedSeconds;
+            int elapsedSeconds = Convert.ToInt32(orderPanel.Tag) + 1;
+            orderPanel.Tag = elapsedSeconds;
 
             // Actualizar el Label del tiempo transcurrido
             TimeSpan timeSpan = TimeSpan.FromSeconds(elapsedSeconds);
             timeLabel.Text = $"Tiempo: {timeSpan.ToString(@"m\:ss")}"; // Formato de minutos y segundos
 
-            // Cambiar el color del texto del Label según el tiempo transcurrido
-            if (elapsedSeconds <= 5 * 60) // Menos de 5 minutos
+            // Cambiar el color del texto del Label y el fondo del Panel según el tiempo transcurrido
+            if (elapsedSeconds <= 1 * 60) // Menos de 5 minutos
             {
                 timeLabel.ForeColor = Color.Green;
+                orderPanel.BackColor = Color.LightGreen;
             }
-            else if (elapsedSeconds <= 15 * 60) // Menos de 15 minutos
+            else if (elapsedSeconds <= 2 * 60) // Menos de 15 minutos
             {
                 timeLabel.ForeColor = Color.Orange;
+                orderPanel.BackColor = Color.Yellow;
             }
             else // Más de 15 minutos
             {
                 timeLabel.ForeColor = Color.Red;
+                orderPanel.BackColor = Color.LightCoral;
             }
 
             // Ajustar el tamaño de la fuente del Label
@@ -321,9 +357,9 @@ namespace AppTRchicken.Vista
         {
             tableLayoutPanel1.Controls.Clear(); // Limpiar el TableLayoutPanel
 
-            for (int row = 0; row < tableLayoutPanel1.RowCount; row++)
+            for (int row = tableLayoutPanel1.RowCount - 1; row >= 0; row--)
             {
-                for (int col = 0; col < tableLayoutPanel1.ColumnCount; col++)
+                for (int col = tableLayoutPanel1.ColumnCount - 1; col >= 0; col--)
                 {
                     if (facturasQueue.Count > 0)
                     {
@@ -332,9 +368,9 @@ namespace AppTRchicken.Vista
 
                         // Crear una lista para almacenar el texto de los combos
                         List<string> comboTexts = new List<string>
-                        {
-                            $"Orden: {factura.Orden}\n"
-                        };
+                {
+                    $"Orden: {factura.Orden}\n"
+                };
 
                         // Obtener los detalles de la factura para la orden actual
                         List<detalle_factura> detallesFactura = ControladorDetalle_Factura.Instance.findbyid((int)factura.Idfactura);
@@ -364,7 +400,7 @@ namespace AppTRchicken.Vista
                             Text = allCombosText,
                             Dock = DockStyle.Fill,
                             TextAlign = ContentAlignment.TopLeft,
-                            BackColor = Color.LightCyan, // Color aleatorio para el fondo
+                            // BackColor = Color.LightCyan, // Color aleatorio para el fondo
                             Font = new Font("Arial", 14) // Cambia "Arial" por la fuente que prefieras y 14 por el tamaño deseado
                         };
 
@@ -416,6 +452,33 @@ namespace AppTRchicken.Vista
                     }
                 }
             }
+        }
+
+        // Método para obtener el texto de la factura y detalles
+        private string ObtenerTextoFactura(facturas factura)
+        {
+            string textoFactura = $"Orden: {factura.Orden}\n";
+            List<detalle_factura> detallesFactura = ControladorDetalle_Factura.Instance.findbyid((int)factura.Idfactura);
+            if (detallesFactura != null && detallesFactura.Count > 0)
+            {
+                foreach (detalle_factura detalle in detallesFactura)
+                {
+                    menu menuItem = ControladorMenu.Instance.findnombre(detalle.Idmenu);
+                    if (menuItem != null)
+                    {
+                        textoFactura += $"{detalle.Cantidad} - {menuItem.Nombrecombo}\n";
+                    }
+                    else
+                    {
+                        textoFactura += $"Detalle no encontrado para Idmenu: {detalle.Idmenu}\n";
+                    }
+                }
+            }
+            else
+            {
+                textoFactura += "No hay detalles disponibles.";
+            }
+            return textoFactura;
         }
     }
 }

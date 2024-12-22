@@ -29,7 +29,9 @@ namespace AppTRchicken.Vista.Prueba_Vistas
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbxsegunsistema = new System.Windows.Forms.GroupBox();
+            this.panelIzquierdo = new System.Windows.Forms.GroupBox();
+            this.txttransferenciasistema = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.txttotalrealefectivo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txttotalventasegunsistema = new System.Windows.Forms.TextBox();
@@ -42,7 +44,9 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             this.txtdeposito = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.gbxseguncajero = new System.Windows.Forms.GroupBox();
+            this.panelDerecho = new System.Windows.Forms.GroupBox();
+            this.txttransferenciacajero = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.btncierre = new System.Windows.Forms.Button();
             this.txttotalventaseguncajero = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -78,31 +82,63 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             this.txt500 = new System.Windows.Forms.TextBox();
             this.txtefectivocajero = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.gbxsegunsistema.SuspendLayout();
-            this.gbxseguncajero.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelprincipal = new System.Windows.Forms.Panel();
+            this.panel = new System.Windows.Forms.Panel();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.dtfechacierre = new System.Windows.Forms.DateTimePicker();
+            this.panelIzquierdo.SuspendLayout();
+            this.panelDerecho.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panelprincipal.SuspendLayout();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gbxsegunsistema
+            // panelIzquierdo
             // 
-            this.gbxsegunsistema.Controls.Add(this.txttotalrealefectivo);
-            this.gbxsegunsistema.Controls.Add(this.label4);
-            this.gbxsegunsistema.Controls.Add(this.txttotalventasegunsistema);
-            this.gbxsegunsistema.Controls.Add(this.label3);
-            this.gbxsegunsistema.Controls.Add(this.txttarjetasistema);
-            this.gbxsegunsistema.Controls.Add(this.label1);
-            this.gbxsegunsistema.Controls.Add(this.txtefectivosistema);
-            this.gbxsegunsistema.Controls.Add(this.label2);
-            this.gbxsegunsistema.Controls.Add(this.txtretiro);
-            this.gbxsegunsistema.Controls.Add(this.txtdeposito);
-            this.gbxsegunsistema.Controls.Add(this.label19);
-            this.gbxsegunsistema.Controls.Add(this.label18);
-            this.gbxsegunsistema.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.gbxsegunsistema.Location = new System.Drawing.Point(12, 12);
-            this.gbxsegunsistema.Name = "gbxsegunsistema";
-            this.gbxsegunsistema.Size = new System.Drawing.Size(531, 682);
-            this.gbxsegunsistema.TabIndex = 0;
-            this.gbxsegunsistema.TabStop = false;
-            this.gbxsegunsistema.Text = "Segun Sistema:";
+            this.panelIzquierdo.Controls.Add(this.txttransferenciasistema);
+            this.panelIzquierdo.Controls.Add(this.label21);
+            this.panelIzquierdo.Controls.Add(this.txttotalrealefectivo);
+            this.panelIzquierdo.Controls.Add(this.label4);
+            this.panelIzquierdo.Controls.Add(this.txttotalventasegunsistema);
+            this.panelIzquierdo.Controls.Add(this.label3);
+            this.panelIzquierdo.Controls.Add(this.txttarjetasistema);
+            this.panelIzquierdo.Controls.Add(this.label1);
+            this.panelIzquierdo.Controls.Add(this.txtefectivosistema);
+            this.panelIzquierdo.Controls.Add(this.label2);
+            this.panelIzquierdo.Controls.Add(this.txtretiro);
+            this.panelIzquierdo.Controls.Add(this.txtdeposito);
+            this.panelIzquierdo.Controls.Add(this.label19);
+            this.panelIzquierdo.Controls.Add(this.label18);
+            this.panelIzquierdo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelIzquierdo.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.panelIzquierdo.Location = new System.Drawing.Point(0, 0);
+            this.panelIzquierdo.Name = "panelIzquierdo";
+            this.panelIzquierdo.Size = new System.Drawing.Size(579, 730);
+            this.panelIzquierdo.TabIndex = 0;
+            this.panelIzquierdo.TabStop = false;
+            this.panelIzquierdo.Text = "Segun Sistema:";
+            // 
+            // txttransferenciasistema
+            // 
+            this.txttransferenciasistema.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txttransferenciasistema.Location = new System.Drawing.Point(336, 460);
+            this.txttransferenciasistema.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txttransferenciasistema.Name = "txttransferenciasistema";
+            this.txttransferenciasistema.ReadOnly = true;
+            this.txttransferenciasistema.Size = new System.Drawing.Size(153, 38);
+            this.txttransferenciasistema.TabIndex = 76;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(23, 465);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(278, 33);
+            this.label21.TabIndex = 75;
+            this.label21.Text = "Total Transferencia";
             // 
             // txttotalrealefectivo
             // 
@@ -127,7 +163,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // txttotalventasegunsistema
             // 
             this.txttotalventasegunsistema.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttotalventasegunsistema.Location = new System.Drawing.Point(336, 567);
+            this.txttotalventasegunsistema.Location = new System.Drawing.Point(336, 547);
             this.txttotalventasegunsistema.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txttotalventasegunsistema.Name = "txttotalventasegunsistema";
             this.txttotalventasegunsistema.ReadOnly = true;
@@ -138,7 +174,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 570);
+            this.label3.Location = new System.Drawing.Point(23, 550);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(172, 33);
             this.label3.TabIndex = 69;
@@ -147,7 +183,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // txttarjetasistema
             // 
             this.txttarjetasistema.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttarjetasistema.Location = new System.Drawing.Point(336, 412);
+            this.txttarjetasistema.Location = new System.Drawing.Point(336, 372);
             this.txttarjetasistema.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txttarjetasistema.Name = "txttarjetasistema";
             this.txttarjetasistema.ReadOnly = true;
@@ -158,7 +194,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 417);
+            this.label1.Location = new System.Drawing.Point(23, 377);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(276, 33);
             this.label1.TabIndex = 67;
@@ -226,50 +262,73 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             this.label18.TabIndex = 61;
             this.label18.Text = "Deposito";
             // 
-            // gbxseguncajero
+            // panelDerecho
             // 
-            this.gbxseguncajero.Controls.Add(this.btncierre);
-            this.gbxseguncajero.Controls.Add(this.txttotalventaseguncajero);
-            this.gbxseguncajero.Controls.Add(this.label17);
-            this.gbxseguncajero.Controls.Add(this.txttarjetacajero);
-            this.gbxseguncajero.Controls.Add(this.label6);
-            this.gbxseguncajero.Controls.Add(this.lbl1);
-            this.gbxseguncajero.Controls.Add(this.label15);
-            this.gbxseguncajero.Controls.Add(this.txt1);
-            this.gbxseguncajero.Controls.Add(this.lbl2);
-            this.gbxseguncajero.Controls.Add(this.label14);
-            this.gbxseguncajero.Controls.Add(this.txt2);
-            this.gbxseguncajero.Controls.Add(this.lbl5);
-            this.gbxseguncajero.Controls.Add(this.label13);
-            this.gbxseguncajero.Controls.Add(this.txt5);
-            this.gbxseguncajero.Controls.Add(this.lbl10);
-            this.gbxseguncajero.Controls.Add(this.label12);
-            this.gbxseguncajero.Controls.Add(this.txt10);
-            this.gbxseguncajero.Controls.Add(this.lbl20);
-            this.gbxseguncajero.Controls.Add(this.label11);
-            this.gbxseguncajero.Controls.Add(this.txt20);
-            this.gbxseguncajero.Controls.Add(this.lbl50);
-            this.gbxseguncajero.Controls.Add(this.label10);
-            this.gbxseguncajero.Controls.Add(this.txt50);
-            this.gbxseguncajero.Controls.Add(this.lbl100);
-            this.gbxseguncajero.Controls.Add(this.label9);
-            this.gbxseguncajero.Controls.Add(this.txt100);
-            this.gbxseguncajero.Controls.Add(this.lbl200);
-            this.gbxseguncajero.Controls.Add(this.label8);
-            this.gbxseguncajero.Controls.Add(this.txt200);
-            this.gbxseguncajero.Controls.Add(this.lbl500);
-            this.gbxseguncajero.Controls.Add(this.label16);
-            this.gbxseguncajero.Controls.Add(this.label7);
-            this.gbxseguncajero.Controls.Add(this.txt500);
-            this.gbxseguncajero.Controls.Add(this.txtefectivocajero);
-            this.gbxseguncajero.Controls.Add(this.label5);
-            this.gbxseguncajero.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.gbxseguncajero.Location = new System.Drawing.Point(549, 12);
-            this.gbxseguncajero.Name = "gbxseguncajero";
-            this.gbxseguncajero.Size = new System.Drawing.Size(799, 682);
-            this.gbxseguncajero.TabIndex = 1;
-            this.gbxseguncajero.TabStop = false;
-            this.gbxseguncajero.Text = "Segun Cajero:";
+            this.panelDerecho.Controls.Add(this.txttransferenciacajero);
+            this.panelDerecho.Controls.Add(this.label22);
+            this.panelDerecho.Controls.Add(this.btncierre);
+            this.panelDerecho.Controls.Add(this.txttotalventaseguncajero);
+            this.panelDerecho.Controls.Add(this.label17);
+            this.panelDerecho.Controls.Add(this.txttarjetacajero);
+            this.panelDerecho.Controls.Add(this.label6);
+            this.panelDerecho.Controls.Add(this.lbl1);
+            this.panelDerecho.Controls.Add(this.label15);
+            this.panelDerecho.Controls.Add(this.txt1);
+            this.panelDerecho.Controls.Add(this.lbl2);
+            this.panelDerecho.Controls.Add(this.label14);
+            this.panelDerecho.Controls.Add(this.txt2);
+            this.panelDerecho.Controls.Add(this.lbl5);
+            this.panelDerecho.Controls.Add(this.label13);
+            this.panelDerecho.Controls.Add(this.txt5);
+            this.panelDerecho.Controls.Add(this.lbl10);
+            this.panelDerecho.Controls.Add(this.label12);
+            this.panelDerecho.Controls.Add(this.txt10);
+            this.panelDerecho.Controls.Add(this.lbl20);
+            this.panelDerecho.Controls.Add(this.label11);
+            this.panelDerecho.Controls.Add(this.txt20);
+            this.panelDerecho.Controls.Add(this.lbl50);
+            this.panelDerecho.Controls.Add(this.label10);
+            this.panelDerecho.Controls.Add(this.txt50);
+            this.panelDerecho.Controls.Add(this.lbl100);
+            this.panelDerecho.Controls.Add(this.label9);
+            this.panelDerecho.Controls.Add(this.txt100);
+            this.panelDerecho.Controls.Add(this.lbl200);
+            this.panelDerecho.Controls.Add(this.label8);
+            this.panelDerecho.Controls.Add(this.txt200);
+            this.panelDerecho.Controls.Add(this.lbl500);
+            this.panelDerecho.Controls.Add(this.label16);
+            this.panelDerecho.Controls.Add(this.label7);
+            this.panelDerecho.Controls.Add(this.txt500);
+            this.panelDerecho.Controls.Add(this.txtefectivocajero);
+            this.panelDerecho.Controls.Add(this.label5);
+            this.panelDerecho.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelDerecho.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.panelDerecho.Location = new System.Drawing.Point(703, 0);
+            this.panelDerecho.Name = "panelDerecho";
+            this.panelDerecho.Size = new System.Drawing.Size(676, 730);
+            this.panelDerecho.TabIndex = 1;
+            this.panelDerecho.TabStop = false;
+            this.panelDerecho.Text = "Segun Cajero:";
+            // 
+            // txttransferenciacajero
+            // 
+            this.txttransferenciacajero.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txttransferenciacajero.Location = new System.Drawing.Point(247, 458);
+            this.txttransferenciacajero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txttransferenciacajero.Name = "txttransferenciacajero";
+            this.txttransferenciacajero.Size = new System.Drawing.Size(153, 38);
+            this.txttransferenciacajero.TabIndex = 122;
+            this.txttransferenciacajero.TextChanged += new System.EventHandler(this.txttransferenciacajero_TextChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(30, 463);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(200, 33);
+            this.label22.TabIndex = 121;
+            this.label22.Text = "Transferencia";
             // 
             // btncierre
             // 
@@ -287,7 +346,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // txttotalventaseguncajero
             // 
             this.txttotalventaseguncajero.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttotalventaseguncajero.Location = new System.Drawing.Point(150, 565);
+            this.txttotalventaseguncajero.Location = new System.Drawing.Point(150, 547);
             this.txttotalventaseguncajero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txttotalventaseguncajero.Name = "txttotalventaseguncajero";
             this.txttotalventaseguncajero.ReadOnly = true;
@@ -298,7 +357,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(36, 570);
+            this.label17.Location = new System.Drawing.Point(36, 552);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(93, 33);
             this.label17.TabIndex = 116;
@@ -307,7 +366,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // txttarjetacajero
             // 
             this.txttarjetacajero.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttarjetacajero.Location = new System.Drawing.Point(165, 411);
+            this.txttarjetacajero.Location = new System.Drawing.Point(165, 372);
             this.txttarjetacajero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txttarjetacajero.Name = "txttarjetacajero";
             this.txttarjetacajero.Size = new System.Drawing.Size(190, 38);
@@ -318,7 +377,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(30, 416);
+            this.label6.Location = new System.Drawing.Point(30, 377);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(119, 33);
             this.label6.TabIndex = 114;
@@ -605,31 +664,98 @@ namespace AppTRchicken.Vista.Prueba_Vistas
             this.label5.TabIndex = 54;
             this.label5.Text = "Efectivo:";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panelprincipal);
+            this.panel1.Controls.Add(this.panel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1379, 810);
+            this.panel1.TabIndex = 2;
+            // 
+            // panelprincipal
+            // 
+            this.panelprincipal.Controls.Add(this.panelIzquierdo);
+            this.panelprincipal.Controls.Add(this.panelDerecho);
+            this.panelprincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelprincipal.Location = new System.Drawing.Point(0, 80);
+            this.panelprincipal.Name = "panelprincipal";
+            this.panelprincipal.Size = new System.Drawing.Size(1379, 730);
+            this.panelprincipal.TabIndex = 3;
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.btnBuscar);
+            this.panel.Controls.Add(this.label20);
+            this.panel.Controls.Add(this.dtfechacierre);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(1379, 80);
+            this.panel.TabIndex = 2;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnBuscar.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.btnBuscar.Location = new System.Drawing.Point(547, 25);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(202, 41);
+            this.btnBuscar.TabIndex = 76;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Bookman Old Style", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(41, 27);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(96, 33);
+            this.label20.TabIndex = 75;
+            this.label20.Text = "Fecha";
+            // 
+            // dtfechacierre
+            // 
+            this.dtfechacierre.Font = new System.Drawing.Font("Bookman Old Style", 16.2F);
+            this.dtfechacierre.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtfechacierre.Location = new System.Drawing.Point(155, 27);
+            this.dtfechacierre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtfechacierre.Name = "dtfechacierre";
+            this.dtfechacierre.Size = new System.Drawing.Size(362, 39);
+            this.dtfechacierre.TabIndex = 74;
+            // 
             // CierreVistaApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1384, 706);
-            this.Controls.Add(this.gbxseguncajero);
-            this.Controls.Add(this.gbxsegunsistema);
+            this.ClientSize = new System.Drawing.Size(1379, 810);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "CierreVistaApp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CierreVista";
             this.Load += new System.EventHandler(this.CierreVistaApp_Load);
-            this.gbxsegunsistema.ResumeLayout(false);
-            this.gbxsegunsistema.PerformLayout();
-            this.gbxseguncajero.ResumeLayout(false);
-            this.gbxseguncajero.PerformLayout();
+            this.panelIzquierdo.ResumeLayout(false);
+            this.panelIzquierdo.PerformLayout();
+            this.panelDerecho.ResumeLayout(false);
+            this.panelDerecho.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panelprincipal.ResumeLayout(false);
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gbxsegunsistema;
+        private System.Windows.Forms.GroupBox panelIzquierdo;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtdeposito;
@@ -640,7 +766,7 @@ namespace AppTRchicken.Vista.Prueba_Vistas
         private System.Windows.Forms.TextBox txttarjetasistema;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txttotalventasegunsistema;
-        private System.Windows.Forms.GroupBox gbxseguncajero;
+        private System.Windows.Forms.GroupBox panelDerecho;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtefectivocajero;
         private System.Windows.Forms.Label lbl500;
@@ -678,5 +804,15 @@ namespace AppTRchicken.Vista.Prueba_Vistas
         private System.Windows.Forms.Button btncierre;
         private System.Windows.Forms.TextBox txttotalrealefectivo;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Panel panelprincipal;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.DateTimePicker dtfechacierre;
+        private System.Windows.Forms.TextBox txttransferenciasistema;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txttransferenciacajero;
+        private System.Windows.Forms.Label label22;
     }
 }

@@ -22,6 +22,7 @@ namespace AppTRchicken.Modelo
         private string motivo;
         private decimal totalefectivo;
         private decimal totaltarjeta;
+        private decimal totaltransferencia;
         private decimal ventatotal;
         private string fecha;
         private int numerotipo;
@@ -91,6 +92,20 @@ namespace AppTRchicken.Modelo
             set
             {
                 totaltarjeta = value;
+            }
+
+        }
+
+        public decimal Totaltransferencia
+        {
+            get
+            {
+                return totaltransferencia;
+            }
+
+            set
+            {
+                totaltransferencia = value;
             }
 
         }

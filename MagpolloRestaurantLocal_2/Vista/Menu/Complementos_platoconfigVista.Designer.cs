@@ -33,7 +33,6 @@ namespace AppTRchicken.Vista
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btn3 = new System.Windows.Forms.Button();
-            this.dgcomplementosplato = new System.Windows.Forms.DataGridView();
             this.btn2 = new System.Windows.Forms.Button();
             this.btn1 = new System.Windows.Forms.Button();
             this.txtnombrecomplemento = new System.Windows.Forms.TextBox();
@@ -42,9 +41,12 @@ namespace AppTRchicken.Vista
             this.label1 = new System.Windows.Forms.Label();
             this.cbtipocomplemento = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.dgcomplementosplato = new System.Windows.Forms.DataGridView();
             this.idcomplementoplaato = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombrecomplemento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipocomplementoplato = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgcomplementosplato)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +54,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn3.Location = new System.Drawing.Point(717, 251);
+            this.btn3.Location = new System.Drawing.Point(749, 225);
             this.btn3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(277, 89);
@@ -60,6 +62,108 @@ namespace AppTRchicken.Vista
             this.btn3.Text = "ELIMINAR";
             this.btn3.UseVisualStyleBackColor = false;
             this.btn3.Click += new System.EventHandler(this.btn3_Click);
+            // 
+            // btn2
+            // 
+            this.btn2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.btn2.Location = new System.Drawing.Point(420, 225);
+            this.btn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn2.Name = "btn2";
+            this.btn2.Size = new System.Drawing.Size(277, 89);
+            this.btn2.TabIndex = 48;
+            this.btn2.Text = "ACTUALIZAR";
+            this.btn2.UseVisualStyleBackColor = false;
+            this.btn2.Click += new System.EventHandler(this.btn2_Click);
+            // 
+            // btn1
+            // 
+            this.btn1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.btn1.Location = new System.Drawing.Point(97, 225);
+            this.btn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn1.Name = "btn1";
+            this.btn1.Size = new System.Drawing.Size(277, 87);
+            this.btn1.TabIndex = 47;
+            this.btn1.Text = "NUEVO";
+            this.btn1.UseVisualStyleBackColor = false;
+            this.btn1.Click += new System.EventHandler(this.btn1_Click);
+            // 
+            // txtnombrecomplemento
+            // 
+            this.txtnombrecomplemento.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.txtnombrecomplemento.Location = new System.Drawing.Point(396, 99);
+            this.txtnombrecomplemento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtnombrecomplemento.Name = "txtnombrecomplemento";
+            this.txtnombrecomplemento.Size = new System.Drawing.Size(441, 34);
+            this.txtnombrecomplemento.TabIndex = 46;
+            // 
+            // txtidcomplementoplato
+            // 
+            this.txtidcomplementoplato.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.txtidcomplementoplato.Location = new System.Drawing.Point(396, 40);
+            this.txtidcomplementoplato.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtidcomplementoplato.Name = "txtidcomplementoplato";
+            this.txtidcomplementoplato.ReadOnly = true;
+            this.txtidcomplementoplato.Size = new System.Drawing.Size(441, 34);
+            this.txtidcomplementoplato.TabIndex = 45;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(52, 106);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(319, 27);
+            this.label2.TabIndex = 44;
+            this.label2.Text = "Nombre del Complemento";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(52, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(298, 27);
+            this.label1.TabIndex = 43;
+            this.label1.Text = "Codigo de Complemento";
+            // 
+            // cbtipocomplemento
+            // 
+            this.cbtipocomplemento.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.cbtipocomplemento.FormattingEnabled = true;
+            this.cbtipocomplemento.Location = new System.Drawing.Point(396, 161);
+            this.cbtipocomplemento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbtipocomplemento.Name = "cbtipocomplemento";
+            this.cbtipocomplemento.Size = new System.Drawing.Size(441, 34);
+            this.cbtipocomplemento.TabIndex = 57;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(52, 168);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(232, 27);
+            this.label5.TabIndex = 56;
+            this.label5.Text = "Tipo Complemento";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.cbtipocomplemento);
+            this.panel2.Controls.Add(this.txtidcomplementoplato);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.txtnombrecomplemento);
+            this.panel2.Controls.Add(this.btn3);
+            this.panel2.Controls.Add(this.btn1);
+            this.panel2.Controls.Add(this.btn2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1133, 340);
+            this.panel2.TabIndex = 59;
             // 
             // dgcomplementosplato
             // 
@@ -86,8 +190,8 @@ namespace AppTRchicken.Vista
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgcomplementosplato.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgcomplementosplato.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgcomplementosplato.Location = new System.Drawing.Point(0, 390);
+            this.dgcomplementosplato.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgcomplementosplato.Location = new System.Drawing.Point(0, 340);
             this.dgcomplementosplato.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgcomplementosplato.Name = "dgcomplementosplato";
             this.dgcomplementosplato.ReadOnly = true;
@@ -103,94 +207,9 @@ namespace AppTRchicken.Vista
             this.dgcomplementosplato.RowHeadersWidth = 51;
             this.dgcomplementosplato.RowTemplate.Height = 24;
             this.dgcomplementosplato.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgcomplementosplato.Size = new System.Drawing.Size(1133, 247);
-            this.dgcomplementosplato.TabIndex = 49;
-            this.dgcomplementosplato.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgcomplementosplato_CellClick);
-            // 
-            // btn2
-            // 
-            this.btn2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn2.Location = new System.Drawing.Point(388, 251);
-            this.btn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn2.Name = "btn2";
-            this.btn2.Size = new System.Drawing.Size(277, 89);
-            this.btn2.TabIndex = 48;
-            this.btn2.Text = "ACTUALIZAR";
-            this.btn2.UseVisualStyleBackColor = false;
-            this.btn2.Click += new System.EventHandler(this.btn2_Click);
-            // 
-            // btn1
-            // 
-            this.btn1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn1.Location = new System.Drawing.Point(65, 251);
-            this.btn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn1.Name = "btn1";
-            this.btn1.Size = new System.Drawing.Size(277, 87);
-            this.btn1.TabIndex = 47;
-            this.btn1.Text = "NUEVO";
-            this.btn1.UseVisualStyleBackColor = false;
-            this.btn1.Click += new System.EventHandler(this.btn1_Click);
-            // 
-            // txtnombrecomplemento
-            // 
-            this.txtnombrecomplemento.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtnombrecomplemento.Location = new System.Drawing.Point(378, 74);
-            this.txtnombrecomplemento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtnombrecomplemento.Name = "txtnombrecomplemento";
-            this.txtnombrecomplemento.Size = new System.Drawing.Size(441, 34);
-            this.txtnombrecomplemento.TabIndex = 46;
-            // 
-            // txtidcomplementoplato
-            // 
-            this.txtidcomplementoplato.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtidcomplementoplato.Location = new System.Drawing.Point(378, 15);
-            this.txtidcomplementoplato.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtidcomplementoplato.Name = "txtidcomplementoplato";
-            this.txtidcomplementoplato.ReadOnly = true;
-            this.txtidcomplementoplato.Size = new System.Drawing.Size(441, 34);
-            this.txtidcomplementoplato.TabIndex = 45;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(34, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(319, 27);
-            this.label2.TabIndex = 44;
-            this.label2.Text = "Nombre del Complemento";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(34, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(298, 27);
-            this.label1.TabIndex = 43;
-            this.label1.Text = "Codigo de Complemento";
-            // 
-            // cbtipocomplemento
-            // 
-            this.cbtipocomplemento.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.cbtipocomplemento.FormattingEnabled = true;
-            this.cbtipocomplemento.Location = new System.Drawing.Point(378, 136);
-            this.cbtipocomplemento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbtipocomplemento.Name = "cbtipocomplemento";
-            this.cbtipocomplemento.Size = new System.Drawing.Size(441, 34);
-            this.cbtipocomplemento.TabIndex = 57;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(34, 143);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(232, 27);
-            this.label5.TabIndex = 56;
-            this.label5.Text = "Tipo Complemento";
+            this.dgcomplementosplato.Size = new System.Drawing.Size(1133, 297);
+            this.dgcomplementosplato.TabIndex = 60;
+            this.dgcomplementosplato.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgcomplementosplato_CellClick_1);
             // 
             // idcomplementoplaato
             // 
@@ -212,41 +231,33 @@ namespace AppTRchicken.Vista
             // 
             // tipocomplementoplato
             // 
+            this.tipocomplementoplato.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.tipocomplementoplato.HeaderText = "Tipo Complemento Plato";
             this.tipocomplementoplato.MinimumWidth = 6;
             this.tipocomplementoplato.Name = "tipocomplementoplato";
             this.tipocomplementoplato.ReadOnly = true;
-            this.tipocomplementoplato.Width = 125;
             // 
             // Complementos_platoconfigVista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1133, 637);
-            this.Controls.Add(this.cbtipocomplemento);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.btn3);
             this.Controls.Add(this.dgcomplementosplato);
-            this.Controls.Add(this.btn2);
-            this.Controls.Add(this.btn1);
-            this.Controls.Add(this.txtnombrecomplemento);
-            this.Controls.Add(this.txtidcomplementoplato);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Complementos_platoconfigVista";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Complementos_platoVista_Load);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgcomplementosplato)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button btn3;
-        private System.Windows.Forms.DataGridView dgcomplementosplato;
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.TextBox txtnombrecomplemento;
@@ -255,6 +266,8 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbtipocomplemento;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.DataGridView dgcomplementosplato;
         private System.Windows.Forms.DataGridViewTextBoxColumn idcomplementoplaato;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombrecomplemento;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipocomplementoplato;

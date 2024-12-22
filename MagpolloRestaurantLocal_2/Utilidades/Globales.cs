@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,12 @@ namespace AppTRchicken.Utilidades
 {
     public class Globales
     {
+        public static bool IsDynamicLogin = false;
         public static string nombresucursallbl = "";
         public static string basedatos = "";
+        public static string Nombrebasedatos = "";
+        public static string nombreclienteorden = "";
+        public static string basedatoscentral = "Corporacion_alimentaos_RRHH";
         /*michoacanasprueba*/
         /*MagpolloLocal_2*/
 
@@ -24,15 +29,15 @@ namespace AppTRchicken.Utilidades
         public static string roleusuario;
         public static int idroleusuario;
 
-       
+
 
 
 
         //***************************************Variables para deposito y retiros*************************************************
 
-        public static long deposito;
-        public static long retiro;
-        public static long disponible;
+        public static decimal deposito;
+        public static decimal retiro;
+        public static decimal disponible;
 
 
 
@@ -69,7 +74,7 @@ namespace AppTRchicken.Utilidades
 
         public static decimal Dinerorecibido = 0;
         public static decimal vuelto = 0;
-        public static int idsucursal = 1;
+        public static int idsucursal;
 
         public static int idusuario;
         public static string producto = "";
@@ -145,7 +150,7 @@ namespace AppTRchicken.Utilidades
                     {
                         boton.Enabled = false;
                         boton.Visible = false;
-                            
+
                     }
                 }
             }
@@ -173,6 +178,21 @@ namespace AppTRchicken.Utilidades
         }
 
 
+        //funcion para convertir todo a decimal pero en db tiene que estar decimal(18,2)
+
+        // Función para convertir un texto a decimal
+        public static decimal ConvertToDecimal(string text, decimal defaultValue = 0)
+        {
+            if (decimal.TryParse(text, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal result))
+            {
+                return result;
+            }
+            else
+            {
+                // Puedes registrar un error o manejar el fallo de otra manera
+                return defaultValue;
+            }
+        }
 
     }
 

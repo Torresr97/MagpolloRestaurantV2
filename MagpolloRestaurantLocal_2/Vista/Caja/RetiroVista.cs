@@ -28,13 +28,14 @@ namespace AppTRchicken.Vista
 
         private void btnretirar_Click(object sender, EventArgs e)
         {
-           
+            btnretirar.Enabled = false;
 
-                         caja caja = new caja();
+            caja caja = new caja();
             caja.Tipo = "Retiro";
             caja.Motivo = txtmotivoretiro.Text;
-            caja.Totalefectivo = Convert.ToDecimal(txtmontoretiro.Text);
+            caja.Totalefectivo = Globales.ConvertToDecimal(txtmontoretiro.Text);
             caja.Totaltarjeta = 0;
+            caja.Totaltransferencia = 0;
             caja.Ventatotal = 0;
             caja.Fecha = Globales.fecha;
             caja.Numerotipo = Globales.numerocierre;
@@ -48,7 +49,7 @@ namespace AppTRchicken.Vista
                 if (caja.Totalefectivo < Globales.disponible) { 
                     ControladorCaja.Instance.save(caja);
                     MessageBox.Show("Retiro Realizado");
-                    Globales.retiro += (long)caja.Totalefectivo;
+                    Globales.retiro += caja.Totalefectivo;
                    
 
                     sucursales sucursal = new sucursales();
@@ -91,6 +92,11 @@ namespace AppTRchicken.Vista
             {
 
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Rehabilitar el botón después de que el proceso termine
+                btnretirar.Enabled = true;
             }
 
 

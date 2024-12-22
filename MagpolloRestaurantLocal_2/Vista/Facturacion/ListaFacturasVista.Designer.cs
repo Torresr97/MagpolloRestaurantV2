@@ -32,14 +32,16 @@ namespace AppTRchicken.Vista
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListaFacturasVista));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dglistafacturas = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txttotaltransferencia = new System.Windows.Forms.TextBox();
             this.txttotalefectivo = new System.Windows.Forms.TextBox();
-            this.txttotaltarjeta = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.txttotalventas = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txttotaltarjeta = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dglistafacturas = new System.Windows.Forms.DataGridView();
             this.codigofactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.facturacai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeroorden = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,45 +51,106 @@ namespace AppTRchicken.Vista
             this.dinerorecibido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dineroentregado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ACC = new System.Windows.Forms.DataGridViewImageColumn();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dglistafacturas)).BeginInit();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // panel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.dglistafacturas, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txttotalefectivo, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txttotaltarjeta, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txttotalventas, 1, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1358, 808);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.txttotaltransferencia);
+            this.panel1.Controls.Add(this.txttotalefectivo);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txttotalventas);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txttotaltarjeta);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1358, 337);
+            this.panel1.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
+            this.label5.Location = new System.Drawing.Point(21, 167);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(330, 41);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Total Transferencia";
+            // 
+            // txttotaltransferencia
+            // 
+            this.txttotaltransferencia.Font = new System.Drawing.Font("Bookman Old Style", 18F);
+            this.txttotaltransferencia.Location = new System.Drawing.Point(394, 167);
+            this.txttotaltransferencia.Name = "txttotaltransferencia";
+            this.txttotaltransferencia.ReadOnly = true;
+            this.txttotaltransferencia.Size = new System.Drawing.Size(311, 43);
+            this.txttotaltransferencia.TabIndex = 58;
+            // 
+            // txttotalefectivo
+            // 
+            this.txttotalefectivo.Font = new System.Drawing.Font("Bookman Old Style", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txttotalefectivo.Location = new System.Drawing.Point(394, 33);
+            this.txttotalefectivo.Name = "txttotalefectivo";
+            this.txttotalefectivo.ReadOnly = true;
+            this.txttotalefectivo.Size = new System.Drawing.Size(311, 43);
+            this.txttotalefectivo.TabIndex = 54;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
+            this.label2.Location = new System.Drawing.Point(21, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(236, 41);
+            this.label2.TabIndex = 51;
+            this.label2.Text = "Total Efectivo";
+            // 
+            // txttotalventas
+            // 
+            this.txttotalventas.Font = new System.Drawing.Font("Bookman Old Style", 18F);
+            this.txttotalventas.Location = new System.Drawing.Point(394, 235);
+            this.txttotalventas.Name = "txttotalventas";
+            this.txttotalventas.ReadOnly = true;
+            this.txttotalventas.Size = new System.Drawing.Size(311, 43);
+            this.txttotalventas.TabIndex = 56;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
+            this.label1.Location = new System.Drawing.Point(21, 95);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(222, 41);
+            this.label1.TabIndex = 52;
+            this.label1.Text = "Total Tarjeta";
+            // 
+            // txttotaltarjeta
+            // 
+            this.txttotaltarjeta.Font = new System.Drawing.Font("Bookman Old Style", 18F);
+            this.txttotaltarjeta.Location = new System.Drawing.Point(394, 98);
+            this.txttotaltarjeta.Name = "txttotaltarjeta";
+            this.txttotaltarjeta.ReadOnly = true;
+            this.txttotaltarjeta.Size = new System.Drawing.Size(311, 43);
+            this.txttotaltarjeta.TabIndex = 55;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
+            this.label3.Location = new System.Drawing.Point(21, 232);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(268, 41);
+            this.label3.TabIndex = 53;
+            this.label3.Text = "Total de Ventas";
             // 
             // dglistafacturas
             // 
             this.dglistafacturas.AllowUserToAddRows = false;
             this.dglistafacturas.AllowUserToDeleteRows = false;
-            this.dglistafacturas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dglistafacturas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dglistafacturas.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -109,7 +172,6 @@ namespace AppTRchicken.Vista
             this.dinerorecibido,
             this.dineroentregado,
             this.ACC});
-            this.tableLayoutPanel1.SetColumnSpan(this.dglistafacturas, 4);
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
@@ -118,78 +180,18 @@ namespace AppTRchicken.Vista
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dglistafacturas.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dglistafacturas.Location = new System.Drawing.Point(3, 405);
+            this.dglistafacturas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dglistafacturas.Location = new System.Drawing.Point(0, 337);
             this.dglistafacturas.Name = "dglistafacturas";
             this.dglistafacturas.ReadOnly = true;
             this.dglistafacturas.RowHeadersVisible = false;
             this.dglistafacturas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.tableLayoutPanel1.SetRowSpan(this.dglistafacturas, 3);
             this.dglistafacturas.RowTemplate.Height = 24;
             this.dglistafacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dglistafacturas.Size = new System.Drawing.Size(1352, 400);
-            this.dglistafacturas.TabIndex = 5;
-            this.dglistafacturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dglistafacturas_CellContentClick);
-            this.dglistafacturas.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dglistafacturas_CellMouseClick);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
-            this.label2.Location = new System.Drawing.Point(3, 93);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(333, 41);
-            this.label2.TabIndex = 51;
-            this.label2.Text = "Total Efectivo";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
-            this.label1.Location = new System.Drawing.Point(3, 227);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(333, 41);
-            this.label1.TabIndex = 52;
-            this.label1.Text = "Total Tarjeta";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Font = new System.Drawing.Font("Bookman Old Style", 19.8F);
-            this.label3.Location = new System.Drawing.Point(3, 361);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(333, 41);
-            this.label3.TabIndex = 53;
-            this.label3.Text = "Total de Ventas";
-            // 
-            // txttotalefectivo
-            // 
-            this.txttotalefectivo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txttotalefectivo.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttotalefectivo.Location = new System.Drawing.Point(342, 85);
-            this.txttotalefectivo.Name = "txttotalefectivo";
-            this.txttotalefectivo.Size = new System.Drawing.Size(333, 46);
-            this.txttotalefectivo.TabIndex = 54;
-            // 
-            // txttotaltarjeta
-            // 
-            this.txttotaltarjeta.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txttotaltarjeta.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttotaltarjeta.Location = new System.Drawing.Point(342, 219);
-            this.txttotaltarjeta.Name = "txttotaltarjeta";
-            this.txttotaltarjeta.Size = new System.Drawing.Size(333, 46);
-            this.txttotaltarjeta.TabIndex = 55;
-            // 
-            // txttotalventas
-            // 
-            this.txttotalventas.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txttotalventas.Font = new System.Drawing.Font("Bookman Old Style", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttotalventas.Location = new System.Drawing.Point(342, 353);
-            this.txttotalventas.Name = "txttotalventas";
-            this.txttotalventas.Size = new System.Drawing.Size(333, 46);
-            this.txttotalventas.TabIndex = 56;
+            this.dglistafacturas.Size = new System.Drawing.Size(1358, 471);
+            this.dglistafacturas.TabIndex = 6;
+            this.dglistafacturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dglistafacturas_CellContentClick_1);
+            this.dglistafacturas.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dglistafacturas_CellMouseClick_1);
             // 
             // codigofactura
             // 
@@ -270,13 +272,14 @@ namespace AppTRchicken.Vista
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1358, 808);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.dglistafacturas);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ListaFacturasVista";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ListaFacturasVista_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dglistafacturas)).EndInit();
             this.ResumeLayout(false);
 
@@ -284,14 +287,15 @@ namespace AppTRchicken.Vista
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        public System.Windows.Forms.DataGridView dglistafacturas;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txttotaltarjeta;
-        private System.Windows.Forms.TextBox txttotalventas;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txttotaltransferencia;
         public System.Windows.Forms.TextBox txttotalefectivo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txttotalventas;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txttotaltarjeta;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.DataGridView dglistafacturas;
         private System.Windows.Forms.DataGridViewTextBoxColumn codigofactura;
         private System.Windows.Forms.DataGridViewTextBoxColumn facturacai;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeroorden;
@@ -301,5 +305,6 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.DataGridViewTextBoxColumn dinerorecibido;
         private System.Windows.Forms.DataGridViewTextBoxColumn dineroentregado;
         private System.Windows.Forms.DataGridViewImageColumn ACC;
+        private System.Windows.Forms.Label label5;
     }
 }

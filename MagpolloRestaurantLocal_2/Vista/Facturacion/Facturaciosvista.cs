@@ -11,16 +11,20 @@ using AppTRchicken.Modelo;
 using AppTRchicken.Controlador;
 
 using AppTRchicken.Utilidades;
+using System.Globalization;
 
 namespace AppTRchicken.Vista
 {
     public partial class Facturaciosvista : Form
     {
+        private int valorAnteriorunidadesdescuento;
         public Facturaciosvista()
         {
             InitializeComponent();
             // Obtén el índice de la última fila actual.
-        
+            // Establece la columna 1 (índice 0) como de solo lectura
+            dgfacturacion.Columns[1].ReadOnly = true;
+
         }
 
 
@@ -45,6 +49,8 @@ namespace AppTRchicken.Vista
 
         private void Facturaciosvista_Load(object sender, EventArgs e)
         {
+            dateTimePicker1.Enabled = false;
+
             lblusuario.Text = (lblusuario.Text + " " + Globales.nombreusuario);
             Cargarcmbcliente();
 
@@ -171,7 +177,7 @@ namespace AppTRchicken.Vista
 
             foreach (menu menu in men)
             {
-                list.Add(menu.Nombrecombo + " \n L" + menu.Precio);
+                list.Add(menu.Nombrecombo + " \n L" + menu.Precio.ToString("N2", CultureInfo.InvariantCulture));
 
             }
             list.Add("REGRESAR");
@@ -275,15 +281,10 @@ namespace AppTRchicken.Vista
             }
             else
             {
-
-
                 string[] Division = Globales.btn.Split(delimitador);
-                /****separo el nombre del combo y el precio para agregarlo al datagrid*****/
-
-                /****le quito \n para dejar solo el nombre del combo y poder obtener el numero de complementos correspondientes*****/
                 char deli = '\n';
-
                 string[] nombrecombo = Division[0].Split(deli);
+
                 /****le quito \n para dejar solo el nombre del combo y poder obtener el numero de complementos correspondientes*****/
                 Facturaciosvista Facturaciosvista = (Facturaciosvista)Application.OpenForms["Facturaciosvista"];
 
@@ -294,50 +295,34 @@ namespace AppTRchicken.Vista
 
                 if (ncomplemento == 0)
                 {
-
-                    /**********************************Aqui no se extiende los complementos**************************************/
+                    // No se extienden complementos
                     bool existe = false;
                     for (int i = 0; i < Facturaciosvista.dgfacturacion.RowCount; i++)
                     {
-                        //MessageBox.Show((Convert.ToString(Facturaciosvista.dgfacturacion.Rows[i].Cells["Producto"].Value)));
-                        //MessageBox.Show(Convert.ToString(Division[0]));
+                        // Normalizamos la comparación eliminando espacios y saltos de línea
+                        string productoExistente = Convert.ToString(Facturaciosvista.dgfacturacion.Rows[i].Cells["Producto"].Value).Trim();
+                        string productoNuevo = Division[0].Trim();
 
-                        if ((Convert.ToString(Facturaciosvista.dgfacturacion.Rows[i].Cells["Producto"].Value) == Convert.ToString(Division[0])))
+                        if (productoExistente == productoNuevo)
                         {
-                            int cantidad;
-                            cantidad = 1 + Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[i].Cells["Cantidad"].Value);
-
+                            int cantidad = 1 + Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[i].Cells["Cantidad"].Value);
                             Facturaciosvista.dgfacturacion.Rows[i].Cells["Cantidad"].Value = cantidad;
-                            Facturaciosvista.dgfacturacion.Rows[i].Cells["Total"].Value = (cantidad * Convert.ToInt32(Division[1]));
+                            Facturaciosvista.dgfacturacion.Rows[i].Cells["Total"].Value = (cantidad * Globales.ConvertToDecimal(Division[1]));
                             existe = true;
                             Sumartotales();
+                            break; // Si ya lo encontramos, no necesitamos seguir buscando
                         }
                     }
-                    if (existe == false)
+
+                    // Si el producto no existe, lo agregamos como un nuevo registro
+                    if (!existe)
                     {
-
-
-
-
-                        /**********************************Aqui no se extiende los complementos**************************************/
-                        Facturaciosvista.dgfacturacion.Rows.Add(1, Division[0] + "" + Globales.complemento,"" ,0, Division[1]);
+                        Facturaciosvista.dgfacturacion.Rows.Add(1, Division[0] + " " + Globales.complemento, "", "", 0, Globales.ConvertToDecimal(Division[1])) ;
                         Sumartotales();
-
-
-
-
                     }
-
-
-
-
-
-
                 }
                 else
                 {
-
-
                     complementoVista complementoVista = null;
                     complementoVista = complementoVista.Abrir1vez();
                     complementoVista.nombrecombo = nombrecombo[0];
@@ -525,7 +510,13 @@ namespace AppTRchicken.Vista
 
         private void button2_Click_2(object sender, EventArgs e)
         {
-
+            // Verificar si el DataGridView tiene registros
+            if (dgfacturacion.Rows.Count == 0 || (dgfacturacion.Rows.Count == 1 && dgfacturacion.Rows[0].IsNewRow))
+            {
+                // Mostrar mensaje indicando que no hay registros para facturar
+                MessageBox.Show("No se puede facturar porque no hay registros en la tabla.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Evitar continuar con el proceso de facturación
+            }
 
             char delimitador = 'L';
             string[] ventat = richTextBox1.Text.Split(delimitador);
@@ -533,11 +524,11 @@ namespace AppTRchicken.Vista
             string[] exonerado = txtexonerado.Text.Split(delimitador);
             string[] gravado = txtsubtotal.Text.Split(delimitador);
 
-            Globales.ventatotal = Convert.ToDecimal(ventat[1]);
-            Globales.isv = Convert.ToDecimal(txtisv.Text);
-            Globales.exento = Convert.ToDecimal(exento[1]);
-            Globales.exonerado = Convert.ToDecimal(exonerado[1]);
-            Globales.gravado = Convert.ToDecimal(gravado[0]);
+            Globales.ventatotal = Globales.ConvertToDecimal(ventat[1]);
+            Globales.isv = Globales.ConvertToDecimal(txtisv.Text);
+            Globales.exento = Globales.ConvertToDecimal(exento[1]);
+            Globales.exonerado = Globales.ConvertToDecimal(exonerado[1]);
+            Globales.gravado = Globales.ConvertToDecimal(gravado[0]);
 
             Cliente Cliente = new Cliente();
             Cliente = ControladorCliente.Instance.findbynombre(cmbcliente.Text);
@@ -570,90 +561,132 @@ namespace AppTRchicken.Vista
             {
 
 
+                int rowIndex = e.RowIndex; // Índice de la fila actual
+                DataGridViewRow currentRow = dgfacturacion.Rows[rowIndex];
 
-                for (int i = 0; i < dgfacturacion.RowCount; i++)
+
+                // Obtener el descuento previo si existe
+                decimal totalActual = Globales.ConvertToDecimal(currentRow.Cells["Total"].Value?.ToString() ?? "0");
+                decimal totalOriginal = Globales.ConvertToDecimal(currentRow.Cells["DiscountAmount"].Value?.ToString() ?? "0");
+
+                // Validar si hay un descuento previo que ajustar
+                if (totalOriginal > 0 && totalActual < totalOriginal)
                 {
-                    if (dgfacturacion.Rows[i].Cells["Producto"].Value != null)
-                    {
+                    // Restar el descuento previo de Globales.descuento
+                    Globales.descuento -= (totalOriginal - totalActual);
+                }
+
+
+                dgfacturacion.Rows[rowIndex].Cells["Descuento"].Value = 0;
+                dgfacturacion.Rows[rowIndex].Cells["UnidadesConDescuento"].Value = 0;
+                dgfacturacion.Rows[rowIndex].Cells["DiscountAmount"].Value = 0;
+
+                if (dgfacturacion.Rows[rowIndex].Cells["Producto"].Value != null)
+                {
                         char delimitador = '\n';
-                        string nombre = dgfacturacion.Rows[i].Cells["Producto"].Value.ToString();
+                        string nombre = dgfacturacion.Rows[rowIndex].Cells["Producto"].Value.ToString();
                         string[] nombrecombo = nombre.Split(delimitador);
                         menu menu = new menu();
                         menu = ControladorMenu.Instance.findidpornombre(nombrecombo[0]);
 
 
-                        int cantidad = Convert.ToInt32(dgfacturacion.Rows[i].Cells["Cantidad"].Value);
+                        int cantidad = Convert.ToInt32(dgfacturacion.Rows[rowIndex].Cells["Cantidad"].Value);
 
 
-                        (dgfacturacion.Rows[i].Cells["Total"].Value) = (cantidad * menu.Precio);
+                        (dgfacturacion.Rows[rowIndex].Cells["Total"].Value) = (cantidad * menu.Precio).ToString("N2", CultureInfo.InvariantCulture);
                         Sumartotales();
-                    }
-                }
+                 }
+                
 
 
             }
 
-            if (e.ColumnIndex == 3)  // Aquí es para sacar el descuento
+            if (e.ColumnIndex == dgfacturacion.Columns["Descuento"].Index || e.ColumnIndex == dgfacturacion.Columns["UnidadesConDescuento"].Index)
             {
                 // Obtenemos la fila actual
                 DataGridViewRow currentRow = dgfacturacion.Rows[e.RowIndex];
 
-                // Obtenemos el valor del descuento y del total actual
-                if (decimal.TryParse(currentRow.Cells["Descuento"].Value?.ToString(), out decimal descuento) &&
-                    decimal.TryParse(currentRow.Cells["Total"].Value?.ToString(), out decimal total))
+                // Obtener valores de las celdas
+                decimal descuento = Globales.ConvertToDecimal(currentRow.Cells["Descuento"].Value?.ToString() ?? "0");
+                int unidadesConDescuento = Convert.ToInt32(currentRow.Cells["UnidadesConDescuento"].Value ?? "0");
+                decimal totalActual = Globales.ConvertToDecimal(currentRow.Cells["Total"].Value?.ToString() ?? "0");
+                int cantidadTotal = Convert.ToInt32(currentRow.Cells["Cantidad"].Value ?? "0");
+
+                // Validar si las unidades con descuento exceden la cantidad total
+                if (unidadesConDescuento > cantidadTotal)
+                {
+                    MessageBox.Show("La cantidad de unidades con descuento no puede ser mayor que la cantidad total del producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Restaurar el valor previo desde el Tag
+                    currentRow.Cells["UnidadesConDescuento"].Value = valorAnteriorunidadesdescuento;
+                    return;
+                }
+
+                // Obtener el total original (sin descuento) desde DiscountAmount
+                decimal totalOriginal = Globales.ConvertToDecimal(currentRow.Cells["DiscountAmount"].Value?.ToString() ?? "0");
+
+                // Si no hay total original en DiscountAmount, inicializarlo con el total actual
+
+                if (totalOriginal == 0)
+                {
+                    totalOriginal = totalActual;
+                    currentRow.Cells["DiscountAmount"].Value = totalOriginal.ToString("N2", CultureInfo.InvariantCulture);
+                }
+
+
+                // Obtener precio unitario basado en el total original
+                decimal precioUnitario = totalOriginal / cantidadTotal;
+
+                // Validar si el escenario corresponde al cambio del porcentaje de descuento
+                if (e.ColumnIndex == dgfacturacion.Columns["Descuento"].Index)
                 {
                     if (descuento == 0)
                     {
-                        // Si el descuento es 0, revertimos al total original
-                        if (decimal.TryParse(currentRow.Cells["DiscountAmount"].Value?.ToString(), out decimal originalTotal))
-                        {
-                            // Restauramos el total al valor original
-                            currentRow.Cells["Total"].Value = originalTotal;
+                        // Si el descuento es 0, restaurar el total original y ajustar el descuento global
+                        Globales.descuento -= (totalOriginal - totalActual); // Eliminar el descuento previo
+                        currentRow.Cells["Total"].Value = totalOriginal.ToString("N2", CultureInfo.InvariantCulture);
+                        currentRow.Cells["UnidadesConDescuento"].Value = 0;
 
-                            // Ajustamos el descuento global
-                            Globales.descuento -= (originalTotal - total);
-                            currentRow.Cells["DiscountAmount"].Value = 0; // Resetear el monto del descuento almacenado
-
-                            // Actualizamos los totales generales
-                            Sumartotales();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontró el total original para revertir el descuento.");
-                        }
+                        // Actualizar DiscountAmount para reflejar el total original
+                        currentRow.Cells["DiscountAmount"].Value = totalOriginal.ToString("N2", CultureInfo.InvariantCulture);
                     }
                     else
                     {
-                        // Si el descuento es diferente de 0, aplicamos el descuento normalmente
+                        // Ajustar el descuento global eliminando el descuento anterior
+                        Globales.descuento -= (totalOriginal - totalActual);
 
-                        // Calculamos el importe del descuento
-                        decimal imp = (descuento / 100) * total;
+                        // Calcular el nuevo total con el descuento aplicado
+                        decimal totalConDescuento = (unidadesConDescuento * precioUnitario * (1 - (descuento / 100))) +
+                                                    ((cantidadTotal - unidadesConDescuento) * precioUnitario);
 
-                        // Ajustamos el descuento global
-                        Globales.descuento += imp;
+                        // Ajustar el descuento global con el nuevo descuento
+                        Globales.descuento += (totalOriginal - totalConDescuento);
 
-                       // MessageBox.Show(Globales.descuento.ToString());
-
-                        // Guardamos el total original en la columna DiscountAmount si no está ya guardado
-                        if (currentRow.Cells["DiscountAmount"].Value == null ||
-                            currentRow.Cells["DiscountAmount"].Value == DBNull.Value ||
-                            (decimal.TryParse(currentRow.Cells["DiscountAmount"].Value?.ToString(), out decimal originalTotal) && originalTotal <= 0))
-                        {
-                            currentRow.Cells["DiscountAmount"].Value = total;
-                        }
-
-                        // Actualizamos el total restando el descuento
-                        currentRow.Cells["Total"].Value = total - imp;
-
-                        // Actualizamos los totales generales
-                        Sumartotales();
+                        // Actualizar el total y DiscountAmount
+                        currentRow.Cells["Total"].Value = totalConDescuento.ToString("N2", CultureInfo.InvariantCulture);
+                        currentRow.Cells["DiscountAmount"].Value = totalOriginal.ToString("N2", CultureInfo.InvariantCulture);
                     }
+
                 }
-                else
+                else if (e.ColumnIndex == dgfacturacion.Columns["UnidadesConDescuento"].Index)
                 {
-                    // Manejo de errores si los valores de descuento o total no son válidos
-                    MessageBox.Show("Por favor, introduce un valor válido para el descuento y el total.");
+
+                    // Ajustar el descuento global eliminando el descuento anterior
+                    Globales.descuento -= (totalOriginal - totalActual);
+
+                    // Calcular el nuevo total con el descuento aplicado
+                    decimal totalConDescuento = (unidadesConDescuento * precioUnitario * (1 - (descuento / 100))) +
+                                                ((cantidadTotal - unidadesConDescuento) * precioUnitario);
+
+                    // Ajustar el descuento global con el nuevo descuento
+                    Globales.descuento += (totalOriginal - totalConDescuento);
+
+                    // Actualizar el total y DiscountAmount
+                    currentRow.Cells["Total"].Value = totalConDescuento.ToString("N2", CultureInfo.InvariantCulture);
+                    currentRow.Cells["DiscountAmount"].Value = totalOriginal.ToString("N2", CultureInfo.InvariantCulture);
                 }
+
+                // Recalcular los totales generales
+                Sumartotales();
             }
         }
 
@@ -663,37 +696,35 @@ namespace AppTRchicken.Vista
         public void Sumartotales()
         {
             Facturaciosvista Facturaciosvista = (Facturaciosvista)Application.OpenForms["Facturaciosvista"];
-            int sumatotal = 0;
+            decimal sumatotal = 0;
             for (int x = 0; x < Facturaciosvista.dgfacturacion.Rows.Count; ++x)
             {
-                sumatotal += Convert.ToInt32(Facturaciosvista.dgfacturacion.Rows[x].Cells["Total"].Value);
+                sumatotal += Convert.ToDecimal(Facturaciosvista.dgfacturacion.Rows[x].Cells["Total"].Value, System.Globalization.CultureInfo.InvariantCulture);
             }
             decimal excento = 0;
             decimal importe = 0;
 
             decimal total = sumatotal;
-            decimal subtotal = ((decimal)(sumatotal / 1.15));
-            decimal isv = ((decimal)(subtotal * Convert.ToDecimal(0.15)));
+            decimal subtotal = total / 1.15m;
+            decimal isv = subtotal * 0.15m;
 
-
-            Facturaciosvista.txtexcento.Text = "L" + excento;
-            Facturaciosvista.txtexonerado.Text = "L" + importe;
-            Facturaciosvista.txtdescuento.Text = "L" + Globales.descuento;
-            Facturaciosvista.txtsubtotal.Text = subtotal.ToString();
-            Facturaciosvista.txtisv.Text = isv.ToString();
-            Facturaciosvista.txttotal.Text = total.ToString();
-            Facturaciosvista.richTextBox1.Text = "L" + total.ToString();
+            Facturaciosvista.txtexcento.Text = "L" + excento.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txtexonerado.Text = "L" + importe.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txtdescuento.Text = "L" + Globales.descuento.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txtsubtotal.Text = subtotal.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txtisv.Text = isv.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txttotal.Text = total.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.richTextBox1.Text = "L" + total.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
             Facturaciosvista.tpanelmenu.Controls.Clear();
             Facturaciosvista.cargarmenu();
             Globales.contador = 0;
             Globales.complemento = "";
-
-
         }
+
 
         private void dgfacturacion_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 5)  //Dónde la columna con el botón es la 6 con posición 5
+            if (e.ColumnIndex == 6)  //Dónde la columna con el botón es la 6 con posición 5
             {
                 // Obtenemos el importe del descuento de la columna oculta
                 if (decimal.TryParse(dgfacturacion.CurrentRow.Cells["DiscountAmount"].Value?.ToString(), out decimal descuento) && 
@@ -701,15 +732,28 @@ namespace AppTRchicken.Vista
                 {
                    
                     // Restamos el importe del descuento del total acumulado
-                    Globales.descuento -= (  descuento - total);
+                    Globales.descuento -= (descuento - total);
                     //MessageBox.Show($"Descuento acumulado actualizado: {Globales.descuento:C}");
                 }
                 dgfacturacion.Rows.RemoveAt(dgfacturacion.CurrentRow.Index);
+               // MessageBox.Show(Globales.descuento.ToString());
                 Sumartotales();
 
             }
         }
 
-       
+        private void cmbcliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgfacturacion_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            // Guardar el valor actual de la celda antes de que el usuario lo modifique
+            if (e.ColumnIndex == dgfacturacion.Columns["UnidadesConDescuento"].Index || e.ColumnIndex == dgfacturacion.Columns["Descuento"].Index)
+            {
+                int.TryParse(dgfacturacion.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString(), out valorAnteriorunidadesdescuento);
+            }
+        }
     }
 }

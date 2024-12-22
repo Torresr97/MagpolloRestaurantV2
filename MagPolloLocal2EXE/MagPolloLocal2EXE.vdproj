@@ -1280,6 +1280,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -1304,6 +1312,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -3012,7 +3028,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MagPolloLocal2EXE"
         "ProductCode" = "8:{0FFAA2FE-76E1-4D82-B434-BA2ACBB9862C}"
-        "PackageCode" = "8:{2F5D7BE6-DFE5-41E2-8701-A5AD669907B9}"
+        "PackageCode" = "8:{8C789489-9B64-4825-91DB-0D88278F1000}"
         "UpgradeCode" = "8:{47B69726-ECBB-43E7-8DD1-217E7CE7FEE4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

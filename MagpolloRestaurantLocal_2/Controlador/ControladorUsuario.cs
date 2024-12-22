@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTRchicken.Modelo;
 using System.Data.SqlClient;
+using AppTRchicken.Utilidades;
 
 namespace AppTRchicken.Controlador
 {
@@ -139,9 +140,9 @@ namespace AppTRchicken.Controlador
         }
 
         // validacion de usuario y contrasena
-        public bool Validarusuario(string usuario, string contra)
+        public bool Validarusuario(string usuario, string contra, bool IsDynamicLogin, string cbxbasedatos)
         {
-            
+            Globales.Nombrebasedatos = cbxbasedatos;
 
             List<usuarios> usuarios = new List<usuarios>();
             string query = "SELECT nombre,contrasena FROM usuarios WHERE nombre = '" + usuario + "'AND contrasena='" + contra + "'";
@@ -158,20 +159,46 @@ namespace AppTRchicken.Controlador
                 }
                 reader.Close();
                 return true;
-               
+
             }
             else
             {
                 reader.Close();
                 return false;
-                
-            }
-            
 
+            }
 
         }
 
+        public bool Validarusuariogerencia(string usuario, string contra, bool IsDynamicLogin, string cbxbasedatos)
+        {
+            Globales.Nombrebasedatos = cbxbasedatos;
 
+            List<usuarios> usuarios = new List<usuarios>();
+            string query = "SELECT nombre,contrasena FROM usuarios WHERE nombre = '" + usuario + "'AND contrasena='" + contra + "'";
+            SqlDataReader reader = Conexion.getInstance().ejecutarqueryleer(query);
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    usuarios us = new usuarios();
+                    us.Nombre = reader.GetString(0);
+                    us.Contrasena = reader.GetString(1);
+                    usuarios.Add(us);
+
+                }
+                reader.Close();
+                return true;
+
+            }
+            else
+            {
+                reader.Close();
+                return false;
+
+            }
+
+        }
 
         /// Encripta una cadena
         public static string Encriptar(string contra)

@@ -37,11 +37,13 @@ namespace AppTRchicken.Vista
 
         private void btndepositar_Click(object sender, EventArgs e)
         {
+            btndepositar.Enabled = false;
             caja caja = new caja();
             caja.Tipo = "Deposito";
             caja.Motivo = txtmotivodeposito.Text;
-            caja.Totalefectivo = Convert.ToDecimal(txtmontodeposito.Text);
+            caja.Totalefectivo = Globales.ConvertToDecimal(txtmontodeposito.Text);
             caja.Totaltarjeta = 0;
+            caja.Totaltransferencia = 0;
             caja.Ventatotal = 0;
             caja.Fecha = Globales.fecha;
 
@@ -62,13 +64,13 @@ namespace AppTRchicken.Vista
 
             caja cajas = new caja();
             cajas = ControladorCaja.Instance.totaldepositoycierre(Globales.fecha , "Deposito", Globales.numerocierre);
-            MessageBox.Show(cajas.Totalefectivo.ToString());
+           // MessageBox.Show(cajas.Totalefectivo.ToString());
 
             try
             {
                 ControladorCaja.Instance.save(caja);
                 MessageBox.Show("Deposito Realizado");
-                Globales.deposito = ((long)caja.Totalefectivo+ (long)cajas.Totalefectivo);
+                Globales.deposito = (caja.Totalefectivo+ cajas.Totalefectivo);
                
 
                 sucursales sucursal = new sucursales();
@@ -110,6 +112,11 @@ namespace AppTRchicken.Vista
             {
 
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Rehabilitar el botón después de que el proceso termine
+                btndepositar.Enabled = true;
             }
 
 

@@ -51,7 +51,11 @@ namespace AppTRchicken.Vista
             this.label2 = new System.Windows.Forms.Label();
             this.txtidcliente = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgclientes)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgclientes
@@ -81,8 +85,8 @@ namespace AppTRchicken.Vista
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgclientes.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgclientes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgclientes.Location = new System.Drawing.Point(0, 496);
+            this.dgclientes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgclientes.Location = new System.Drawing.Point(0, 0);
             this.dgclientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgclientes.Name = "dgclientes";
             this.dgclientes.ReadOnly = true;
@@ -98,7 +102,7 @@ namespace AppTRchicken.Vista
             this.dgclientes.RowHeadersWidth = 51;
             this.dgclientes.RowTemplate.Height = 24;
             this.dgclientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgclientes.Size = new System.Drawing.Size(1075, 265);
+            this.dgclientes.Size = new System.Drawing.Size(1384, 341);
             this.dgclientes.TabIndex = 56;
             this.dgclientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgclientes_CellClick);
             // 
@@ -148,7 +152,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn3.Location = new System.Drawing.Point(664, 345);
+            this.btn3.Location = new System.Drawing.Point(802, 314);
             this.btn3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(277, 89);
@@ -161,7 +165,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn2.Location = new System.Drawing.Point(335, 345);
+            this.btn2.Location = new System.Drawing.Point(473, 314);
             this.btn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(277, 89);
@@ -174,7 +178,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn1.Location = new System.Drawing.Point(12, 345);
+            this.btn1.Location = new System.Drawing.Point(150, 314);
             this.btn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(277, 87);
@@ -186,7 +190,7 @@ namespace AppTRchicken.Vista
             // txtcorreocliente
             // 
             this.txtcorreocliente.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtcorreocliente.Location = new System.Drawing.Point(322, 247);
+            this.txtcorreocliente.Location = new System.Drawing.Point(302, 252);
             this.txtcorreocliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtcorreocliente.Name = "txtcorreocliente";
             this.txtcorreocliente.Size = new System.Drawing.Size(441, 34);
@@ -196,7 +200,7 @@ namespace AppTRchicken.Vista
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(61, 251);
+            this.label5.Location = new System.Drawing.Point(41, 256);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 27);
             this.label5.TabIndex = 51;
@@ -205,7 +209,7 @@ namespace AppTRchicken.Vista
             // txtcelularcliente
             // 
             this.txtcelularcliente.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtcelularcliente.Location = new System.Drawing.Point(322, 192);
+            this.txtcelularcliente.Location = new System.Drawing.Point(302, 197);
             this.txtcelularcliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtcelularcliente.Name = "txtcelularcliente";
             this.txtcelularcliente.Size = new System.Drawing.Size(441, 34);
@@ -215,7 +219,7 @@ namespace AppTRchicken.Vista
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(61, 196);
+            this.label4.Location = new System.Drawing.Point(41, 201);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(98, 27);
             this.label4.TabIndex = 49;
@@ -224,7 +228,7 @@ namespace AppTRchicken.Vista
             // txtrtncliente
             // 
             this.txtrtncliente.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtrtncliente.Location = new System.Drawing.Point(322, 134);
+            this.txtrtncliente.Location = new System.Drawing.Point(302, 139);
             this.txtrtncliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtrtncliente.Name = "txtrtncliente";
             this.txtrtncliente.Size = new System.Drawing.Size(441, 34);
@@ -234,7 +238,7 @@ namespace AppTRchicken.Vista
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(61, 138);
+            this.label3.Location = new System.Drawing.Point(41, 143);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 27);
             this.label3.TabIndex = 47;
@@ -243,7 +247,7 @@ namespace AppTRchicken.Vista
             // txtnombrecliente
             // 
             this.txtnombrecliente.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtnombrecliente.Location = new System.Drawing.Point(322, 76);
+            this.txtnombrecliente.Location = new System.Drawing.Point(302, 81);
             this.txtnombrecliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtnombrecliente.Name = "txtnombrecliente";
             this.txtnombrecliente.Size = new System.Drawing.Size(441, 34);
@@ -253,7 +257,7 @@ namespace AppTRchicken.Vista
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(61, 80);
+            this.label2.Location = new System.Drawing.Point(41, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 27);
             this.label2.TabIndex = 45;
@@ -262,7 +266,7 @@ namespace AppTRchicken.Vista
             // txtidcliente
             // 
             this.txtidcliente.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtidcliente.Location = new System.Drawing.Point(322, 25);
+            this.txtidcliente.Location = new System.Drawing.Point(302, 30);
             this.txtidcliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtidcliente.Name = "txtidcliente";
             this.txtidcliente.ReadOnly = true;
@@ -273,38 +277,58 @@ namespace AppTRchicken.Vista
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(61, 28);
+            this.label1.Location = new System.Drawing.Point(41, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(218, 27);
             this.label1.TabIndex = 43;
             this.label1.Text = "Codigo de Cliente";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtidcliente);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.btn3);
+            this.panel1.Controls.Add(this.txtnombrecliente);
+            this.panel1.Controls.Add(this.btn2);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.btn1);
+            this.panel1.Controls.Add(this.txtrtncliente);
+            this.panel1.Controls.Add(this.txtcorreocliente);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.txtcelularcliente);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1384, 420);
+            this.panel1.TabIndex = 57;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgclientes);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 420);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1384, 341);
+            this.panel2.TabIndex = 58;
+            // 
             // ClienteVista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1075, 761);
-            this.Controls.Add(this.dgclientes);
-            this.Controls.Add(this.btn3);
-            this.Controls.Add(this.btn2);
-            this.Controls.Add(this.btn1);
-            this.Controls.Add(this.txtcorreocliente);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtcelularcliente);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtrtncliente);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtnombrecliente);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtidcliente);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1384, 761);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ClienteVista";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ClienteVista_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgclientes)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -329,5 +353,7 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtidcliente;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -30,11 +30,12 @@ namespace AppTRchicken.Vista
 
         private void btnacceder_Click(object sender, EventArgs e)
         {
+            Globales.IsDynamicLogin = false;
             Globales.nombreusuario = txtusuario.Text;
             
 
 
-            var result = ControladorUsuario.Instance.Validarusuario(txtusuario.Text,ControladorUsuario.Encriptar(txtcontra.Text));
+            var result = ControladorUsuario.Instance.Validarusuario(txtusuario.Text, ControladorUsuario.Encriptar(txtcontra.Text), Globales.IsDynamicLogin, "");
 
             if (result == true)
             {
@@ -42,17 +43,12 @@ namespace AppTRchicken.Vista
 
                 try
                 {
-
-                    ////// Crear y mostrar la pantalla de cocina
-                    //CocinaVista cocinaVista = new CocinaVista();
-                    //cocinaVista.Show();
-
-                    // Crear y mostrar la pantalla principal
-                    PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
-                    pantallaPrincipal.Show();
-
-
                     this.Hide();
+
+
+                    PantallaPrincipal PantallaPrincipal = new PantallaPrincipal();
+                    PantallaPrincipal.Show();
+
                 }
                 catch (Exception ex)
                 {
@@ -96,7 +92,7 @@ namespace AppTRchicken.Vista
 
 
                 Globales.nombreusuario = txtusuario.Text;
-                var result = ControladorUsuario.Instance.Validarusuario(txtusuario.Text, ControladorUsuario.Encriptar(txtcontra.Text));
+                var result = ControladorUsuario.Instance.Validarusuario(txtusuario.Text, ControladorUsuario.Encriptar(txtcontra.Text), Globales.IsDynamicLogin, "");
 
                 if (result == true)
                 {
@@ -105,13 +101,14 @@ namespace AppTRchicken.Vista
                     try
                     {
 
-                        ////// Crear y mostrar la pantalla de cocina
-                        //CocinaVista cocinaVista = new CocinaVista();
-                        //cocinaVista.Show();
+                       ////// Crear y mostrar la pantalla de cocina
+                    //CocinaVista cocinaVista = new CocinaVista();
+                    //cocinaVista.Show();
 
-                        // Crear y mostrar la pantalla principal
-                        PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
-                        pantallaPrincipal.Show();
+                    // Crear y mostrar la pantalla principal
+                    PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
+                    pantallaPrincipal.Show();
+
 
                         this.Hide();
                     }

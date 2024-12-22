@@ -12,6 +12,7 @@ using AppTRchicken.Vista;
 using AppTRchicken.Modelo;
 using AppTRchicken.Controlador;
 using AppTRchicken.Vista.Caja;
+using System.Globalization;
 
 namespace AppTRchicken.Vista.Menu
 {
@@ -147,7 +148,7 @@ namespace AppTRchicken.Vista.Menu
 
             foreach (menu menu in men)
             {
-                list.Add(menu.Nombrecombo + " \n L" + menu.Precio);
+                list.Add(menu.Nombrecombo + " \n L" + menu.Precio.ToString("N2", CultureInfo.InvariantCulture));
 
             }
             list.Add("REGRESAR");
@@ -414,17 +415,17 @@ namespace AppTRchicken.Vista.Menu
             decimal importe = 0;
 
             decimal total = sumatotal;
-            decimal subtotal = ((decimal)(sumatotal / 1.15));
-            decimal isv = ((decimal)(subtotal * Convert.ToDecimal(0.15)));
+            decimal subtotal = total / 1.15m;
+            decimal isv = subtotal * 0.15m;
 
 
-            Facturaciosvista.txtexcento.Text = "L" + excento;
-            Facturaciosvista.txtexonerado.Text = "L" + importe;
+            Facturaciosvista.txtexcento.Text = "L" + excento.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txtexonerado.Text = "L" + importe.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
 
-            Facturaciosvista.txtsubtotal.Text = subtotal.ToString();
-            Facturaciosvista.txtisv.Text = isv.ToString();
-            Facturaciosvista.txttotal.Text = total.ToString();
-            Facturaciosvista.richTextBox1.Text = "L" + total.ToString();
+            Facturaciosvista.txtsubtotal.Text = subtotal.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txtisv.Text = isv.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.txttotal.Text = total.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            Facturaciosvista.richTextBox1.Text = "L" + total.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
             Facturaciosvista.tpanelmenu.Controls.Clear();
            cargarmenu();
             Globales.contador = 0;

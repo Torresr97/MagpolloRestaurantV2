@@ -18,9 +18,45 @@ namespace AppTRchicken.Vista.Reportes
 {
     public partial class ReportededuccionxempleadoVista : Form
     {
+        private Dictionary<int, empleados> empleadosDict;
         public ReportededuccionxempleadoVista()
         {
             InitializeComponent();
+            empleadosDict = new Dictionary<int, empleados>();
+        }
+
+        private void Cargarempleados()
+        {
+            empleadosDict.Clear();
+
+            // Cargar todos los empleados
+            List<empleados> empleados = ControladorEmpleados.Instance.findAll();
+
+            // Agregar cada empleado al DataGridView y al diccionario
+            foreach (empleados empleado in empleados)
+            {
+                empleadosDict[empleado.Idempleado] = empleado;
+
+            }
+        }
+
+        private void CargarComboBoxConEmpleados()
+        {
+            cbempleado.Items.Clear(); // Limpiar el ComboBox antes de cargar nuevos empleados
+                                      // Agregar el ítem "Todos" al ComboBox
+            cbempleado.Items.Add("Todos");
+
+            // Recorrer el diccionario de empleados y agregar los nombres al ComboBox
+            foreach (var empleado in empleadosDict.Values)
+            {
+                cbempleado.Items.Add(empleado.Nombreempleado); // Puedes cambiar "NombreCompleto" por otro campo si lo prefieres
+            }
+
+            // Opcionalmente, seleccionar el primer empleado por defecto
+            if (cbempleado.Items.Count > 0)
+            {
+                cbempleado.SelectedIndex = 0; // Selecciona el primer empleado
+            }
         }
         private static ReportededuccionxempleadoVista fmrReportededuccionxempleado = null;
         internal static ReportededuccionxempleadoVista Abrir1vez()
@@ -53,13 +89,9 @@ namespace AppTRchicken.Vista.Reportes
 
             btnBuscar.Visible = false;
 
-            //cbempleados.DataSource = ControladorEmpleados.Instance.Cargarcomboxempleado();
-            List<empleados> Empleados = new List<empleados>();
-            Empleados = ControladorEmpleados.Instance.findAll();
-            cbempleado.DataSource = Empleados;
 
-            cbempleado.ValueMember = "nombreempleado";
-            cbempleado.DisplayMember = "nombreempleado";
+            Cargarempleados();
+            CargarComboBoxConEmpleados();
 
         }
 
@@ -77,30 +109,7 @@ namespace AppTRchicken.Vista.Reportes
                 dthasta.Visible = false;
 
             }
-            else if (cbBuscar.SelectedItem.ToString() == "Mes")
-            {
-                txttotal.Text = "";
-                dgreportededuccion.Rows.Clear();
-                btnBuscar.Visible = true;
-
-                btnBuscar.Location = new Point(540, 57);
-
-                dtpmesyano.Visible = true;
-                dthasta.Visible = false;
-
-            }
-            else if (cbBuscar.SelectedItem.ToString() == "Año")
-            {
-                txttotal.Text = "";
-                dgreportededuccion.Rows.Clear();
-                btnBuscar.Visible = true;
-
-                btnBuscar.Location = new Point(540, 57);
-
-                dtpmesyano.Visible = true;
-                dthasta.Visible = false;
-
-            }
+           
             else if (cbBuscar.SelectedItem.ToString() == "Desde - Hasta")
             {
                 txttotal.Text = "";
@@ -257,100 +266,7 @@ namespace AppTRchicken.Vista.Reportes
                     txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
                 }
             }
-            if (cbBuscar.Text.ToString() == "Mes")
-            {
-                int tiempoDeseado = 600000; // Por ejemplo, 5 segundos
-                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
-
-                try
-                {
-
-                    txttotal.Text = "";
-                    dgreportededuccion.Rows.Clear();
-                    List<Deduccionxempleados> Deduccionxempleado = new List<Deduccionxempleados>();
-                    Deduccionxempleado = Controladordeduccionesxempleado.Instance.ReporteDeduccionmes(dtpmesyano.Value.Month.ToString(), empleados.Idempleado, estado);
-
-                    foreach (Deduccionxempleados d in Deduccionxempleado)
-                    {
-
-                        string estadostring = "";
-                        if (d.Estado == false)
-                        {
-                            estadostring = "Pendientes";
-                        }
-                        {
-                            estadostring = "Cobradas";
-
-                        }
-
-                        //buscar el role por medio del idrole antes de ingresarlo
-                        dgreportededuccion.Rows.Add(d.Iddeduccion, d.Numeroplanilla, d.Deduccion, d.Total, d.Fecha, estadostring);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
-                    MessageBox.Show("Error al consultar datos: " + ex.Message);
-                }
-                finally
-                {
-                    cargandoForm.CerrarFormularioSeguro();
-                }
-                double total = 0;
-
-                for (int x = 0; x < dgreportededuccion.Rows.Count; ++x)
-                {
-                    total += Convert.ToInt32(dgreportededuccion.Rows[x].Cells["Total"].Value);
-                    txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
-                }
-            }
-            if (cbBuscar.Text.ToString() == "Año")
-            {
-                int tiempoDeseado = 600000; // Por ejemplo, 5 segundos
-                Task<CargandoVista> mostrarFormularioTask = MostrarFormularioCarga(tiempoDeseado);
-
-                try
-                {
-
-                    txttotal.Text = "";
-                    dgreportededuccion.Rows.Clear();
-                    List<Deduccionxempleados> Deduccionxempleado = new List<Deduccionxempleados>();
-                    Deduccionxempleado = Controladordeduccionesxempleado.Instance.ReporteDeduccionano(dtpmesyano.Value.Year.ToString(), empleados.Idempleado, estado);
-
-                    foreach (Deduccionxempleados d in Deduccionxempleado)
-                    {
-
-                        string estadostring = "";
-                        if (d.Estado == false)
-                        {
-                            estadostring = "Pendientes";
-                        }
-                        {
-                            estadostring = "Cobradas";
-
-                        }
-
-                        //buscar el role por medio del idrole antes de ingresarlo
-                        dgreportededuccion.Rows.Add(d.Iddeduccion, d.Numeroplanilla, d.Deduccion, d.Total, d.Fecha, estadostring);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la consulta de datos
-                    MessageBox.Show("Error al consultar datos: " + ex.Message);
-                }
-                finally
-                {
-                    cargandoForm.CerrarFormularioSeguro();
-                }
-                double total = 0;
-
-                for (int x = 0; x < dgreportededuccion.Rows.Count; ++x)
-                {
-                    total += Convert.ToInt32(dgreportededuccion.Rows[x].Cells["Total"].Value);
-                    txttotal.Text = String.Format(" L " + "{0:n}", total.ToString("N", new CultureInfo("en-US")));
-                }
-            }
+           
         }
     }
 }

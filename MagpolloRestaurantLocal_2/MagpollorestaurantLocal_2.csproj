@@ -174,8 +174,11 @@
     <Compile Include="Controlador\ControladorComplementosPlato.cs" />
     <Compile Include="Controlador\ControladorCompra.cs" />
     <Compile Include="Controlador\Controladorconfiginventario.cs" />
+    <Compile Include="Controlador\ControladorDeduccioneses.cs" />
     <Compile Include="Controlador\Controladordeduccionesxempleado.cs" />
+    <Compile Include="Controlador\ControladorDetallepagomixto.cs" />
     <Compile Include="Controlador\ControladorDetalle_Factura.cs" />
+    <Compile Include="Controlador\ControladorEmpleado.cs" />
     <Compile Include="Controlador\ControladorEmpleados.cs" />
     <Compile Include="Controlador\ControladorEntradainventario.cs" />
     <Compile Include="Controlador\ControladorFacturas.cs" />
@@ -193,6 +196,7 @@
     <Compile Include="Controlador\ControladorTipo_Compra.cs" />
     <Compile Include="Controlador\ControladorUsuario.cs" />
     <Compile Include="Controlador\DAOimpl.cs" />
+    <Compile Include="Controlador\documentcion.cs" />
     <Compile Include="Modelo\caja.cs" />
     <Compile Include="Modelo\categoria_inventario.cs" />
     <Compile Include="Modelo\categoria_menu.cs" />
@@ -200,8 +204,11 @@
     <Compile Include="Modelo\complementos_plato.cs" />
     <Compile Include="Modelo\Compra.cs" />
     <Compile Include="Modelo\configinventario.cs" />
+    <Compile Include="Modelo\Deduccion.cs" />
     <Compile Include="Modelo\deduccionesxempleados.cs" />
+    <Compile Include="Modelo\DetallePagoMixto.cs" />
     <Compile Include="Modelo\detalle_factura.cs" />
+    <Compile Include="Modelo\Empleado.cs" />
     <Compile Include="Modelo\empleados.cs" />
     <Compile Include="Modelo\entrada_inventario.cs" />
     <Compile Include="Modelo\facturas.cs" />
@@ -261,6 +268,30 @@
     </Compile>
     <Compile Include="Vista\Configuraciones Generales\CargandoVista.Designer.cs">
       <DependentUpon>CargandoVista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Configuraciones Generales\LoginVistaGerencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Configuraciones Generales\LoginVistaGerencia.Designer.cs">
+      <DependentUpon>LoginVistaGerencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Facturacion\MixtoVista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Facturacion\MixtoVista.Designer.cs">
+      <DependentUpon>MixtoVista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Facturacion\TransferenciaVista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Facturacion\TransferenciaVista.Designer.cs">
+      <DependentUpon>TransferenciaVista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Inventario\EntradainventariomasivoVista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Inventario\EntradainventariomasivoVista.Designer.cs">
+      <DependentUpon>EntradainventariomasivoVista.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\Menu\CUmenuconfig.cs">
       <SubType>UserControl</SubType>
@@ -581,6 +612,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Configuraciones Generales\CargandoVista.resx">
       <DependentUpon>CargandoVista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Configuraciones Generales\LoginVistaGerencia.resx">
+      <DependentUpon>LoginVistaGerencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Facturacion\MixtoVista.resx">
+      <DependentUpon>MixtoVista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Facturacion\TransferenciaVista.resx">
+      <DependentUpon>TransferenciaVista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Inventario\EntradainventariomasivoVista.resx">
+      <DependentUpon>EntradainventariomasivoVista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Menu\CUmenuconfig.resx">
       <DependentUpon>CUmenuconfig.cs</DependentUpon>

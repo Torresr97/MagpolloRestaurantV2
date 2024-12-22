@@ -1,5 +1,6 @@
 ﻿
 using AppTRchicken.Vista;
+using AppTRchicken.Vista.Configuraciones_Generales;
 using AppTRchicken.Vista.Inventario;
 using AppTRchicken.Vista.Menu;
 using AppTRchicken.Vista.Prueba_Vistas;
@@ -28,7 +29,7 @@ namespace AppTRchicken
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Loginvista());
+               Application.Run(new Loginvista());
             }
             catch (Exception ex)
             {

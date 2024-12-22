@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTRchicken.Modelo;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace AppTRchicken.Controlador
 {
@@ -545,6 +546,45 @@ namespace AppTRchicken.Controlador
 
 		}
 
+		public int saveRidfactura(facturas model)
+		{
+			int idfactura = 0;
+			SqlCommand cmd = new SqlCommand("SP_NuevaFactura", Conexion.getInstance().getconexion());
+			cmd.CommandType = System.Data.CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("@orden", model.Orden);
+			cmd.Parameters.AddWithValue("@fecha", model.Fecha);
+			cmd.Parameters.AddWithValue("@descuento", model.Descuento);
+			cmd.Parameters.AddWithValue("@exonerado", model.Importe_exonerado);
+			cmd.Parameters.AddWithValue("@exento", model.Importe_exento);
+			cmd.Parameters.AddWithValue("@gravado", model.Importe_gravado);
+			cmd.Parameters.AddWithValue("@isv15", model.Isv15);
+			cmd.Parameters.AddWithValue("@isv18", model.Isv18);
+			cmd.Parameters.AddWithValue("@tipopago", model.Tipopago);
+			cmd.Parameters.AddWithValue("@ultimosdigitos", model.Ultimosdigitos);
+			cmd.Parameters.AddWithValue("@dinerorecibido", model.Dinerorecibido);
+			cmd.Parameters.AddWithValue("@dineroentregado", model.Dineroentregado);
+			cmd.Parameters.AddWithValue("@total", model.Total);
+			cmd.Parameters.AddWithValue("@estado", model.Estado);
+			cmd.Parameters.AddWithValue("@idsucursal", model.Idsucursal);
+			cmd.Parameters.AddWithValue("@idusuario", model.Idusuario);
+			cmd.Parameters.AddWithValue("@idcliente", model.Idcliente);
+			cmd.Parameters.AddWithValue("@numerocierre", model.Numerocierre);
+			cmd.Parameters.AddWithValue("@fecha2", model.Fecha2);
+			cmd.Parameters.AddWithValue("@facturacai", model.Facturacai);
+
+			try
+			{
+				// Ejecutar el comando y obtener el nuevo IdPlanilla
+				idfactura = Convert.ToInt32(cmd.ExecuteScalar());
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error al guardar la planilla: " + ex.Message);
+			}
+
+			return idfactura;
+
+		}
 
 
 		public bool save(List<facturas> models)

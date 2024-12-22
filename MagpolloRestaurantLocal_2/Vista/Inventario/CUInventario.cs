@@ -75,5 +75,12 @@ namespace AppTRchicken.Vista
         {
 
         }
+
+        private void btnEntradainventariomasivoVista_Click(object sender, EventArgs e)
+        {
+            EntradainventariomasivoVista EntradainventariomasivoVista = new EntradainventariomasivoVista();
+            EntradainventariomasivoVista = EntradainventariomasivoVista.Abrir1vez();
+            EntradainventariomasivoVista.Show();
+        }
     }
 }

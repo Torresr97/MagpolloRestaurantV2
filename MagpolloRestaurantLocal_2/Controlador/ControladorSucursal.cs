@@ -38,27 +38,32 @@ namespace AppTRchicken.Controlador
         public sucursales find()
         {
             sucursales sucursal = new sucursales();
-            string query = "SELECT * FROM V_Sucursales WHERE idsucursal = 1";
+            string query = "SELECT TOP 1 * FROM V_Sucursales ORDER BY idsucursal DESC";
             SqlDataReader reader = Conexion.getInstance().ejecutarqueryleer(query);
-                while (reader.Read())
+            try
             {
-               
-                sucursal.Idsucursal = (int)reader.GetInt64(0);
-                sucursal.Nombresucursal = reader.GetString(1);
-                sucursal.Direccion = reader.GetString(2);
-                sucursal.Celular = reader.GetString(5);
-                sucursal.Correo = reader.GetString(6);
-                sucursal.Rtn = reader.GetString(7);
-                sucursal.Cai = reader.GetString(8);
-                sucursal.Fecha_emision = reader.GetDateTime(9);
-                sucursal.Rangodesde = reader.GetString(10);
-                sucursal.Rangohasta = reader.GetString(11);
-                sucursal.Facturarconcai = reader.GetBoolean(12);
-
+                while (reader.Read())
+                {
+                    sucursal.Idsucursal = (int)reader.GetInt64(0);
+                    sucursal.Nombresucursal = reader.GetString(1);
+                    sucursal.Direccion = reader.GetString(2);
+                    sucursal.Celular = reader.GetString(5);
+                    sucursal.Correo = reader.GetString(6);
+                    sucursal.Rtn = reader.GetString(7);
+                    sucursal.Cai = reader.GetString(8);
+                    sucursal.Fecha_emision = reader.GetDateTime(9);
+                    sucursal.Rangodesde = reader.GetString(10);
+                    sucursal.Rangohasta = reader.GetString(11);
+                    sucursal.Facturarconcai = reader.GetBoolean(12);
+                }
             }
-            reader.Close();
+            finally
+            {
+                reader.Close();
+            }
             return sucursal;
         }
+
 
         public sucursales find(int id)
         {
@@ -117,7 +122,19 @@ namespace AppTRchicken.Controlador
         }
         public bool save(sucursales model)
         {
-            throw new NotImplementedException();
+            SqlCommand cmd = new SqlCommand("SP_NuevoSucursal", Conexion.getInstance().getconexion());
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@nombresucursal", model.Nombresucursal);
+            cmd.Parameters.AddWithValue("@direccion", model.Direccion);
+            cmd.Parameters.AddWithValue("@celular", model.Celular);
+            cmd.Parameters.AddWithValue("@correo", model.Correo);
+            cmd.Parameters.AddWithValue("@rtn", model.Rtn);
+            cmd.Parameters.AddWithValue("@cai", model.Cai);
+            cmd.Parameters.AddWithValue("@fechaemision", model.Fecha_emision);
+            cmd.Parameters.AddWithValue("@rangodesde", model.Rangodesde);
+            cmd.Parameters.AddWithValue("@rangohasta", model.Rangohasta);
+            return Conexion.getInstance().ejecutarSP(cmd);
         }
 
         public bool save(List<sucursales> models)

@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace AppTRchicken
 {
@@ -18,11 +19,11 @@ namespace AppTRchicken
 
         //Creamos un objeto de la clase StringBuilder, en este objeto agregaremos las lineas del ticket
         StringBuilder linea = new StringBuilder();
-       
+
         //Creamos una variable para almacenar el numero maximo de caracteres que permitiremos en el ticket.
         int maxCar = 45, cortar;//Para una impresora ticketera que imprime a 40 columnas. La variable cortar cortara el texto cuando rebase el limte.
 
-       
+
 
 
         //Creamos el primer metodo, este dibujara lineas guion.
@@ -80,7 +81,7 @@ namespace AppTRchicken
             linea.AppendLine("Producto                           CANT");
         }
 
-      
+
 
         public void Agregarinventario(string Producto, int cant)
         {
@@ -117,7 +118,7 @@ namespace AppTRchicken
                 }
 
             }
-        
+
         }
 
 
@@ -482,6 +483,101 @@ namespace AppTRchicken
             }
         }
 
+        public void AgregaArticuloscierreDecimales(decimal cant, string articulo, decimal total)
+        {
+            //Valida que cant precio e importe esten dentro del rango.
+            if (cant.ToString().Length <= 5 && total.ToString().Length <= 8)
+            {
+                string elemento = "", espacios = "";
+                bool bandera = false;//Indicara si es la primera linea que se escribe cuando bajemos a la segunda si el nombre del articulo no entra en la primera linea
+                int nroEspacios = 0;
+
+                //Si el nombre o descripcion del articulo es mayor a 20, bajar a la siguiente linea
+                if (articulo.Length > 25)
+                {
+                    //Colocar la cantidad a la derecha.
+                    nroEspacios = (3 - cant.ToString().Length);
+                    espacios = "";
+                    for (int i = 0; i < nroEspacios; i++)
+                    {
+                        espacios += " ";//Generamos los espacios necesarios para alinear a la derecha
+                    }
+                    elemento += espacios + cant.ToString("N2", CultureInfo.InvariantCulture);//agregamos la cantidad con los espacios
+
+                    //Colocar el precio a la derecha.
+                    nroEspacios = (7 - total.ToString().Length);
+                    espacios = "";
+                    for (int i = 0; i < nroEspacios; i++)
+                    {
+                        espacios += " ";//Genera los espacios
+                    }
+                    //el operador += indica que agregar mas cadenas a lo que ya existe.
+                    elemento += espacios + total.ToString("N2", CultureInfo.InvariantCulture);//Agregamos el precio a la variable elemento
+
+
+
+                    int caracterActual = 0;//Indicara en que caracter se quedo al bajae a la siguiente linea
+
+                    //Por cada 30 caracteres se agregara una linea siguiente
+                    for (int longitudTexto = articulo.Length; longitudTexto > 30; longitudTexto -= 30)
+                    {
+                        if (bandera == false)//si es false o la primera linea en recorrerer, continuar...
+                        {
+                            //agregamos los primeros 20 caracteres del nombre del articulos, mas lo que ya tiene la variable elemento
+                            linea.AppendLine(articulo.Substring(caracterActual, 30) + elemento);
+                            bandera = true;//cambiamos su valor a verdadero
+                        }
+                        else
+                            linea.AppendLine(articulo.Substring(caracterActual, 30));//Solo agrega el nombre del articulo
+
+                        caracterActual += 30;//incrementa en 20 el valor de la variable caracterActual
+                    }
+                    //Agrega el resto del fragmento del  nombre del articulo
+                    linea.AppendLine(articulo.Substring(caracterActual, articulo.Length - caracterActual));
+
+                }
+                else //Si no es mayor solo agregarlo, sin dar saltos de lineas
+                {
+                    for (int i = 0; i < (28 - articulo.Length); i++)
+                    {
+                        espacios += " "; //Agrega espacios para completar los 20 caracteres
+                    }
+                    elemento = articulo + espacios;
+
+                    //Colocar la cantidad a la derecha.
+                    nroEspacios = (3 - cant.ToString().Length);// +(20 - elemento.Length);
+                    espacios = "";
+                    for (int i = 0; i < nroEspacios; i++)
+                    {
+                        espacios += " ";
+                    }
+                    elemento += espacios + cant.ToString("N2", CultureInfo.InvariantCulture);
+
+                    //Colocar el precio a la derecha.
+                    nroEspacios = (7 - total.ToString().Length);
+                    espacios = "";
+                    for (int i = 0; i < nroEspacios; i++)
+                    {
+                        espacios += " ";
+                    }
+                    elemento += espacios + total.ToString("N2", CultureInfo.InvariantCulture);
+
+
+
+                    linea.AppendLine(elemento);//Agregamos todo el elemento: nombre del articulo, cant, precio, importe.
+                }
+            }
+            else
+            {
+                linea.AppendLine("Los valores ingresados para esta fila");
+                linea.AppendLine("superan las columnas soportdas por éste.");
+                throw new Exception("Los valores ingresados para algunas filas del ticket\nsuperan las columnas soportdas por éste.");
+            }
+        }
+
+
+
+
         //Metodos para enviar secuencias de escape a la impresora
         //Para cortar el ticket
         public void CortaTicket()
@@ -497,20 +593,20 @@ namespace AppTRchicken
             //linea.AppendLine("\x1B" + "p" + "\x01" + "\x0F" + "\x96"); //Caracteres de apertura cajon 1
         }
 
-      
-      
+
+
         //Para mandara a imprimir el texto a la impresora que le indiquemos.
         public void ImprimirTicket(string impresora)
         {
-           
-           
-          
+
+
+
             //Este metodo recibe el nombre de la impresora a la cual se mandara a imprimir y el texto que se imprimira.
             //Usaremos un código que nos proporciona Microsoft. https://support.microsoft.com/es-es/kb/322091
 
             RawPrinterHelper.SendStringToPrinter(impresora, linea.ToString()); //Imprime texto.
             linea.Clear();//Al cabar de imprimir limpia la linea de todo el texto agregado.
-            
+
         }
 
         public void ImprimirTicketimagen(string szPrinterName, IntPtr pBytes, Int32 dwCount)
@@ -518,7 +614,7 @@ namespace AppTRchicken
             //Este metodo recibe el nombre de la impresora a la cual se mandara a imprimir y el texto que se imprimira.
             //Usaremos un código que nos proporciona Microsoft. https://support.microsoft.com/es-es/kb/322091
 
-            RawPrinterHelper.SendBytesToPrinter( szPrinterName,  pBytes,  dwCount); //Imprime texto.
+            RawPrinterHelper.SendBytesToPrinter(szPrinterName, pBytes, dwCount); //Imprime texto.
             linea.Clear();//Al cabar de imprimir limpia la linea de todo el texto agregado.
         }
 

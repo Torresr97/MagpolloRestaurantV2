@@ -19,48 +19,108 @@ namespace AppTRchicken.Vista.Prueba_Vistas
     public partial class CierreVistaApp : Form
     {  // Crear una instancia de la cultura específica que utiliza la coma como separador de miles
         CultureInfo culture = new CultureInfo("en-US");
+        string fechacierre = "";
 
-        int totalefectivosistema;
-        int totaltarjetasistema;
-        int totaldeposito;
-        int totalretiro;
-        int totalefectivocajero = 0;
-        int totalTarjetacajero = 0;
-        int valor500 = 0, valor200 = 0, valor100 = 0, valor50 = 0, valor20 = 0, valor10 = 0, valor5 = 0, valor2 = 0, valor1 = 0;
+        //PARA EFECTIVO
+        decimal totalefectivosistema;
+        decimal totalEfectivoSistemaMixto;
+        decimal totalEfectivoSistemacompleto;
+        decimal totalEfectivoSistemacompletoconretiro;
+        decimal totalEfectivoSistemacompletocondesposito;
 
-        int totalEfectivoSistema;
-        int totalTarjetaSistema;
-        int totalCompletoSistema;
+        //PARA TARJETA
+        decimal totaltarjetasistema;
+        decimal totalTarjetaSistemaMixto;
+        decimal totalTarjetaSistemacompleto;
 
-     
+        //PARA TRANSFERENCIA
+        decimal totaltransferenciasistema;
 
-        private void CierreVistaApp_Load(object sender, EventArgs e)
-        { /*aqui averigua cual es el numero de grupo a cerrar*/
+        //PARA DEPOSITO
+        decimal totaldeposito;
+
+        //PARA RETIRO
+        decimal totalretiro;
+
+
+
+
+        decimal totalefectivocajero = 0;
+        decimal totalTarjetacajero = 0;
+        decimal totalTransferenciacajero = 0;
+        decimal totalCompletoCAJERO = 0;
+
+        decimal valor500 = 0, valor200 = 0, valor100 = 0, valor50 = 0, valor20 = 0, valor10 = 0, valor5 = 0, valor2 = 0, valor1 = 0;
+
+
+
+
+        decimal totalventaDia;
+        decimal totalventaDiaconretiro;
+        decimal totalventaDiacondeposito;
+
+
+        //ESTA VARIABLE ES PARA SUMAR YA CUADRADO TODO EFECTIVO , TARJETA, TRANSFERENCIA
+        decimal VENTAREALCERRARSISTEMA;
+
+
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            fechacierre = dtfechacierre.Value.ToString("yyyy-MM-dd");
+
+            /*aqui averigua cual es el numero de grupo a cerrar*/
 
             facturas numerocierre = new facturas();
-            numerocierre = ControladorFacturas.Instance.Findnumerocierre(Globales.fecha);
+            numerocierre = ControladorFacturas.Instance.Findnumerocierre(fechacierre);
             Globales.numerocierre = numerocierre.Numerocierre;
 
             //trae toda la suma de ventas en efectivo
-            facturas facturaefectivo = ControladorFacturas.Instance.totalefectivofacturado(Globales.fecha, "Efectivo", Globales.numerocierre);
+            facturas facturaefectivo = ControladorFacturas.Instance.totalefectivofacturado(fechacierre, "Efectivo", Globales.numerocierre);
             totalefectivosistema = (int)facturaefectivo.Total;
 
 
             //trae toda la suma de ventas en tarjeta
-            facturas facturatarjeta = ControladorFacturas.Instance.totalefectivofacturado(Globales.fecha, "Tarjeta", Globales.numerocierre);
+            facturas facturatarjeta = ControladorFacturas.Instance.totalefectivofacturado(fechacierre, "Tarjeta", Globales.numerocierre);
             totaltarjetasistema = (int)facturatarjeta.Total;
+
+            //trae toda la suma de ventas en Trransferencia
+            facturas facturatransferencia = ControladorFacturas.Instance.totalefectivofacturado(fechacierre, "Transferencia", Globales.numerocierre);
+            totaltransferenciasistema = facturatransferencia.Total;
+
+
+
+            //trae toda la suma de ventas mixto efectivo
+            DetallePagoMixto DetallePagoMixtoEfectivo = ControladorDetallepagomixto.Instance.totalefectivoMixto(fechacierre, "Efectivo", Globales.numerocierre);
+            totalEfectivoSistemaMixto = DetallePagoMixtoEfectivo.Monto;
+
+            //trae toda la suma de ventas mixto tarjeta
+            DetallePagoMixto DetallePagoMixtoTarjeta = ControladorDetallepagomixto.Instance.totalefectivoMixto(fechacierre, "Tarjeta", Globales.numerocierre);
+            totalTarjetaSistemaMixto = DetallePagoMixtoTarjeta.Monto;
 
 
             //trae toda la suma de depositos por fecha 
-            caja deposito = ControladorCaja.Instance.totaldepositoycierre(Globales.fecha, "Deposito", Globales.numerocierre);
+            caja deposito = ControladorCaja.Instance.totaldepositoycierre(fechacierre, "Deposito", Globales.numerocierre);
             totaldeposito = (int)deposito.Totalefectivo;
 
-
             //trae toda la suma de retiros por fecha
-            caja retiro = ControladorCaja.Instance.totaldepositoycierre(Globales.fecha, "Retiro", Globales.numerocierre);
+            caja retiro = ControladorCaja.Instance.totaldepositoycierre(fechacierre, "Retiro", Globales.numerocierre);
             totalretiro = (int)retiro.Totalefectivo;
 
+            // EL TOTAL DE EFECTIVO SEGUN EL SISTEMA SUMA EFECTIVO MAS LO MIXTO
+            totalEfectivoSistemacompleto = (totalefectivosistema + totalEfectivoSistemaMixto);
+            totalEfectivoSistemacompletoconretiro = (totalEfectivoSistemacompleto - totalretiro);
+            totalEfectivoSistemacompletocondesposito = (totalEfectivoSistemacompletoconretiro + totaldeposito);
+            // EL TOTAL DE EFECTIVO SEGUN EL SISTEMA SUMA EFECTIVO MAS LO MIXTO
+            totalTarjetaSistemacompleto = (totaltarjetasistema + totalTarjetaSistemaMixto);
 
+
+
+            // para cerrar el cierre 
+            totalventaDia = (totalEfectivoSistemacompleto + totalTarjetaSistemacompleto + totaltransferenciasistema);
+            totalventaDiaconretiro = (totalventaDia - totalretiro);
+            totalventaDiacondeposito = (totalventaDiaconretiro + totaldeposito);
+            VENTAREALCERRARSISTEMA = (totalEfectivoSistemacompletoconretiro + totalTarjetaSistemacompleto + totaltransferenciasistema);
 
             usuarios usuarios = new usuarios();
             usuarios = ControladorUsuario.Instance.findidbynombre(Globales.nombreusuario);
@@ -71,29 +131,59 @@ namespace AppTRchicken.Vista.Prueba_Vistas
 
 
 
-            // Calcular los totales según el sistema
-            totalEfectivoSistema = ((totalefectivosistema + totaldeposito) - totalretiro);
-            totalTarjetaSistema = totaltarjetasistema;
-            totalCompletoSistema = totalEfectivoSistema + totalTarjetaSistema;
-
-
-
-
             if (roles.Roles != "cajero")
             {
-                txttotalrealefectivo.Text = totalefectivosistema.ToString("N0", culture);
-                txttarjetasistema.Text = totaltarjetasistema.ToString("N0", culture);
-                txtdeposito.Text = totaldeposito.ToString("N0", culture);
-                txtretiro.Text = totalretiro.ToString("N0", culture);
+                txtdeposito.Text = totaldeposito.ToString("N2", CultureInfo.InvariantCulture);
+                txtretiro.Text = totalretiro.ToString("N2", CultureInfo.InvariantCulture);
 
+                txttotalrealefectivo.Text = totalEfectivoSistemacompleto.ToString("N2", CultureInfo.InvariantCulture);
+                txtefectivosistema.Text = totalEfectivoSistemacompletocondesposito.ToString("N2", CultureInfo.InvariantCulture);
+                txttarjetasistema.Text = totalTarjetaSistemacompleto.ToString("N2", CultureInfo.InvariantCulture);
+                txttransferenciasistema.Text = totaltransferenciasistema.ToString("N2", CultureInfo.InvariantCulture);
+                txttotalventasegunsistema.Text = totalventaDiacondeposito.ToString("N2", CultureInfo.InvariantCulture);
 
-                // Mostrar los totales según el sistema en los TextBox correspondientes
-                txtefectivosistema.Text = totalEfectivoSistema.ToString("N0", culture);
-                txttarjetasistema.Text = totalTarjetaSistema.ToString("N0", culture);
-                txttotalventasegunsistema.Text = totalCompletoSistema.ToString("N0", culture);
 
             }
+        }
 
+        private void txttransferenciacajero_TextChanged(object sender, EventArgs e)
+        {
+            TextBox_TextChanged(sender, e); // Llama al método existente para recalcular el total
+        }
+
+        private void CierreVistaApp_Load(object sender, EventArgs e)
+        { 
+
+            panelprincipal.Resize += panelPrincipal_Resize;
+            panelPrincipal_Resize(panelprincipal, EventArgs.Empty); // Inicializar el tamaño correcto al inicio
+
+            // Establecer la fecha máxima al día actual
+            dtfechacierre.MaxDate = DateTime.Today.AddDays(-1);
+
+            // Establecer la fecha mínima a tres días antes del día actual
+            dtfechacierre.MinDate = DateTime.Today.AddDays(-1);
+
+
+        }
+        private void panelPrincipal_Resize(object sender, EventArgs e)
+        {
+            // Obtener el ancho y alto del panel principal
+            int anchoTotal = panelprincipal.ClientSize.Width;
+            int altoTotal = panelprincipal.ClientSize.Height;
+
+            // Calcular el ancho para cada panel hijo (30% y 70% del ancho total)
+            int anchoPanelIzquierdo = (int)(anchoTotal * 0.4);
+            int anchoPanelDerecho = anchoTotal - anchoPanelIzquierdo;
+
+            // Establecer el tamaño y posición del panel izquierdo
+            panelIzquierdo.Width = anchoPanelIzquierdo;
+            panelIzquierdo.Height = altoTotal;
+            panelIzquierdo.Location = new Point(0, 0);
+
+            // Establecer el tamaño y posición del panel derecho
+            panelDerecho.Width = anchoPanelDerecho;
+            panelDerecho.Height = altoTotal;
+            panelDerecho.Location = new Point(anchoPanelIzquierdo, 0);
         }
 
         public CierreVistaApp()
@@ -119,55 +209,49 @@ namespace AppTRchicken.Vista.Prueba_Vistas
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             // Obtener el valor de cada denominación desde los TextBox
-            valor500 = string.IsNullOrEmpty(txt500.Text) ? 0 : Convert.ToInt32(txt500.Text);
-            valor200 = string.IsNullOrEmpty(txt200.Text) ? 0 : Convert.ToInt32(txt200.Text);
-            valor100 = string.IsNullOrEmpty(txt100.Text) ? 0 : Convert.ToInt32(txt100.Text);
-            valor50 = string.IsNullOrEmpty(txt50.Text) ? 0 : Convert.ToInt32(txt50.Text);
-            valor20 = string.IsNullOrEmpty(txt20.Text) ? 0 : Convert.ToInt32(txt20.Text);
-            valor10 = string.IsNullOrEmpty(txt10.Text) ? 0 : Convert.ToInt32(txt10.Text);
-            valor5 = string.IsNullOrEmpty(txt5.Text) ? 0 : Convert.ToInt32(txt5.Text);
-            valor2 = string.IsNullOrEmpty(txt2.Text) ? 0 : Convert.ToInt32(txt2.Text);
-            valor1 = string.IsNullOrEmpty(txt1.Text) ? 0 : Convert.ToInt32(txt1.Text);
+            valor500 = string.IsNullOrEmpty(txt500.Text) ? 0m : Globales.ConvertToDecimal(txt500.Text);
+            valor200 = string.IsNullOrEmpty(txt200.Text) ? 0m : Globales.ConvertToDecimal(txt200.Text);
+            valor100 = string.IsNullOrEmpty(txt100.Text) ? 0m : Globales.ConvertToDecimal(txt100.Text);
+            valor50 = string.IsNullOrEmpty(txt50.Text) ? 0m : Globales.ConvertToDecimal(txt50.Text);
+            valor20 = string.IsNullOrEmpty(txt20.Text) ? 0m : Globales.ConvertToDecimal(txt20.Text);
+            valor10 = string.IsNullOrEmpty(txt10.Text) ? 0m : Globales.ConvertToDecimal(txt10.Text);
+            valor5 = string.IsNullOrEmpty(txt5.Text) ? 0m : Globales.ConvertToDecimal(txt5.Text);
+            valor2 = string.IsNullOrEmpty(txt2.Text) ? 0m : Globales.ConvertToDecimal(txt2.Text);
+            valor1 = string.IsNullOrEmpty(txt1.Text) ? 0m : Globales.ConvertToDecimal(txt1.Text);
+
 
             // Calcular el total del efectivo
             totalefectivocajero = (valor500 * 500) + (valor200 * 200) + (valor100 * 100) + (valor50 * 50) + (valor20 * 20) + (valor10 * 10) + (valor5 * 5) + (valor2 * 2) + (valor1 * 1);
 
             // Actualizar los labels con los totales por denominación
-            lbl500.Text = (valor500 * 500).ToString("N0", culture);
-            lbl200.Text = (valor200 * 200).ToString("N0", culture);
-            lbl100.Text = (valor100 * 100).ToString("N0", culture);
-            lbl50.Text = (valor50 * 50).ToString("N0", culture);
-            lbl20.Text = (valor20 * 20).ToString("N0", culture);
-            lbl10.Text = (valor10 * 10).ToString("N0", culture);
-            lbl5.Text = (valor5 * 5).ToString("N0", culture);
-            lbl2.Text = (valor2 * 2).ToString("N0", culture);
-            lbl1.Text = (valor1 * 1).ToString("N0", culture);
+            lbl500.Text = (valor500 * 500).ToString("N2", CultureInfo.InvariantCulture);
+            lbl200.Text = (valor200 * 200).ToString("N2", CultureInfo.InvariantCulture);
+            lbl100.Text = (valor100 * 100).ToString("N2", CultureInfo.InvariantCulture);
+            lbl50.Text = (valor50 * 50).ToString("N2", CultureInfo.InvariantCulture);
+            lbl20.Text = (valor20 * 20).ToString("N2", CultureInfo.InvariantCulture);
+            lbl10.Text = (valor10 * 10).ToString("N2", CultureInfo.InvariantCulture);
+            lbl5.Text = (valor5 * 5).ToString("N2", CultureInfo.InvariantCulture);
+            lbl2.Text = (valor2 * 2).ToString("N2", CultureInfo.InvariantCulture);
+            lbl1.Text = (valor1 * 1).ToString("N2", CultureInfo.InvariantCulture);
 
             //mostrar el total efectico en el txtefectivocajero 
-            txtefectivocajero.Text = totalefectivocajero.ToString("N0", culture);
+            txtefectivocajero.Text = totalefectivocajero.ToString("N2", CultureInfo.InvariantCulture);
 
-            // Calcular el total de tarjeta
-            if (!int.TryParse(txttarjetacajero.Text, out totalTarjetacajero))
-            {
-                // Si la conversión falla, asignar cero
-                totalTarjetacajero = 0;
-            }
 
+
+            totalTarjetacajero = string.IsNullOrEmpty(txttarjetacajero.Text) ? 0m : Globales.ConvertToDecimal(txttarjetacajero.Text);
+
+            totalTransferenciacajero = string.IsNullOrEmpty(txttransferenciacajero.Text) ? 0m : Globales.ConvertToDecimal(txttransferenciacajero.Text);
             // Calcular el total completo (efectivo + tarjeta)
-            int totalCompleto = totalefectivocajero + totalTarjetacajero;
+            totalCompletoCAJERO = totalefectivocajero + totalTarjetacajero + totalTransferenciacajero;
 
             // Mostrar el total en el TextBox correspondiente
-            txttotalventaseguncajero.Text = totalCompleto.ToString("N0", culture);
+            txttotalventaseguncajero.Text = totalCompletoCAJERO.ToString("N2", CultureInfo.InvariantCulture);
         }
        
 
 
-        private  void CargarDatosDelSistema()
-        {
-            
-                  
-          
-        }
+      
 
         private void txttarjetacajero_TextChanged(object sender, EventArgs e)
         {
@@ -176,26 +260,21 @@ namespace AppTRchicken.Vista.Prueba_Vistas
 
         private void btncierre_Click(object sender, EventArgs e)
         {
-
+            btncierre.Enabled = false;
             //Aqui saco las conversiones y calculos para el cierre
-
-            int Efectivocierrecaja = (totalefectivosistema - totalretiro);
-            int Efectivocierrecajamasdeposito = (Efectivocierrecaja + totaldeposito);
-            int tarjetacierrecaja = totaltarjetasistema;
-            int totalcierrecaja = (Efectivocierrecaja + tarjetacierrecaja);
-            int totalcierrecajamasdeposito = ((Efectivocierrecaja + tarjetacierrecaja) + totaldeposito);
 
             /*aqui averigua cual es el numero de grupo a cerrar*/
             facturas facturas = new facturas();
-            facturas = ControladorFacturas.Instance.Findnumerocierre(Globales.fecha);
+            facturas = ControladorFacturas.Instance.Findnumerocierre(fechacierre);
 
             caja caja = new caja();
             caja.Tipo = "Cierre de Caja";
             caja.Motivo = "Cierre de Caja";
-            caja.Totalefectivo = Efectivocierrecaja;
-            caja.Totaltarjeta = tarjetacierrecaja;
-            caja.Ventatotal = totalcierrecaja;
-            caja.Fecha = Globales.fecha;
+            caja.Totalefectivo = totalEfectivoSistemacompletoconretiro;
+            caja.Totaltarjeta = totalTarjetaSistemacompleto;
+            caja.Totaltransferencia = totaltransferenciasistema;
+            caja.Ventatotal = VENTAREALCERRARSISTEMA;
+            caja.Fecha = fechacierre;
             caja.Numerotipo = facturas.Numerocierre;
 
 
@@ -203,131 +282,175 @@ namespace AppTRchicken.Vista.Prueba_Vistas
 
             try
             {
+
+
+                bool cierreExistente = ControladorCaja.Instance.ValidarCierreDeCaja(caja.Fecha, caja.Numerotipo);
+
+                if (cierreExistente)
+                {
+                    // Si ya existe un cierre de caja, mostramos un mensaje de advertencia y deshabilitamos el botón
+                    MessageBox.Show("Ya existe un cierre de caja para esta fecha con el mismo número de tipo. No se puede crear otro cierre a menos que se elimine el existente.", "Cierre de Caja Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btncierre.Enabled = false;
+
+                    // Cerramos la ventana actual para evitar que siga el proceso
+                    this.Close();
+                    return; // Es opcional pero buena práctica para asegurarte de que no continúa
+                }
+
+
                 usuarios usuarios = new usuarios();
                 usuarios = ControladorUsuario.Instance.findidbynombre(Globales.nombreusuario);
                 Globales.idusuario = (int)usuarios.Idusuario;
                 roles roles = new roles();
                 roles = ControladorRoles.Instance.findrolebynombreusuario(Globales.nombreusuario);
-               
-
-                    ControladorCaja.Instance.save(caja);
-                    
-
-                    MessageBox.Show("Realizando Cierre");
 
 
-                    impresoras impresoras = new impresoras();
-                    impresoras = ControladorImpresora.Instance.findconfig();
-
-
-
-
-                    CrearTicket ticket = new CrearTicket();
-                    ticket.AbreCajon();//Para abrir el cajon de dinero.//Datos de la cabecera del Ticket.
-                    ticket.TextoCentro(Globales.sucursalnombre);
-                    ticket.TextoCentro(Globales.sucursaldireccion);
-                    ticket.TextoCentro("CIERRE DE CAJA #" + facturas.Numerocierre);
-                    ticket.TextoIzquierda("Cajero:" + Globales.nombreusuario);
-                    ticket.TextoIzquierda(DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString());
-                    ticket.lineasIgual();
-                    ticket.TextoCentro("MOVIMIENTOS DE CAJA");
-                    ticket.TextoIzquierda("DEPOSITOS:");
-                    List<caja> depositos = new List<caja>();
-                    depositos = ControladorCaja.Instance.Registrosxtipoxfechaxcierre("Deposito", Globales.fecha, Globales.numerocierre);
-                    foreach (caja deposito in depositos)
-                    {
-                        ticket.Agregarinventario(deposito.Motivo, (int)deposito.Totalefectivo);
-                    }
-                    ticket.TextoIzquierda("TOTAL DEPOSITOS L." + totaldeposito);
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("RETIROS:");
-                    List<caja> retiros = new List<caja>();
-                    retiros = ControladorCaja.Instance.Registrosxtipoxfechaxcierre("Retiro", Globales.fecha, Globales.numerocierre);
-                    foreach (caja retiro in retiros)
-                    {
-                        ticket.Agregarinventario(retiro.Motivo, (int)retiro.Totalefectivo);
-                    }
-                    ticket.TextoIzquierda("TOTAL RETIROS   L." + totalretiro);
-                    ticket.lineasIgual();
-                    ticket.TextoCentro("METODO EFECTIVO");
-                    ticket.TextoIzquierda("");
-                    ticket.Encabezadocierre();///encabezados desgloce de  billetes cant y total
-                    ticket.TextoIzquierda("");
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt500.Text) ? 0 : Convert.ToInt32(txt500.Text), "Billetes de 500", (string.IsNullOrEmpty(txt500.Text) ? 0 : Convert.ToInt32(txt500.Text)) * 500);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt200.Text) ? 0 : Convert.ToInt32(txt200.Text), "Billetes de 200", (string.IsNullOrEmpty(txt200.Text) ? 0 : Convert.ToInt32(txt200.Text)) * 200);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt100.Text) ? 0 : Convert.ToInt32(txt100.Text), "Billetes de 100", (string.IsNullOrEmpty(txt100.Text) ? 0 : Convert.ToInt32(txt100.Text)) * 100);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt50.Text) ? 0 : Convert.ToInt32(txt50.Text), "Billetes de 50", (string.IsNullOrEmpty(txt50.Text) ? 0 : Convert.ToInt32(txt50.Text)) * 50);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt20.Text) ? 0 : Convert.ToInt32(txt20.Text), "Billetes de 20", (string.IsNullOrEmpty(txt20.Text) ? 0 : Convert.ToInt32(txt20.Text)) * 20);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt10.Text) ? 0 : Convert.ToInt32(txt10.Text), "Billetes de 10", (string.IsNullOrEmpty(txt10.Text) ? 0 : Convert.ToInt32(txt10.Text)) * 10);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt5.Text) ? 0 : Convert.ToInt32(txt5.Text), "Billetes de 5", (string.IsNullOrEmpty(txt5.Text) ? 0 : Convert.ToInt32(txt5.Text)) * 5);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt2.Text) ? 0 : Convert.ToInt32(txt2.Text), "Billetes de 2", (string.IsNullOrEmpty(txt2.Text) ? 0 : Convert.ToInt32(txt2.Text)) * 2);
-                    ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt1.Text) ? 0 : Convert.ToInt32(txt1.Text), "Billetes de 1", (string.IsNullOrEmpty(txt1.Text) ? 0 : Convert.ToInt32(txt1.Text)) * 1);
-                    ticket.TextoIzquierda("TOTAL VENTA EFECTIVO             L." + Efectivocierrecaja);
-                    ticket.TextoIzquierda("TOTAL VENTA EFECTIVO + DEPOSITO  L." + Efectivocierrecajamasdeposito);
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("CALCULOS()");
-                    
-                    ticket.TextoIzquierda("TOTAL EFECTIVO SEGUN SISTEMA L." + Efectivocierrecajamasdeposito);
-                    ticket.TextoIzquierda("TOTAL EFECTIVO SEGUN CAJERO  L." + totalefectivocajero);
-                    if (Efectivocierrecajamasdeposito > totalefectivocajero)
-                    {
-                        ticket.TextoIzquierda("DIFERENCIA                (-)L." + Math.Abs((Efectivocierrecajamasdeposito - totalefectivocajero)));
-                    }
-                    else
-                    {
-                        ticket.TextoIzquierda("DIFERENCIA                (+)L." + Math.Abs((Efectivocierrecajamasdeposito - totalefectivocajero)));
-                    }
-
-                    ticket.TextoIzquierda("");
-
-                    ticket.lineasIgual();
-                    ticket.TextoCentro("METODO TARJETA");
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("TOTAL VENTA TARJETA  L." + totaltarjetasistema);
-
-
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("CALCULOS()");
-                    ticket.TextoIzquierda("TOTAL TARJETA SEGUN SISTEMA L." + (totaltarjetasistema));
-                    ticket.TextoIzquierda("TOTAL TARJETA SEGUN CAJERO  L." + (totalTarjetacajero));
-                    if (totaltarjetasistema > totalTarjetacajero)
-                    {
-                        ticket.TextoIzquierda("DIFERENCIA               (-)L." + Math.Abs((totaltarjetasistema - totalTarjetacajero)));
-                    }
-                    else
-                    {
-                        ticket.TextoIzquierda("DIFERENCIA               (+)L." + Math.Abs((totaltarjetasistema - totalTarjetacajero)));
-                    }
-                    ticket.lineasIgual();
-
-                    ticket.TextoIzquierda("TOTAL VENTA DEL DIA           L." + totalcierrecaja);
-                    ticket.TextoIzquierda("TOTAL VENTA + DEPOSITO:       L." + totalcierrecajamasdeposito);
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("");
-                    ticket.TextoIzquierda("");
-                    ticket.CortaTicket();
-                   // ticket.ImprimirTicket("Microsoft XPS Document Writer");
-                   ticket.ImprimirTicket(impresoras.Nombreimpresora);//Nombre de la impresora ticketera
-
-
-
-                    this.Close();
+                ControladorCaja.Instance.save(caja);
 
 
 
 
 
-                
-               
+                impresoras impresoras = new impresoras();
+                impresoras = ControladorImpresora.Instance.findconfig();
 
+
+
+
+                CrearTicket ticket = new CrearTicket();
+                ticket.AbreCajon();//Para abrir el cajon de dinero.//Datos de la cabecera del Ticket.
+                ticket.TextoCentro(Globales.sucursalnombre);
+                ticket.TextoCentro(Globales.sucursaldireccion);
+                ticket.TextoCentro("CIERRE DE CAJA ESPECIAL #" + facturas.Numerocierre);
+                ticket.TextoCentro("FECHA DEL CIERRE " + dtfechacierre.Value.ToString("dd/MM/yyyy"));
+                ticket.TextoIzquierda("Cajero:" + Globales.nombreusuario);
+                ticket.TextoIzquierda(DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString());
+                ticket.lineasIgual();
+                ticket.TextoCentro("MOVIMIENTOS DE CAJA");
+                ticket.TextoIzquierda("DEPOSITOS:");
+                List<caja> depositos = new List<caja>();
+                depositos = ControladorCaja.Instance.Registrosxtipoxfechaxcierre("Deposito", fechacierre, Globales.numerocierre);
+                foreach (caja deposito in depositos)
+                {
+                    ticket.Agregarinventario(deposito.Motivo, (int)deposito.Totalefectivo);
+                }
+                ticket.TextoIzquierda("TOTAL DEPOSITOS L." + totaldeposito.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("RETIROS:");
+                List<caja> retiros = new List<caja>();
+                retiros = ControladorCaja.Instance.Registrosxtipoxfechaxcierre("Retiro", fechacierre, Globales.numerocierre);
+                foreach (caja retiro in retiros)
+                {
+                    ticket.Agregarinventario(retiro.Motivo, (int)retiro.Totalefectivo);
+                }
+                ticket.TextoIzquierda("TOTAL RETIROS   L." + totalretiro.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.lineasIgual();
+                ticket.TextoCentro("METODO EFECTIVO");
+                ticket.TextoIzquierda("");
+                ticket.Encabezadocierre();///encabezados desgloce de  billetes cant y total
+                ticket.TextoIzquierda("");
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt500.Text) ? 0 : Convert.ToInt32(txt500.Text), "Billetes de 500", (string.IsNullOrEmpty(txt500.Text) ? 0 : Convert.ToInt32(txt500.Text)) * 500);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt200.Text) ? 0 : Convert.ToInt32(txt200.Text), "Billetes de 200", (string.IsNullOrEmpty(txt200.Text) ? 0 : Convert.ToInt32(txt200.Text)) * 200);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt100.Text) ? 0 : Convert.ToInt32(txt100.Text), "Billetes de 100", (string.IsNullOrEmpty(txt100.Text) ? 0 : Convert.ToInt32(txt100.Text)) * 100);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt50.Text) ? 0 : Convert.ToInt32(txt50.Text), "Billetes de 50", (string.IsNullOrEmpty(txt50.Text) ? 0 : Convert.ToInt32(txt50.Text)) * 50);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt20.Text) ? 0 : Convert.ToInt32(txt20.Text), "Billetes de 20", (string.IsNullOrEmpty(txt20.Text) ? 0 : Convert.ToInt32(txt20.Text)) * 20);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt10.Text) ? 0 : Convert.ToInt32(txt10.Text), "Billetes de 10", (string.IsNullOrEmpty(txt10.Text) ? 0 : Convert.ToInt32(txt10.Text)) * 10);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt5.Text) ? 0 : Convert.ToInt32(txt5.Text), "Billetes de 5", (string.IsNullOrEmpty(txt5.Text) ? 0 : Convert.ToInt32(txt5.Text)) * 5);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt2.Text) ? 0 : Convert.ToInt32(txt2.Text), "Billetes de 2", (string.IsNullOrEmpty(txt2.Text) ? 0 : Convert.ToInt32(txt2.Text)) * 2);
+                ticket.AgregaArticuloscierre(string.IsNullOrEmpty(txt1.Text) ? 0 : Convert.ToInt32(txt1.Text), "Billetes de 1", (string.IsNullOrEmpty(txt1.Text) ? 0 : Convert.ToInt32(txt1.Text)) * 1);
+                ticket.TextoIzquierda("");
+                ticket.lineasIgual(); // Línea divisoria
+                // Encabezado para la sección de Efectivo
+                ticket.TextoCentro("DETALLE VENTA EFECTIVO");
+                ticket.TextoIzquierda("VENTA EFECTIVO NETA           L." + totalEfectivoSistemacompleto.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("VENTA EFECTIVO - RETIRO       L." + totalEfectivoSistemacompletoconretiro.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("VENTA EFECTIVO + DEPOSITO     L." + totalEfectivoSistemacompletocondesposito.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("TOTAL EFECTIVO SEGÚN SISTEMA  L." + totalEfectivoSistemacompletocondesposito.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("TOTAL EFECTIVO SEGÚN CAJERO   L." + totalefectivocajero.ToString("N2", CultureInfo.InvariantCulture));
+
+                // Diferencia en efectivo
+                if (totalEfectivoSistemacompletocondesposito > totalefectivocajero)
+                {
+                    ticket.TextoIzquierda("DIFERENCIA (-)                L." + Math.Abs(totalEfectivoSistemacompletocondesposito - totalefectivocajero).ToString("N2", CultureInfo.InvariantCulture));
+                }
+                else
+                {
+                    ticket.TextoIzquierda("DIFERENCIA (+)                L." + Math.Abs(totalEfectivoSistemacompletocondesposito - totalefectivocajero).ToString("N2", CultureInfo.InvariantCulture));
+                }
+                ticket.TextoIzquierda(""); // Espacio en blanco
+
+                ticket.lineasIgual(); // Línea divisoria
+                ticket.TextoCentro(" DETALLE VENTA TARJETA");
+                ticket.TextoIzquierda("TOTAL VENTA TARJETA          L." + totalTarjetaSistemacompleto.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("TOTAL TARJETA SEGÚN SISTEMA  L." + totalTarjetaSistemacompleto.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("TOTAL TARJETA SEGÚN CAJERO   L." + totalTarjetacajero.ToString("N2", CultureInfo.InvariantCulture));
+
+                // Diferencia en tarjeta
+                // Diferencia en tarjeta
+                if (totalTarjetaSistemacompleto > totalTarjetacajero)
+                {
+                    ticket.TextoIzquierda("DIFERENCIA (-)               L." + Math.Abs(totalTarjetaSistemacompleto - totalTarjetacajero).ToString("N2", CultureInfo.InvariantCulture));
+                }
+                else
+                {
+                    ticket.TextoIzquierda("DIFERENCIA (+)               L." + Math.Abs(totalTarjetaSistemacompleto - totalTarjetacajero).ToString("N2", CultureInfo.InvariantCulture));
+                }
+                ticket.TextoIzquierda(""); // Espacio en blanco
+
+                ticket.TextoIzquierda(""); // Espacio en blanco
+
+
+                ticket.lineasIgual();
+                ticket.TextoCentro(" DETALLE VENTA TRANSFERENCIA");
+                ticket.TextoIzquierda("TOTAL VENTA TRANSFERENCIA     L." + totaltransferenciasistema.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("TRANSFERENCIA SEGÚN SISTEMA   L." + totaltransferenciasistema.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("TRANSFERENCIA SEGÚN CAJERO    L." + totalTransferenciacajero.ToString("N2", CultureInfo.InvariantCulture));
+
+                // Diferencia en tarjeta
+                if (totaltransferenciasistema > totalTransferenciacajero)
+                {
+                    ticket.TextoIzquierda("DIFERENCIA (-)               L." + Math.Abs(totaltransferenciasistema - totalTransferenciacajero).ToString("N2", CultureInfo.InvariantCulture));
+                }
+                else
+                {
+                    ticket.TextoIzquierda("DIFERENCIA (+)               L." + Math.Abs(totaltransferenciasistema - totalTransferenciacajero).ToString("N2", CultureInfo.InvariantCulture));
+                }
+                ticket.TextoIzquierda(""); // Espacio en blanco
+
+                // Resumen final del día
+                ticket.lineasIgual(); // Línea divisoria
+                ticket.TextoCentro("CIERRE FINAL");
+                ticket.TextoIzquierda("TOTAL VENTA NETA              L." + totalventaDia.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("TOTAL VENTA DÍA - RETIRO      L." + totalventaDiaconretiro.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.TextoIzquierda("TOTAL VENTA + DEPOSITO        L." + totalventaDiacondeposito.ToString("N2", CultureInfo.InvariantCulture));
+                ticket.lineasIgual(); // Línea divisoria
+
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("");
+                ticket.TextoIzquierda("");
+                ticket.CortaTicket();
+                //ticket.ImprimirTicket("Microsoft XPS Document Writer");
+                ticket.ImprimirTicket(impresoras.Nombreimpresora);//Nombre de la impresora ticketera
+
+
+
+                this.Close();
 
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Rehabilitar el botón después de que el proceso termine
+                btncierre.Enabled = true;
+                Application.Exit();
             }
 
         }

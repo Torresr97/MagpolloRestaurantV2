@@ -36,6 +36,7 @@ namespace AppTRchicken.Vista
             this.btnEntradainventarioVista = new System.Windows.Forms.Button();
             this.btnInventarioVista = new System.Windows.Forms.Button();
             this.btnConfiguracioninventarioVista = new System.Windows.Forms.Button();
+            this.btnEntradainventariomasivoVista = new System.Windows.Forms.Button();
             this.panelconfiguraciones.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,11 +47,12 @@ namespace AppTRchicken.Vista
             this.panelconfiguraciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.panelconfiguraciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.panelconfiguraciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.panelconfiguraciones.Controls.Add(this.btnReporteInventarioVista, 0, 2);
             this.panelconfiguraciones.Controls.Add(this.btnregresar, 0, 0);
             this.panelconfiguraciones.Controls.Add(this.btnEntradainventarioVista, 0, 1);
-            this.panelconfiguraciones.Controls.Add(this.btnInventarioVista, 1, 1);
-            this.panelconfiguraciones.Controls.Add(this.btnConfiguracioninventarioVista, 2, 1);
+            this.panelconfiguraciones.Controls.Add(this.btnEntradainventariomasivoVista, 1, 1);
+            this.panelconfiguraciones.Controls.Add(this.btnInventarioVista, 2, 1);
+            this.panelconfiguraciones.Controls.Add(this.btnReporteInventarioVista, 1, 2);
+            this.panelconfiguraciones.Controls.Add(this.btnConfiguracioninventarioVista, 0, 2);
             this.panelconfiguraciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelconfiguraciones.Location = new System.Drawing.Point(0, 0);
             this.panelconfiguraciones.Name = "panelconfiguraciones";
@@ -71,7 +73,7 @@ namespace AppTRchicken.Vista
             this.btnReporteInventarioVista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteInventarioVista.Font = new System.Drawing.Font("Bookman Old Style", 24F, System.Drawing.FontStyle.Bold);
             this.btnReporteInventarioVista.Image = ((System.Drawing.Image)(resources.GetObject("btnReporteInventarioVista.Image")));
-            this.btnReporteInventarioVista.Location = new System.Drawing.Point(3, 457);
+            this.btnReporteInventarioVista.Location = new System.Drawing.Point(317, 457);
             this.btnReporteInventarioVista.Name = "btnReporteInventarioVista";
             this.btnReporteInventarioVista.Size = new System.Drawing.Size(308, 222);
             this.btnReporteInventarioVista.TabIndex = 4;
@@ -125,9 +127,9 @@ namespace AppTRchicken.Vista
             this.btnInventarioVista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInventarioVista.Font = new System.Drawing.Font("Bookman Old Style", 24F, System.Drawing.FontStyle.Bold);
             this.btnInventarioVista.Image = ((System.Drawing.Image)(resources.GetObject("btnInventarioVista.Image")));
-            this.btnInventarioVista.Location = new System.Drawing.Point(317, 230);
+            this.btnInventarioVista.Location = new System.Drawing.Point(631, 230);
             this.btnInventarioVista.Name = "btnInventarioVista";
-            this.btnInventarioVista.Size = new System.Drawing.Size(308, 221);
+            this.btnInventarioVista.Size = new System.Drawing.Size(310, 221);
             this.btnInventarioVista.TabIndex = 1;
             this.btnInventarioVista.Text = "Inventario";
             this.btnInventarioVista.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -143,14 +145,32 @@ namespace AppTRchicken.Vista
             this.btnConfiguracioninventarioVista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracioninventarioVista.Font = new System.Drawing.Font("Bookman Old Style", 24F, System.Drawing.FontStyle.Bold);
             this.btnConfiguracioninventarioVista.Image = ((System.Drawing.Image)(resources.GetObject("btnConfiguracioninventarioVista.Image")));
-            this.btnConfiguracioninventarioVista.Location = new System.Drawing.Point(631, 230);
+            this.btnConfiguracioninventarioVista.Location = new System.Drawing.Point(3, 457);
             this.btnConfiguracioninventarioVista.Name = "btnConfiguracioninventarioVista";
-            this.btnConfiguracioninventarioVista.Size = new System.Drawing.Size(310, 221);
+            this.btnConfiguracioninventarioVista.Size = new System.Drawing.Size(308, 222);
             this.btnConfiguracioninventarioVista.TabIndex = 3;
             this.btnConfiguracioninventarioVista.Text = "Configuracion Inventario";
             this.btnConfiguracioninventarioVista.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnConfiguracioninventarioVista.UseVisualStyleBackColor = false;
             this.btnConfiguracioninventarioVista.Click += new System.EventHandler(this.btnConfiguracioninventarioVista_Click);
+            // 
+            // btnEntradainventariomasivoVista
+            // 
+            this.btnEntradainventariomasivoVista.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEntradainventariomasivoVista.BackColor = System.Drawing.Color.SeaShell;
+            this.btnEntradainventariomasivoVista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEntradainventariomasivoVista.Font = new System.Drawing.Font("Bookman Old Style", 24F, System.Drawing.FontStyle.Bold);
+            this.btnEntradainventariomasivoVista.Image = ((System.Drawing.Image)(resources.GetObject("btnEntradainventariomasivoVista.Image")));
+            this.btnEntradainventariomasivoVista.Location = new System.Drawing.Point(317, 230);
+            this.btnEntradainventariomasivoVista.Name = "btnEntradainventariomasivoVista";
+            this.btnEntradainventariomasivoVista.Size = new System.Drawing.Size(308, 221);
+            this.btnEntradainventariomasivoVista.TabIndex = 6;
+            this.btnEntradainventariomasivoVista.Text = "Entradas Masivas";
+            this.btnEntradainventariomasivoVista.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEntradainventariomasivoVista.UseVisualStyleBackColor = false;
+            this.btnEntradainventariomasivoVista.Click += new System.EventHandler(this.btnEntradainventariomasivoVista_Click);
             // 
             // CUInventario
             // 
@@ -172,5 +192,6 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.Button btnInventarioVista;
         private System.Windows.Forms.Button btnConfiguracioninventarioVista;
         private System.Windows.Forms.Button btnReporteInventarioVista;
+        private System.Windows.Forms.Button btnEntradainventariomasivoVista;
     }
 }

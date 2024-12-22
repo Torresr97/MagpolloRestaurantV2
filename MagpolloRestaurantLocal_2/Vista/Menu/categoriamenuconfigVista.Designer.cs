@@ -41,13 +41,17 @@ namespace AppTRchicken.Vista
             this.dgcategoriamenu = new System.Windows.Forms.DataGridView();
             this.idcategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgcategoriamenu)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtnombrecategoria
             // 
             this.txtnombrecategoria.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtnombrecategoria.Location = new System.Drawing.Point(415, 97);
+            this.txtnombrecategoria.Location = new System.Drawing.Point(379, 74);
             this.txtnombrecategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtnombrecategoria.Name = "txtnombrecategoria";
             this.txtnombrecategoria.Size = new System.Drawing.Size(441, 34);
@@ -56,7 +60,7 @@ namespace AppTRchicken.Vista
             // txtcodigocategoria
             // 
             this.txtcodigocategoria.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtcodigocategoria.Location = new System.Drawing.Point(415, 37);
+            this.txtcodigocategoria.Location = new System.Drawing.Point(379, 14);
             this.txtcodigocategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtcodigocategoria.Name = "txtcodigocategoria";
             this.txtcodigocategoria.ReadOnly = true;
@@ -67,7 +71,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn3.Location = new System.Drawing.Point(691, 186);
+            this.btn3.Location = new System.Drawing.Point(718, 142);
             this.btn3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(243, 79);
@@ -80,7 +84,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn2.Location = new System.Drawing.Point(407, 186);
+            this.btn2.Location = new System.Drawing.Point(434, 142);
             this.btn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(243, 79);
@@ -93,7 +97,7 @@ namespace AppTRchicken.Vista
             // 
             this.btn1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn1.Location = new System.Drawing.Point(116, 186);
+            this.btn1.Location = new System.Drawing.Point(143, 142);
             this.btn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(243, 78);
@@ -106,7 +110,7 @@ namespace AppTRchicken.Vista
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(71, 103);
+            this.label6.Location = new System.Drawing.Point(35, 80);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(261, 27);
             this.label6.TabIndex = 59;
@@ -116,7 +120,7 @@ namespace AppTRchicken.Vista
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 44);
+            this.label1.Location = new System.Drawing.Point(35, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(247, 27);
             this.label1.TabIndex = 58;
@@ -146,8 +150,8 @@ namespace AppTRchicken.Vista
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgcategoriamenu.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgcategoriamenu.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgcategoriamenu.Location = new System.Drawing.Point(0, 317);
+            this.dgcategoriamenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgcategoriamenu.Location = new System.Drawing.Point(0, 0);
             this.dgcategoriamenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgcategoriamenu.Name = "dgcategoriamenu";
             this.dgcategoriamenu.ReadOnly = true;
@@ -155,7 +159,7 @@ namespace AppTRchicken.Vista
             this.dgcategoriamenu.RowHeadersWidth = 51;
             this.dgcategoriamenu.RowTemplate.Height = 24;
             this.dgcategoriamenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgcategoriamenu.Size = new System.Drawing.Size(1028, 213);
+            this.dgcategoriamenu.Size = new System.Drawing.Size(1028, 263);
             this.dgcategoriamenu.TabIndex = 57;
             this.dgcategoriamenu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgcategoriamenu_CellContentClick);
             // 
@@ -175,19 +179,37 @@ namespace AppTRchicken.Vista
             this.categoria.Name = "categoria";
             this.categoria.ReadOnly = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.txtnombrecategoria);
+            this.panel1.Controls.Add(this.btn1);
+            this.panel1.Controls.Add(this.txtcodigocategoria);
+            this.panel1.Controls.Add(this.btn2);
+            this.panel1.Controls.Add(this.btn3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1028, 267);
+            this.panel1.TabIndex = 66;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgcategoriamenu);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 267);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1028, 263);
+            this.panel2.TabIndex = 67;
+            // 
             // categoriamenuconfigVista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 530);
-            this.Controls.Add(this.txtnombrecategoria);
-            this.Controls.Add(this.txtcodigocategoria);
-            this.Controls.Add(this.btn3);
-            this.Controls.Add(this.btn2);
-            this.Controls.Add(this.btn1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dgcategoriamenu);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "categoriamenuconfigVista";
@@ -195,8 +217,10 @@ namespace AppTRchicken.Vista
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.categoriamenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgcategoriamenu)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -211,5 +235,7 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.DataGridView dgcategoriamenu;
         private System.Windows.Forms.DataGridViewTextBoxColumn idcategoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoria;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

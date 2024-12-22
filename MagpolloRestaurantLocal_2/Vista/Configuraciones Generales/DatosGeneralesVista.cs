@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppTRchicken.Modelo;
 using AppTRchicken.Controlador;
+using AppTRchicken.Utilidades;
+
 namespace AppTRchicken.Vista
 {
     public partial class DatosGeneralesVista : Form
@@ -16,6 +18,9 @@ namespace AppTRchicken.Vista
         public DatosGeneralesVista()
         {
             InitializeComponent();
+            btnagregar.Visible = false;
+
+            txtbasedatos.Text = Globales.basedatos;
         }
 
         private void DatosGeneralesVista_Load(object sender, EventArgs e)
@@ -40,34 +45,63 @@ namespace AppTRchicken.Vista
 
         private void btnactualizarsucursal_Click(object sender, EventArgs e)
         {
-            sucursales sucursales = new sucursales();
-            sucursales.Idsucursal = Convert.ToInt32(txtidsucursal.Text);
-            sucursales.Nombresucursal = txtnombresucursal.Text;
-            sucursales.Direccion = txtdireccion.Text;
-            sucursales.Celular = txtcelular.Text;
-            sucursales.Correo = txtcorreo.Text;
-            sucursales.Rtn = txtrtn.Text;
-            sucursales.Cai = txtcai.Text;
-            sucursales.Fecha_emision = dtpdfechaemision.Value;
-            sucursales.Rangodesde = txtrangodesde.Text;
-            sucursales.Rangohasta = txtrangohasta.Text;
-
-
-            try
-            {
-                ControladorSucursal.Instance.update(sucursales);
-                MessageBox.Show("Sucursal Actualizada");
-                Cargardg();
-                MessageBox.Show("Para que los Datos se Actualicen en el sistema porfavor abrir nuevamente la Aplicacion.");
-                Application.Exit();
-            }
-            catch (Exception ex)
+            if (btnactualizarsucursal.Text == "ACTUALIZAR")
             {
 
-                MessageBox.Show(ex.Message);
+                sucursales sucursales = new sucursales();
+                sucursales.Idsucursal = Convert.ToInt32(txtidsucursal.Text);
+                sucursales.Nombresucursal = txtnombresucursal.Text;
+                sucursales.Direccion = txtdireccion.Text;
+                sucursales.Celular = txtcelular.Text;
+                sucursales.Correo = txtcorreo.Text;
+                sucursales.Rtn = txtrtn.Text;
+                sucursales.Cai = txtcai.Text;
+                sucursales.Fecha_emision = dtpdfechaemision.Value;
+                sucursales.Rangodesde = txtrangodesde.Text;
+                sucursales.Rangohasta = txtrangohasta.Text;
+
+
+                try
+                {
+                    ControladorSucursal.Instance.update(sucursales);
+                    MessageBox.Show("Sucursal Actualizada");
+                    Cargardg();
+                    MessageBox.Show("Para que los Datos se Actualicen en el sistema porfavor abrir nuevamente la Aplicacion.");
+                    Application.Exit();
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+
             }
+            if (btnactualizarsucursal.Text == "CANCELAR")
+            {
+                // Restaurar el estado inicial de los campos y los botones
+                LimpiarCampos();
+                btnnuevo.Visible = true;
+                btnactualizarsucursal.Text = "Actualizar";
+            }
+
         }
 
+        private void LimpiarCampos()
+        {
+            // Limpiar todos los TextBox, ComboBox, etc.
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).Clear();
+                }
+                else if (control is ComboBox)
+                {
+                    ((ComboBox)control).SelectedIndex = -1;
+                }
+                // Añadir otros tipos de controles según sea necesario
+            }
+        }
 
         public void Cargardg()
         {
@@ -93,6 +127,42 @@ namespace AppTRchicken.Vista
             return fmrDatosGeneralesVista;
         }
 
+        private void btnagregar_Click(object sender, EventArgs e)
+        {
+            sucursales sucursales = new sucursales();
 
+            sucursales.Nombresucursal = txtnombresucursal.Text;
+            sucursales.Direccion = txtdireccion.Text;
+            sucursales.Celular = txtcelular.Text;
+            sucursales.Correo = txtcorreo.Text;
+            sucursales.Rtn = txtrtn.Text;
+            sucursales.Cai = txtcai.Text;
+            sucursales.Fecha_emision = dtpdfechaemision.Value;
+            sucursales.Rangodesde = txtrangodesde.Text;
+            sucursales.Rangohasta = txtrangohasta.Text;
+
+
+            try
+            {
+                ControladorSucursal.Instance.save(sucursales);
+                MessageBox.Show("Sucursal Agregada");
+                Cargardg();
+                MessageBox.Show("Para que los Datos se Actualicen en el sistema porfavor abrir nuevamente la Aplicacion.");
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnnuevo_Click(object sender, EventArgs e)
+        {
+
+            btnagregar.Visible = true;
+            btnactualizarsucursal.Text = "CANCELAR";
+            btnnuevo.Visible = false;
+        }
     }
 }

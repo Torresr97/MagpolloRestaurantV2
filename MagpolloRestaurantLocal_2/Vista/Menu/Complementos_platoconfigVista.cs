@@ -15,18 +15,29 @@ namespace AppTRchicken.Vista
 {
     public partial class Complementos_platoconfigVista : Form
     {
+        private Dictionary<long, tipocomplemento_plato> tipocomplementoPlatoDict;
         public Complementos_platoconfigVista()
         {
             InitializeComponent();
+            tipocomplementoPlatoDict = new Dictionary<long, tipocomplemento_plato>();
         }
 
         private void Complementos_platoVista_Load(object sender, EventArgs e)
         {
-
+            CargarComplementoPlatoDiccionario();
             cargardg();
             Cargarcombobox();
         }
+        private void CargarComplementoPlatoDiccionario()
+        {
+            List<tipocomplemento_plato> tipocomplemento_platos = Controladortipocomplemento_plato.Instance.findAll();
+            tipocomplementoPlatoDict.Clear(); // Asegúrate de limpiar el diccionario antes de cargar los nuevos valores.
 
+            foreach (var complemento in tipocomplemento_platos)
+            {
+                tipocomplementoPlatoDict[complemento.Idtipocomplemento_plato] = complemento;
+            }
+        }
         private void btn1_Click(object sender, EventArgs e)
         {
             if (btn1.Text == "NUEVO")
@@ -42,12 +53,12 @@ namespace AppTRchicken.Vista
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            tipocomplemento_plato tipocomplemento_plato = new tipocomplemento_plato();
-            tipocomplemento_plato = Controladortipocomplemento_plato.Instance.findIdbyname(cbtipocomplemento.Text);
+            long idTipoComplementoPlatoSeleccionado = (long)cbtipocomplemento.SelectedValue;
+          
 
             complementos_plato complementos_plato = new complementos_plato();
             complementos_plato.Nombre_complementosplato = txtnombrecomplemento.Text;
-            complementos_plato.Idtipocomplemento_plato = tipocomplemento_plato.Idtipocomplemento_plato;
+            complementos_plato.Idtipocomplemento_plato = idTipoComplementoPlatoSeleccionado;
 
              
 
@@ -134,24 +145,37 @@ namespace AppTRchicken.Vista
 
         private void Cargarcombobox()
         {
-            cbtipocomplemento.DataSource = Controladortipocomplemento_plato.Instance.Cargarcomboxtipocomplemento();
-            cbtipocomplemento.DisplayMember = "nombrecomplemento_plato";
-            cbtipocomplemento.ValueMember = "idtipocomplemento_plato";
+
+            // Cargar el ComboBox directamente desde el diccionario
+            cbtipocomplemento.DataSource = tipocomplementoPlatoDict.Values.ToList();  // Convertimos los valores del diccionario a lista
+            cbtipocomplemento.DisplayMember = "nombretipocomplemento_plato"; // Nombre que se mostrará en el ComboBox
+            cbtipocomplemento.ValueMember = "Idtipocomplemento_plato"; // ID que se usará como valor
         }
 
         private void cargardg()
         {
             // Limpiar el DataGridView antes de cargar nuevos datos
             dgcomplementosplato.Rows.Clear();
-            List<complementos_plato> cp = new List<complementos_plato>();
-            cp = ControladorComplementosPlato.Instance.findAll();
+
+            // Primero, asegúrate de haber cargado el diccionario
+            CargarComplementoPlatoDiccionario();
+
+            // Obtener los complementos del plato
+            List<complementos_plato> cp = ControladorComplementosPlato.Instance.findAll();
+
+            // Rellenar el DataGridView
             foreach (complementos_plato complato in cp)
             {
-                tipocomplemento_plato tipocomplemento_plato = new tipocomplemento_plato();
-                tipocomplemento_plato = Controladortipocomplemento_plato.Instance.findnamebyID(complato.Idtipocomplemento_plato);
-
-
-                dgcomplementosplato.Rows.Add(complato.Idcomplementos_plato, complato.Nombre_complementosplato, tipocomplemento_plato.Nombretipocomplemento_plato);
+                // Verificar si el Idtipocomplemento_plato existe en el diccionario
+                if (tipocomplementoPlatoDict.TryGetValue(complato.Idtipocomplemento_plato, out var complementoPlato))
+                {
+                    dgcomplementosplato.Rows.Add(complato.Idcomplementos_plato, complato.Nombre_complementosplato, complementoPlato.Nombretipocomplemento_plato);
+                }
+                else
+                {
+                    // Si no se encuentra el complemento, puedes agregar un valor por defecto
+                    dgcomplementosplato.Rows.Add(complato.Idcomplementos_plato, complato.Nombre_complementosplato, "Complemento desconocido");
+                }
             }
         }
 
@@ -170,10 +194,12 @@ namespace AppTRchicken.Vista
 
 
 
-        private void dgcomplementosplato_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dgcomplementosplato_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             txtidcomplementoplato.Text = dgcomplementosplato.CurrentRow.Cells[0].Value.ToString();
             txtnombrecomplemento.Text = dgcomplementosplato.CurrentRow.Cells[1].Value.ToString();
+            cbtipocomplemento.Text = dgcomplementosplato.CurrentRow.Cells[2].Value.ToString();
         }
     }
 }

@@ -23,11 +23,15 @@ namespace AppTRchicken.Vista
 
         private void PantallaPrincipal_Load(object sender, EventArgs e)
         {
+            dtfecha.Enabled = false;
+
+
             lblnombredesucural.Text=Globales.nombresucursallbl;
             //Aqui obtenemos todos los datos de la sucursal 
             sucursales sucursal = new sucursales();
             sucursal = ControladorSucursal.Instance.find();
 
+            Globales.idsucursal = sucursal.Idsucursal;
             Globales.sucursalnombre = sucursal.Nombresucursal;
             Globales.sucursaldireccion = sucursal.Direccion;
             Globales.sucursalcelular = sucursal.Celular;
@@ -65,10 +69,11 @@ namespace AppTRchicken.Vista
                     }
                 }
             }
-           
 
 
-            Globales.fecha = dtfecha.Value.ToString("yyyy-MM-dd");
+
+            Globales.fecha = DateTime.Now.ToString("yyyy-MM-dd");
+
             //aqui obtenemos los datos necesario para continuar con la autentificacion
             usuarios usuarios = new usuarios();
             usuarios = ControladorUsuario.Instance.findidbynombre(Globales.nombreusuario);

@@ -29,15 +29,8 @@ namespace AppTRchicken.Vista
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgdeduccionxempleado = new System.Windows.Forms.DataGridView();
-            this.codigocredito = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codigoempleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,103 +44,26 @@ namespace AppTRchicken.Vista
             this.txtsaldo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgdeduccionxempleado)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dgdeduccion = new System.Windows.Forms.DataGridView();
+            this.coddeduccio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnlimpiar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgdeduccion)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgdeduccionxempleado
-            // 
-            this.dgdeduccionxempleado.AllowUserToAddRows = false;
-            this.dgdeduccionxempleado.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgdeduccionxempleado.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgdeduccionxempleado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgdeduccionxempleado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.codigocredito,
-            this.codigoempleado,
-            this.Producto,
-            this.total,
-            this.fecha});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgdeduccionxempleado.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgdeduccionxempleado.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgdeduccionxempleado.Location = new System.Drawing.Point(0, 364);
-            this.dgdeduccionxempleado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgdeduccionxempleado.Name = "dgdeduccionxempleado";
-            this.dgdeduccionxempleado.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgdeduccionxempleado.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgdeduccionxempleado.RowHeadersVisible = false;
-            this.dgdeduccionxempleado.RowHeadersWidth = 51;
-            this.dgdeduccionxempleado.RowTemplate.Height = 24;
-            this.dgdeduccionxempleado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgdeduccionxempleado.Size = new System.Drawing.Size(1065, 286);
-            this.dgdeduccionxempleado.TabIndex = 58;
-            this.dgdeduccionxempleado.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgdeduccionxempleado_CellMouseClick);
-            // 
-            // codigocredito
-            // 
-            this.codigocredito.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codigocredito.FillWeight = 45.92568F;
-            this.codigocredito.HeaderText = "Cod. Credito";
-            this.codigocredito.MinimumWidth = 6;
-            this.codigocredito.Name = "codigocredito";
-            this.codigocredito.ReadOnly = true;
-            // 
-            // codigoempleado
-            // 
-            this.codigoempleado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.codigoempleado.FillWeight = 80.21391F;
-            this.codigoempleado.HeaderText = "Cod. Empleado";
-            this.codigoempleado.MinimumWidth = 6;
-            this.codigoempleado.Name = "codigoempleado";
-            this.codigoempleado.ReadOnly = true;
-            // 
-            // Producto
-            // 
-            this.Producto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Producto.FillWeight = 200.3922F;
-            this.Producto.HeaderText = "Producto";
-            this.Producto.MinimumWidth = 6;
-            this.Producto.Name = "Producto";
-            this.Producto.ReadOnly = true;
-            // 
-            // total
-            // 
-            this.total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.total.FillWeight = 86.57088F;
-            this.total.HeaderText = "Total";
-            this.total.MinimumWidth = 6;
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            // 
-            // fecha
-            // 
-            this.fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.fecha.FillWeight = 86.89735F;
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.MinimumWidth = 6;
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
             // 
             // label2
             // 
@@ -181,6 +97,8 @@ namespace AppTRchicken.Vista
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnlimpiar);
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.btnagregar);
             this.groupBox1.Controls.Add(this.btn1);
             this.groupBox1.Controls.Add(this.txttotal);
@@ -189,9 +107,10 @@ namespace AppTRchicken.Vista
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(0, 1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1152, 219);
+            this.groupBox1.Size = new System.Drawing.Size(1196, 218);
             this.groupBox1.TabIndex = 62;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacion";
@@ -200,7 +119,7 @@ namespace AppTRchicken.Vista
             // 
             this.btnagregar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnagregar.Font = new System.Drawing.Font("Bookman Old Style", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnagregar.Location = new System.Drawing.Point(788, 134);
+            this.btnagregar.Location = new System.Drawing.Point(762, 142);
             this.btnagregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnagregar.Name = "btnagregar";
             this.btnagregar.Size = new System.Drawing.Size(178, 74);
@@ -256,9 +175,10 @@ namespace AppTRchicken.Vista
             this.groupBox3.Controls.Add(this.txtsaldo);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.groupBox4);
-            this.groupBox3.Location = new System.Drawing.Point(0, 225);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1152, 140);
+            this.groupBox3.Size = new System.Drawing.Size(1196, 105);
             this.groupBox3.TabIndex = 63;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Deuda";
@@ -291,46 +211,212 @@ namespace AppTRchicken.Vista
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "groupBox4";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1196, 218);
+            this.panel1.TabIndex = 83;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 218);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1196, 105);
+            this.panel2.TabIndex = 84;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dgdeduccion);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 323);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1196, 408);
+            this.panel3.TabIndex = 85;
+            // 
+            // dgdeduccion
+            // 
+            this.dgdeduccion.AllowUserToAddRows = false;
+            this.dgdeduccion.AllowUserToOrderColumns = true;
+            this.dgdeduccion.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgdeduccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgdeduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgdeduccion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.coddeduccio,
+            this.empleado,
+            this.descripcion,
+            this.cantidad,
+            this.total,
+            this.sucursal,
+            this.fecha});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgdeduccion.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgdeduccion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgdeduccion.Location = new System.Drawing.Point(0, 0);
+            this.dgdeduccion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgdeduccion.Name = "dgdeduccion";
+            this.dgdeduccion.ReadOnly = true;
+            this.dgdeduccion.RowHeadersVisible = false;
+            this.dgdeduccion.RowHeadersWidth = 51;
+            this.dgdeduccion.RowTemplate.Height = 24;
+            this.dgdeduccion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgdeduccion.Size = new System.Drawing.Size(1196, 408);
+            this.dgdeduccion.TabIndex = 82;
+            // 
+            // coddeduccio
+            // 
+            this.coddeduccio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.coddeduccio.HeaderText = "Cod. Deduccion";
+            this.coddeduccio.MinimumWidth = 6;
+            this.coddeduccio.Name = "coddeduccio";
+            this.coddeduccio.ReadOnly = true;
+            // 
+            // empleado
+            // 
+            this.empleado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.empleado.FillWeight = 119.7068F;
+            this.empleado.HeaderText = "Empleado";
+            this.empleado.MinimumWidth = 6;
+            this.empleado.Name = "empleado";
+            this.empleado.ReadOnly = true;
+            // 
+            // descripcion
+            // 
+            this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descripcion.FillWeight = 120.7533F;
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.MinimumWidth = 6;
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            // 
+            // cantidad
+            // 
+            this.cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cantidad.FillWeight = 66.50546F;
+            this.cantidad.HeaderText = "Cant";
+            this.cantidad.MinimumWidth = 6;
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            // 
+            // total
+            // 
+            this.total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.total.FillWeight = 94.50562F;
+            this.total.HeaderText = "Total";
+            this.total.MinimumWidth = 6;
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            // 
+            // sucursal
+            // 
+            this.sucursal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sucursal.FillWeight = 94.50562F;
+            this.sucursal.HeaderText = "Sucursal";
+            this.sucursal.MinimumWidth = 6;
+            this.sucursal.Name = "sucursal";
+            this.sucursal.ReadOnly = true;
+            // 
+            // fecha
+            // 
+            this.fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.fecha.FillWeight = 123.5958F;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.MinimumWidth = 6;
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.checkBox1.Location = new System.Drawing.Point(373, 133);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(177, 31);
+            this.checkBox1.TabIndex = 67;
+            this.checkBox1.Text = "Aplicar 15%";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // btnlimpiar
+            // 
+            this.btnlimpiar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnlimpiar.Font = new System.Drawing.Font("Bookman Old Style", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlimpiar.Location = new System.Drawing.Point(797, 73);
+            this.btnlimpiar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnlimpiar.Name = "btnlimpiar";
+            this.btnlimpiar.Size = new System.Drawing.Size(120, 41);
+            this.btnlimpiar.TabIndex = 68;
+            this.btnlimpiar.Text = "Limpiar";
+            this.btnlimpiar.UseVisualStyleBackColor = false;
+            this.btnlimpiar.Click += new System.EventHandler(this.btnlimpiar_Click);
+            // 
             // DeduccionxempleadoVista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 650);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dgdeduccionxempleado);
+            this.ClientSize = new System.Drawing.Size(1196, 731);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DeduccionxempleadoVista";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Deduccionxempleado_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgdeduccionxempleado)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgdeduccion)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigocredito;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigoempleado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cbempleado;
         private System.Windows.Forms.Button btn1;
-        internal System.Windows.Forms.DataGridView dgdeduccionxempleado;
         internal System.Windows.Forms.TextBox txtsaldo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnagregar;
         public System.Windows.Forms.TextBox txttotal;
         public System.Windows.Forms.TextBox txtproducto;
         public System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DataGridView dgdeduccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn coddeduccio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empleado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnlimpiar;
     }
 }

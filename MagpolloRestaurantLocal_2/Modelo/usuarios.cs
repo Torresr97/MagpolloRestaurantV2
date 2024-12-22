@@ -118,16 +118,6 @@ namespace AppTRchicken.Modelo
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
+ 
     }
 }

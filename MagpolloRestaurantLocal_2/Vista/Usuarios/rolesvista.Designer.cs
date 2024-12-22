@@ -45,21 +45,21 @@ namespace AppTRchicken.Vista
             this.actualizar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eliminar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn3 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbcrear = new System.Windows.Forms.CheckBox();
-            this.cbactualizar = new System.Windows.Forms.CheckBox();
-            this.cbeliminar = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgroles)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn2
             // 
             this.btn2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn2.Location = new System.Drawing.Point(411, 238);
+            this.btn2.Location = new System.Drawing.Point(429, 171);
             this.btn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn2.Name = "btn2";
-            this.btn2.Size = new System.Drawing.Size(277, 89);
+            this.btn2.Size = new System.Drawing.Size(247, 60);
             this.btn2.TabIndex = 36;
             this.btn2.Text = "ACTUALIZAR";
             this.btn2.UseVisualStyleBackColor = false;
@@ -69,10 +69,10 @@ namespace AppTRchicken.Vista
             // 
             this.btn1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn1.Location = new System.Drawing.Point(88, 238);
+            this.btn1.Location = new System.Drawing.Point(106, 171);
             this.btn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn1.Name = "btn1";
-            this.btn1.Size = new System.Drawing.Size(277, 87);
+            this.btn1.Size = new System.Drawing.Size(247, 58);
             this.btn1.TabIndex = 35;
             this.btn1.Text = "NUEVO";
             this.btn1.UseVisualStyleBackColor = false;
@@ -81,7 +81,7 @@ namespace AppTRchicken.Vista
             // txtnombrerole
             // 
             this.txtnombrerole.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtnombrerole.Location = new System.Drawing.Point(301, 106);
+            this.txtnombrerole.Location = new System.Drawing.Point(303, 102);
             this.txtnombrerole.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtnombrerole.Name = "txtnombrerole";
             this.txtnombrerole.Size = new System.Drawing.Size(441, 34);
@@ -90,7 +90,7 @@ namespace AppTRchicken.Vista
             // txtidrole
             // 
             this.txtidrole.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtidrole.Location = new System.Drawing.Point(301, 43);
+            this.txtidrole.Location = new System.Drawing.Point(303, 39);
             this.txtidrole.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtidrole.Name = "txtidrole";
             this.txtidrole.ReadOnly = true;
@@ -101,7 +101,7 @@ namespace AppTRchicken.Vista
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(40, 110);
+            this.label2.Location = new System.Drawing.Point(42, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 27);
             this.label2.TabIndex = 26;
@@ -111,7 +111,7 @@ namespace AppTRchicken.Vista
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(40, 46);
+            this.label1.Location = new System.Drawing.Point(42, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(185, 27);
             this.label1.TabIndex = 25;
@@ -144,8 +144,8 @@ namespace AppTRchicken.Vista
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgroles.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgroles.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgroles.Location = new System.Drawing.Point(0, 370);
+            this.dgroles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgroles.Location = new System.Drawing.Point(0, 0);
             this.dgroles.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgroles.Name = "dgroles";
             this.dgroles.ReadOnly = true;
@@ -161,7 +161,7 @@ namespace AppTRchicken.Vista
             this.dgroles.RowHeadersWidth = 51;
             this.dgroles.RowTemplate.Height = 24;
             this.dgroles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgroles.Size = new System.Drawing.Size(1132, 247);
+            this.dgroles.Size = new System.Drawing.Size(1132, 360);
             this.dgroles.TabIndex = 37;
             this.dgroles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgroles_CellClick);
             // 
@@ -211,78 +211,46 @@ namespace AppTRchicken.Vista
             // 
             this.btn3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btn3.Location = new System.Drawing.Point(740, 238);
+            this.btn3.Location = new System.Drawing.Point(758, 171);
             this.btn3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn3.Name = "btn3";
-            this.btn3.Size = new System.Drawing.Size(277, 89);
+            this.btn3.Size = new System.Drawing.Size(247, 60);
             this.btn3.TabIndex = 38;
             this.btn3.Text = "ELIMINAR";
             this.btn3.UseVisualStyleBackColor = false;
             this.btn3.Click += new System.EventHandler(this.btn3_Click);
             // 
-            // label3
+            // panel1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(40, 167);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 27);
-            this.label3.TabIndex = 39;
-            this.label3.Text = "Permisos";
+            this.panel1.Controls.Add(this.btn2);
+            this.panel1.Controls.Add(this.btn3);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtidrole);
+            this.panel1.Controls.Add(this.btn1);
+            this.panel1.Controls.Add(this.txtnombrerole);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1132, 257);
+            this.panel1.TabIndex = 39;
             // 
-            // cbcrear
+            // panel2
             // 
-            this.cbcrear.AutoSize = true;
-            this.cbcrear.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.cbcrear.Location = new System.Drawing.Point(301, 164);
-            this.cbcrear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbcrear.Name = "cbcrear";
-            this.cbcrear.Size = new System.Drawing.Size(101, 31);
-            this.cbcrear.TabIndex = 43;
-            this.cbcrear.Text = "Crear";
-            this.cbcrear.UseVisualStyleBackColor = true;
-            // 
-            // cbactualizar
-            // 
-            this.cbactualizar.AutoSize = true;
-            this.cbactualizar.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.cbactualizar.Location = new System.Drawing.Point(448, 164);
-            this.cbactualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbactualizar.Name = "cbactualizar";
-            this.cbactualizar.Size = new System.Drawing.Size(152, 31);
-            this.cbactualizar.TabIndex = 44;
-            this.cbactualizar.Text = "Actualizar";
-            this.cbactualizar.UseVisualStyleBackColor = true;
-            // 
-            // cbeliminar
-            // 
-            this.cbeliminar.AutoSize = true;
-            this.cbeliminar.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.cbeliminar.Location = new System.Drawing.Point(629, 164);
-            this.cbeliminar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbeliminar.Name = "cbeliminar";
-            this.cbeliminar.Size = new System.Drawing.Size(135, 31);
-            this.cbeliminar.TabIndex = 45;
-            this.cbeliminar.Text = "Eliminar";
-            this.cbeliminar.UseVisualStyleBackColor = true;
+            this.panel2.Controls.Add(this.dgroles);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 257);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1132, 360);
+            this.panel2.TabIndex = 40;
             // 
             // rolesvista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 617);
-            this.Controls.Add(this.cbeliminar);
-            this.Controls.Add(this.cbactualizar);
-            this.Controls.Add(this.cbcrear);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.btn3);
-            this.Controls.Add(this.dgroles);
-            this.Controls.Add(this.btn2);
-            this.Controls.Add(this.btn1);
-            this.Controls.Add(this.txtnombrerole);
-            this.Controls.Add(this.txtidrole);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "rolesvista";
@@ -290,8 +258,10 @@ namespace AppTRchicken.Vista
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.rolesvista_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgroles)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -307,12 +277,10 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.Button btn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn idrole;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombrerole;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox cbcrear;
-        private System.Windows.Forms.CheckBox cbactualizar;
-        private System.Windows.Forms.CheckBox cbeliminar;
         private System.Windows.Forms.DataGridViewTextBoxColumn crear;
         private System.Windows.Forms.DataGridViewTextBoxColumn actualizar;
         private System.Windows.Forms.DataGridViewTextBoxColumn eliminar;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -29,9 +29,9 @@ namespace AppTRchicken.Vista.Reportes
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportededuccionxempleadoVista));
             this.dthasta = new System.Windows.Forms.DateTimePicker();
             this.dtpmesyano = new System.Windows.Forms.DateTimePicker();
@@ -52,14 +52,20 @@ namespace AppTRchicken.Vista.Reportes
             this.btnexportar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxestadodeduccion = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgreportededuccion)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dthasta
             // 
             this.dthasta.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
             this.dthasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dthasta.Location = new System.Drawing.Point(648, 21);
+            this.dthasta.Location = new System.Drawing.Point(649, 24);
             this.dthasta.Name = "dthasta";
             this.dthasta.Size = new System.Drawing.Size(219, 34);
             this.dthasta.TabIndex = 114;
@@ -68,7 +74,7 @@ namespace AppTRchicken.Vista.Reportes
             // 
             this.dtpmesyano.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
             this.dtpmesyano.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpmesyano.Location = new System.Drawing.Point(399, 21);
+            this.dtpmesyano.Location = new System.Drawing.Point(400, 24);
             this.dtpmesyano.Name = "dtpmesyano";
             this.dtpmesyano.Size = new System.Drawing.Size(219, 34);
             this.dtpmesyano.TabIndex = 113;
@@ -79,10 +85,8 @@ namespace AppTRchicken.Vista.Reportes
             this.cbBuscar.FormattingEnabled = true;
             this.cbBuscar.Items.AddRange(new object[] {
             "Dia",
-            "Mes",
-            "Año",
             "Desde - Hasta"});
-            this.cbBuscar.Location = new System.Drawing.Point(194, 20);
+            this.cbBuscar.Location = new System.Drawing.Point(195, 23);
             this.cbBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbBuscar.Name = "cbBuscar";
             this.cbBuscar.Size = new System.Drawing.Size(199, 34);
@@ -93,7 +97,7 @@ namespace AppTRchicken.Vista.Reportes
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(26, 23);
+            this.label1.Location = new System.Drawing.Point(27, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(150, 27);
             this.label1.TabIndex = 111;
@@ -103,7 +107,7 @@ namespace AppTRchicken.Vista.Reportes
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(26, 79);
+            this.label3.Location = new System.Drawing.Point(27, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(128, 27);
             this.label3.TabIndex = 117;
@@ -115,7 +119,7 @@ namespace AppTRchicken.Vista.Reportes
             this.cbempleado.FormattingEnabled = true;
             this.cbempleado.Items.AddRange(new object[] {
             "Todos"});
-            this.cbempleado.Location = new System.Drawing.Point(194, 72);
+            this.cbempleado.Location = new System.Drawing.Point(195, 75);
             this.cbempleado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbempleado.Name = "cbempleado";
             this.cbempleado.Size = new System.Drawing.Size(520, 34);
@@ -126,7 +130,7 @@ namespace AppTRchicken.Vista.Reportes
             this.btnBuscar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBuscar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnBuscar.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.btnBuscar.Location = new System.Drawing.Point(726, 78);
+            this.btnBuscar.Location = new System.Drawing.Point(727, 81);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(141, 35);
@@ -138,7 +142,7 @@ namespace AppTRchicken.Vista.Reportes
             // txttotal
             // 
             this.txttotal.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txttotal.Location = new System.Drawing.Point(194, 167);
+            this.txttotal.Location = new System.Drawing.Point(195, 170);
             this.txttotal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txttotal.Name = "txttotal";
             this.txttotal.Size = new System.Drawing.Size(184, 34);
@@ -148,7 +152,7 @@ namespace AppTRchicken.Vista.Reportes
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(26, 170);
+            this.label4.Location = new System.Drawing.Point(27, 173);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 27);
             this.label4.TabIndex = 118;
@@ -158,14 +162,14 @@ namespace AppTRchicken.Vista.Reportes
             // 
             this.dgreportededuccion.AllowUserToAddRows = false;
             this.dgreportededuccion.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgreportededuccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgreportededuccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgreportededuccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgreportededuccion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.iddeduccion,
@@ -174,32 +178,32 @@ namespace AppTRchicken.Vista.Reportes
             this.total,
             this.fecha,
             this.estado});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgreportededuccion.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgreportededuccion.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgreportededuccion.Location = new System.Drawing.Point(0, 377);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgreportededuccion.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgreportededuccion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgreportededuccion.Location = new System.Drawing.Point(0, 0);
             this.dgreportededuccion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgreportededuccion.Name = "dgreportededuccion";
             this.dgreportededuccion.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgreportededuccion.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgreportededuccion.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgreportededuccion.RowHeadersVisible = false;
             this.dgreportededuccion.RowHeadersWidth = 51;
             this.dgreportededuccion.RowTemplate.Height = 24;
             this.dgreportededuccion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgreportededuccion.Size = new System.Drawing.Size(1286, 406);
+            this.dgreportededuccion.Size = new System.Drawing.Size(1286, 481);
             this.dgreportededuccion.TabIndex = 120;
             // 
             // iddeduccion
@@ -257,7 +261,7 @@ namespace AppTRchicken.Vista.Reportes
             this.btnexportar.Font = new System.Drawing.Font("Bookman Old Style", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnexportar.Image = ((System.Drawing.Image)(resources.GetObject("btnexportar.Image")));
             this.btnexportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnexportar.Location = new System.Drawing.Point(1049, 335);
+            this.btnexportar.Location = new System.Drawing.Point(1167, 2);
             this.btnexportar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnexportar.Name = "btnexportar";
             this.btnexportar.Size = new System.Drawing.Size(116, 38);
@@ -270,7 +274,7 @@ namespace AppTRchicken.Vista.Reportes
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 124);
+            this.label2.Location = new System.Drawing.Point(27, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 27);
             this.label2.TabIndex = 122;
@@ -286,39 +290,77 @@ namespace AppTRchicken.Vista.Reportes
             this.cbxestadodeduccion.Items.AddRange(new object[] {
             "Pendientes",
             "Cobradas"});
-            this.cbxestadodeduccion.Location = new System.Drawing.Point(194, 121);
+            this.cbxestadodeduccion.Location = new System.Drawing.Point(195, 124);
             this.cbxestadodeduccion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbxestadodeduccion.Name = "cbxestadodeduccion";
             this.cbxestadodeduccion.Size = new System.Drawing.Size(184, 34);
             this.cbxestadodeduccion.TabIndex = 123;
             // 
-            // Reportededuccionxempleado
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.cbxestadodeduccion);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.cbBuscar);
+            this.panel1.Controls.Add(this.dtpmesyano);
+            this.panel1.Controls.Add(this.txttotal);
+            this.panel1.Controls.Add(this.dthasta);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.btnBuscar);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.cbempleado);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1286, 302);
+            this.panel1.TabIndex = 124;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.btnexportar, 4, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 258);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1286, 44);
+            this.tableLayoutPanel1.TabIndex = 120;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgreportededuccion);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 302);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1286, 481);
+            this.panel2.TabIndex = 125;
+            // 
+            // ReportededuccionxempleadoVista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1286, 783);
-            this.Controls.Add(this.cbxestadodeduccion);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnexportar);
-            this.Controls.Add(this.dgreportededuccion);
-            this.Controls.Add(this.txttotal);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbempleado);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.dthasta);
-            this.Controls.Add(this.dtpmesyano);
-            this.Controls.Add(this.cbBuscar);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Reportededuccionxempleado";
+            this.Name = "ReportededuccionxempleadoVista";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Reportededuccionxempleado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgreportededuccion)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -343,5 +385,8 @@ namespace AppTRchicken.Vista.Reportes
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn estado;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

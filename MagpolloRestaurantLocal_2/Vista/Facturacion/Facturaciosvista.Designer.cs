@@ -40,6 +40,7 @@ namespace AppTRchicken.Vista
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comentario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnidadesconDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ACC = new System.Windows.Forms.DataGridViewImageColumn();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -148,6 +149,7 @@ namespace AppTRchicken.Vista
             this.Producto,
             this.comentario,
             this.descuento,
+            this.UnidadesconDescuento,
             this.total,
             this.ACC});
             this.panelfacturacion.SetColumnSpan(this.dgfacturacion, 4);
@@ -169,51 +171,66 @@ namespace AppTRchicken.Vista
             this.dgfacturacion.RowTemplate.Height = 24;
             this.dgfacturacion.Size = new System.Drawing.Size(1381, 161);
             this.dgfacturacion.TabIndex = 4;
+            this.dgfacturacion.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgfacturacion_CellBeginEdit);
             this.dgfacturacion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgfacturacion_CellClick);
             this.dgfacturacion.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgfacturacion_CellEndEdit);
             // 
             // Cantidad
             // 
+            this.Cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cantidad.FillWeight = 72.52334F;
             this.Cantidad.HeaderText = "Cant";
             this.Cantidad.MinimumWidth = 6;
             this.Cantidad.Name = "Cantidad";
-            this.Cantidad.Width = 70;
             // 
             // Producto
             // 
             this.Producto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Producto.FillWeight = 239.847F;
             this.Producto.HeaderText = "Producto";
             this.Producto.MinimumWidth = 6;
             this.Producto.Name = "Producto";
             // 
             // comentario
             // 
+            this.comentario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.comentario.FillWeight = 112.2995F;
             this.comentario.HeaderText = "Comentarios";
             this.comentario.MinimumWidth = 6;
             this.comentario.Name = "comentario";
-            this.comentario.Width = 160;
             // 
             // descuento
             // 
+            this.descuento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descuento.FillWeight = 80.15865F;
             this.descuento.HeaderText = "Desc(%)";
             this.descuento.MinimumWidth = 6;
             this.descuento.Name = "descuento";
-            this.descuento.Width = 120;
+            // 
+            // UnidadesconDescuento
+            // 
+            this.UnidadesconDescuento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.UnidadesconDescuento.FillWeight = 66.6664F;
+            this.UnidadesconDescuento.HeaderText = "U. con Desc(%)";
+            this.UnidadesconDescuento.MinimumWidth = 6;
+            this.UnidadesconDescuento.Name = "UnidadesconDescuento";
             // 
             // total
             // 
+            this.total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.total.FillWeight = 74.29605F;
             this.total.HeaderText = "Total";
             this.total.MinimumWidth = 6;
             this.total.Name = "total";
-            this.total.Width = 90;
             // 
             // ACC
             // 
+            this.ACC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ACC.FillWeight = 54.20914F;
             this.ACC.HeaderText = "ACC";
             this.ACC.Image = ((System.Drawing.Image)(resources.GetObject("ACC.Image")));
             this.ACC.MinimumWidth = 6;
             this.ACC.Name = "ACC";
-            this.ACC.Width = 90;
             // 
             // dateTimePicker1
             // 
@@ -302,6 +319,7 @@ namespace AppTRchicken.Vista
             this.cmbcliente.Name = "cmbcliente";
             this.cmbcliente.Size = new System.Drawing.Size(686, 49);
             this.cmbcliente.TabIndex = 16;
+            this.cmbcliente.SelectedIndexChanged += new System.EventHandler(this.cmbcliente_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -346,7 +364,7 @@ namespace AppTRchicken.Vista
             // 
             this.txtdescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtdescuento.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtdescuento.Location = new System.Drawing.Point(188, 120);
+            this.txtdescuento.Location = new System.Drawing.Point(272, 115);
             this.txtdescuento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtdescuento.Name = "txtdescuento";
             this.txtdescuento.ReadOnly = true;
@@ -358,7 +376,7 @@ namespace AppTRchicken.Vista
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(34, 127);
+            this.label7.Location = new System.Drawing.Point(118, 122);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(143, 27);
             this.label7.TabIndex = 11;
@@ -368,9 +386,10 @@ namespace AppTRchicken.Vista
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Font = new System.Drawing.Font("Bookman Old Style", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(687, 22);
+            this.richTextBox1.Location = new System.Drawing.Point(687, 0);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(345, 166);
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
@@ -379,7 +398,7 @@ namespace AppTRchicken.Vista
             // 
             this.txttotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txttotal.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txttotal.Location = new System.Drawing.Point(469, 120);
+            this.txttotal.Location = new System.Drawing.Point(526, 115);
             this.txttotal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txttotal.Name = "txttotal";
             this.txttotal.ReadOnly = true;
@@ -390,7 +409,7 @@ namespace AppTRchicken.Vista
             // 
             this.txtisv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtisv.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtisv.Location = new System.Drawing.Point(469, 80);
+            this.txtisv.Location = new System.Drawing.Point(526, 75);
             this.txtisv.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtisv.Name = "txtisv";
             this.txtisv.ReadOnly = true;
@@ -401,7 +420,7 @@ namespace AppTRchicken.Vista
             // 
             this.txtsubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtsubtotal.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtsubtotal.Location = new System.Drawing.Point(469, 35);
+            this.txtsubtotal.Location = new System.Drawing.Point(526, 30);
             this.txtsubtotal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtsubtotal.Name = "txtsubtotal";
             this.txtsubtotal.ReadOnly = true;
@@ -412,7 +431,7 @@ namespace AppTRchicken.Vista
             // 
             this.txtexonerado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtexonerado.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtexonerado.Location = new System.Drawing.Point(188, 80);
+            this.txtexonerado.Location = new System.Drawing.Point(272, 75);
             this.txtexonerado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtexonerado.Name = "txtexonerado";
             this.txtexonerado.ReadOnly = true;
@@ -423,7 +442,7 @@ namespace AppTRchicken.Vista
             // 
             this.txtexcento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtexcento.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
-            this.txtexcento.Location = new System.Drawing.Point(188, 35);
+            this.txtexcento.Location = new System.Drawing.Point(272, 30);
             this.txtexcento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtexcento.Name = "txtexcento";
             this.txtexcento.ReadOnly = true;
@@ -435,7 +454,7 @@ namespace AppTRchicken.Vista
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(387, 127);
+            this.label5.Location = new System.Drawing.Point(444, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 27);
             this.label5.TabIndex = 4;
@@ -446,7 +465,7 @@ namespace AppTRchicken.Vista
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(401, 87);
+            this.label4.Location = new System.Drawing.Point(458, 82);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 27);
             this.label4.TabIndex = 3;
@@ -457,7 +476,7 @@ namespace AppTRchicken.Vista
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(340, 42);
+            this.label3.Location = new System.Drawing.Point(397, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(124, 27);
             this.label3.TabIndex = 2;
@@ -468,7 +487,7 @@ namespace AppTRchicken.Vista
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(34, 87);
+            this.label2.Location = new System.Drawing.Point(118, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(144, 27);
             this.label2.TabIndex = 1;
@@ -479,7 +498,7 @@ namespace AppTRchicken.Vista
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(34, 42);
+            this.label1.Location = new System.Drawing.Point(118, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 27);
             this.label1.TabIndex = 0;
@@ -516,12 +535,6 @@ namespace AppTRchicken.Vista
         private System.Windows.Forms.ComboBox cmbcliente;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.DataGridView dgfacturacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn comentario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
-        private System.Windows.Forms.DataGridViewImageColumn ACC;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.RichTextBox richTextBox1;
@@ -537,5 +550,12 @@ namespace AppTRchicken.Vista
         public System.Windows.Forms.TextBox txtexcento;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn comentario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UnidadesconDescuento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.DataGridViewImageColumn ACC;
     }
 }

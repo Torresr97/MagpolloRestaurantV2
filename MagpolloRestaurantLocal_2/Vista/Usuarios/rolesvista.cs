@@ -35,36 +35,6 @@ namespace AppTRchicken.Vista
             txtidrole.Text = dgroles.CurrentRow.Cells[0].Value.ToString();
             txtnombrerole.Text = dgroles.CurrentRow.Cells[1].Value.ToString();
 
-            bool vcbcrear = (bool)dgroles.CurrentRow.Cells[2].Value;
-            if (vcbcrear == true) {
-                cbcrear.Checked = true;
-
-            } else
-            {
-                cbcrear.Checked = false;
-            }
-
-            bool vcbactua = (bool)dgroles.CurrentRow.Cells[3].Value;
-            if (vcbactua == true)
-            {
-                cbactualizar.Checked = true;
-
-            }
-            else
-            {
-                cbactualizar.Checked = false;
-            }
-
-            bool vcbeliminar = (bool)dgroles.CurrentRow.Cells[4].Value;
-            if (vcbeliminar == true)
-            {
-                cbeliminar.Checked = true;
-
-            }
-            else
-            {
-                cbeliminar.Checked = false;
-            }
 
         }
 
@@ -74,9 +44,7 @@ namespace AppTRchicken.Vista
             {
                 txtidrole.Text = "";
                 txtnombrerole.Text = "";
-                cbcrear.Checked = false;
-                cbactualizar.Checked = false;
-                cbeliminar.Checked = false;
+               
 
                 btn1.Enabled = false;
                 btn2.Text = "GUARDAR";
@@ -105,9 +73,9 @@ namespace AppTRchicken.Vista
             roles roles = new roles();
            
             roles.Roles = txtnombrerole.Text;
-            roles.Crear = cbcrear.Checked;
-            roles.Actualizar = cbactualizar.Checked;
-            roles.Eliminar = cbeliminar.Checked;
+            roles.Crear = true;
+            roles.Actualizar = true;
+            roles.Eliminar = true;
 
 
             if (btn2.Text == "ACTUALIZAR")

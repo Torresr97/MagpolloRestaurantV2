@@ -84,7 +84,7 @@ namespace AppTRchicken.Controlador
                 caja.Tipo = reader.GetString(1);
                 caja.Motivo = reader.GetString(2);
                 caja.Totalefectivo = reader.GetDecimal(3);
-                caja.Fecha = (reader.GetDateTime(6)).ToString();
+                caja.Fecha = (reader.GetDateTime(7)).ToString();
 
                 cajas.Add(caja);
 
@@ -105,7 +105,7 @@ namespace AppTRchicken.Controlador
                 caja.Tipo = reader.GetString(1);
                 caja.Motivo = reader.GetString(2);
                 caja.Totalefectivo = reader.GetDecimal(3);
-                caja.Fecha = (reader.GetDateTime(6)).ToString();
+                caja.Fecha = (reader.GetDateTime(7)).ToString();
 
                 cajas.Add(caja);
 
@@ -122,12 +122,32 @@ namespace AppTRchicken.Controlador
             cmd.Parameters.AddWithValue("@motivo", model.Motivo);
             cmd.Parameters.AddWithValue("@totalefectivo", model.Totalefectivo);
             cmd.Parameters.AddWithValue("@totaltarjeta", model.Totaltarjeta);
+            cmd.Parameters.AddWithValue("@totaltransferencia", model.Totaltransferencia);
             cmd.Parameters.AddWithValue("@ventatotal", model.Ventatotal);
             cmd.Parameters.AddWithValue("@fecha", model.Fecha);
             cmd.Parameters.AddWithValue("@numerotipo", model.Numerotipo);
             return Conexion.getInstance().ejecutarSP(cmd);
         }
+        public bool ValidarCierreDeCaja(string fecha, int numerotipo)
+        {
+            // Definimos el query para verificar si ya existe un cierre de caja en esa fecha y con ese número de tipo
+            string query = "SELECT idcaja FROM caja WHERE tipo = 'Cierre de Caja' AND fecha = '" + fecha + "' AND numerotipo = " + numerotipo;
 
+            // Ejecutamos el query y obtenemos el resultado
+            SqlDataReader reader = Conexion.getInstance().ejecutarqueryleer(query);
+
+            // Si existen registros, retornamos true indicando que ya hay un cierre de caja
+            if (reader.HasRows)
+            {
+                reader.Close();
+                return true;
+            }
+            else
+            {
+                reader.Close();
+                return false;
+            }
+        }
         public bool save(List<caja> models)
         {
             throw new NotImplementedException();
@@ -173,13 +193,14 @@ namespace AppTRchicken.Controlador
             while (reader.Read())
             {
                 caja caja = new caja();
-                caja.Idcaja = reader.GetInt64(0);
-                caja.Tipo = reader.GetString(1);
-                caja.Motivo = reader.GetString(2);
-                caja.Totalefectivo = reader.GetDecimal(3);
-                caja.Totaltarjeta = reader.GetDecimal(4);
-                caja.Ventatotal = reader.GetDecimal(5);
-                caja.Fecha = (reader.GetDateTime(6)).ToString();
+                caja.Idcaja = reader.IsDBNull(0) ? 0 : reader.GetInt64(0); // Valor por defecto 0
+                caja.Tipo = reader.IsDBNull(1) ? "Desconocido" : reader.GetString(1); // Valor por defecto "Desconocido"
+                caja.Motivo = reader.IsDBNull(2) ? "No especificado" : reader.GetString(2); // Valor por defecto "No especificado"
+                caja.Totalefectivo = reader.IsDBNull(3) ? 0m : reader.GetDecimal(3); // Valor por defecto 0
+                caja.Totaltarjeta = reader.IsDBNull(4) ? 0m : reader.GetDecimal(4); // Valor por defecto 0
+                caja.Totaltransferencia = reader.IsDBNull(5) ? 0m : reader.GetDecimal(5); // Valor por defecto 0
+                caja.Ventatotal = reader.IsDBNull(6) ? 0m : reader.GetDecimal(6); // Valor por defecto 0
+                caja.Fecha = reader.IsDBNull(7) ? DateTime.Now.ToString() : reader.GetDateTime(7).ToString(); // Valor por defecto DateTime.Now
 
                 cajas.Add(caja);
 
@@ -202,8 +223,9 @@ namespace AppTRchicken.Controlador
                 caja.Motivo = reader.GetString(2);
                 caja.Totalefectivo = reader.GetDecimal(3);
                 caja.Totaltarjeta = reader.GetDecimal(4);
-                caja.Ventatotal = reader.GetDecimal(5);
-                caja.Fecha = (reader.GetDateTime(6)).ToString();
+                caja.Totaltransferencia = reader.GetDecimal(5);
+                caja.Ventatotal = reader.GetDecimal(6);
+                caja.Fecha = (reader.GetDateTime(7)).ToString();
 
                 cajas.Add(caja);
 
@@ -226,8 +248,9 @@ namespace AppTRchicken.Controlador
                 caja.Motivo = reader.GetString(2);
                 caja.Totalefectivo = reader.GetDecimal(3);
                 caja.Totaltarjeta = reader.GetDecimal(4);
-                caja.Ventatotal = reader.GetDecimal(5);
-                caja.Fecha = (reader.GetDateTime(6)).ToString();
+                caja.Totaltransferencia = reader.GetDecimal(5);
+                caja.Ventatotal = reader.GetDecimal(6);
+                caja.Fecha = (reader.GetDateTime(7)).ToString();
 
                 cajas.Add(caja);
 
@@ -245,13 +268,14 @@ namespace AppTRchicken.Controlador
             while (reader.Read())
             {
                 caja caja = new caja();
-                caja.Idcaja = reader.GetInt64(0);
-                caja.Tipo = reader.GetString(1);
-                caja.Motivo = reader.GetString(2);
-                caja.Totalefectivo = reader.GetDecimal(3);
-                caja.Totaltarjeta = reader.GetDecimal(4);
-                caja.Ventatotal = reader.GetDecimal(5);
-                caja.Fecha = (reader.GetDateTime(6)).ToString();
+                caja.Idcaja = reader.IsDBNull(0) ? 0 : reader.GetInt64(0); // Valor por defecto 0
+                caja.Tipo = reader.IsDBNull(1) ? "Desconocido" : reader.GetString(1); // Valor por defecto "Desconocido"
+                caja.Motivo = reader.IsDBNull(2) ? "No especificado" : reader.GetString(2); // Valor por defecto "No especificado"
+                caja.Totalefectivo = reader.IsDBNull(3) ? 0m : reader.GetDecimal(3); // Valor por defecto 0
+                caja.Totaltarjeta = reader.IsDBNull(4) ? 0m : reader.GetDecimal(4); // Valor por defecto 0
+                caja.Totaltransferencia = reader.IsDBNull(5) ? 0m : reader.GetDecimal(5); // Valor por defecto 0
+                caja.Ventatotal = reader.IsDBNull(6) ? 0m : reader.GetDecimal(6); // Valor por defecto 0
+                caja.Fecha = reader.IsDBNull(7) ? DateTime.Now.ToString() : reader.GetDateTime(7).ToString(); // Valor por defecto DateTime.Now
 
                 cajas.Add(caja);
 
