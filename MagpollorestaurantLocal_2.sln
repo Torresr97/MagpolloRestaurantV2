@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagpollorestaurantLocal_2", "MagpollorestaurantLocal_2\MagpollorestaurantLocal_2.csproj", "{F98BD531-6E6F-42EB-AB6D-C241A467C832}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MagPolloLocal2EXE", "MagPolloLocal2EXE\MagPolloLocal2EXE.vdproj", "{CC7A74EF-8C6E-46F1-A51A-38427C4E0CE2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MagpolloLocal_1EXE", "MagpolloLocal_1EXE\MagpolloLocal_1EXE.vdproj", "{14B2E2BC-0F04-4F8E-BEA1-3B0DFC3C478D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MagPolloGerenciaExe", "MagPolloGerenciaExe\MagPolloGerenciaExe.vdproj", "{F6D432D8-D3D1-4F18-8E3D-1EFADC678182}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MagpolloLocal1_AutoservicioEXE", "MagpolloLocal1_AutoservicioEXE\MagpolloLocal1_AutoservicioEXE.vdproj", "{96EAEDE2-0C4A-4B5E-9B42-FD6C37CF91B4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MagpolloLocalPrismaEXE", "MagpolloLocalPrismaEXE\MagpolloLocalPrismaEXE.vdproj", "{46A7EB8C-C4D7-43BB-BDF6-D256A671E60F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F98BD531-6E6F-42EB-AB6D-C241A467C832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98BD531-6E6F-42EB-AB6D-C241A467C832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98BD531-6E6F-42EB-AB6D-C241A467C832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98BD531-6E6F-42EB-AB6D-C241A467C832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC7A74EF-8C6E-46F1-A51A-38427C4E0CE2}.Debug|Any CPU.ActiveCfg = Debug
+		{CC7A74EF-8C6E-46F1-A51A-38427C4E0CE2}.Release|Any CPU.ActiveCfg = Release
+		{14B2E2BC-0F04-4F8E-BEA1-3B0DFC3C478D}.Debug|Any CPU.ActiveCfg = Debug
+		{14B2E2BC-0F04-4F8E-BEA1-3B0DFC3C478D}.Release|Any CPU.ActiveCfg = Release
+		{F6D432D8-D3D1-4F18-8E3D-1EFADC678182}.Debug|Any CPU.ActiveCfg = Debug
+		{F6D432D8-D3D1-4F18-8E3D-1EFADC678182}.Release|Any CPU.ActiveCfg = Release
+		{96EAEDE2-0C4A-4B5E-9B42-FD6C37CF91B4}.Debug|Any CPU.ActiveCfg = Debug
+		{96EAEDE2-0C4A-4B5E-9B42-FD6C37CF91B4}.Release|Any CPU.ActiveCfg = Release
+		{46A7EB8C-C4D7-43BB-BDF6-D256A671E60F}.Debug|Any CPU.ActiveCfg = Debug
+		{46A7EB8C-C4D7-43BB-BDF6-D256A671E60F}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {076F2C03-8A9F-4E08-82E2-607BBDD2037D}
+	EndGlobalSection
+EndGlobal
